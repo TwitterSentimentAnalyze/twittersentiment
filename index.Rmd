@@ -1,9 +1,8 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Twitter Sentiment Analysis"
+author: "Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
 # Introduction
-
