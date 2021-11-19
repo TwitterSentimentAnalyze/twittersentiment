@@ -1,6 +1,6 @@
 # Missing values
 
-```{r include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
 ```
 
@@ -13,7 +13,7 @@ library(sjmisc)
 library(readr)
 ```
 
-This is our code of missing value plots.
+Here is the missing value plot function we defined in Problem Set 4.
 ```{r}
 plot_missing <- function(data, percent) {
     colnames(data) <-  abbreviate(colnames(data), minlength = 3)
@@ -107,6 +107,7 @@ plot_missing <- function(data, percent) {
 }
 ```
 
+Our dataset contains top 50 most followed twitter users. We are mainly concerned with the tweets regarding COVID-19, so we set various tags to filter out the tweets containing at least one of the tags.
 ```{r}
 names <- c('BarackObama', 'justinbieber', 'ArianaGrande', 'ladygaga', 'YouTube', 'KimKardashian', 'elonmusk', 'Twitter', 'BillGates', 'CNN', 'ddlovato', 'nytimes', 'NASA', 'BBCBreaking', 'KylieJenner', 'wizkhalifa', 'LilTunechi', 'NBA', 'POTUS', 'Pink', 'JoeBiden', 'NFL', 'AmitShah', 'WhiteHouse', 'danieltosh', 'AnushkaSharma', 'davidguetta', 'SnoopDogg', 'WSJ', 'KamalaHarris', 'SpaceX', 'VancityReynolds', 'Forbes', 'ABC', 'RobertDowneyJr', 'FLOTUS', 'TheRock', 'AP', 'RyanSeacrest', 'UN', 'BigSean', 'johnlegend', 'netflix', 'FortniteGame', 'JohnCena', 'cnni', 'AOC', 'Marvel', 'enews')
 
@@ -123,13 +124,12 @@ for (name in names){
 write_csv(write_df, "./resources/data.csv")
 ```
 
-Get the tweet data from the csv file
+Get the tweet data from the csv file.
 ```{r}
 df <- read_csv('./resources/data.csv')
 ```
 
-We define the function that cleans the tweet data
-
+We define the function that cleans the tweet data.
 Reference: https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r
 ```{r}
 clean_tweets <- function(x) {
@@ -155,7 +155,7 @@ clean_tweets <- function(x) {
 }
 ```
 
-Clean the tweet data and extract the tweets that contains COVID related tags
+Clean the tweet data and extract the tweets that contains COVID related tags.
 ```{r}
 output <- c()
 cleaned_text <- clean_tweets(df$text)
@@ -169,7 +169,7 @@ df$output <- output
 df %>% filter(output == 1) -> df2
 ```
 
-After filtering, there are total of 403 rows (tweets)
+After filtering, there are total of 403 rows (tweets).
 ```{r}
 nrow(df2)
 ```
