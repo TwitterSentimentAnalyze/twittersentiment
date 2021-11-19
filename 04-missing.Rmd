@@ -1,7 +1,7 @@
 # Missing values
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
@@ -13,6 +13,7 @@ library(sjmisc)
 library(readr)
 ```
 
+This is our code of missing value plots.
 ```{r}
 plot_missing <- function(data, percent) {
     colnames(data) <-  abbreviate(colnames(data), minlength = 3)
