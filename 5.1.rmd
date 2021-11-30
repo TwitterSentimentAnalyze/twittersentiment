@@ -9,27 +9,34 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
-library(ggplot2)
+```
+```{r}
+clean_tweets <- function(x) {
+  x %>%
+    # Remove URLs
+    str_remove_all(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)") %>%
+    # Remove mentions e.g. "@my_account"
+    str_remove_all("@[[:alnum:]_]{4,}") %>%
+    # Replace "&" character reference with "and"
+    str_replace_all("&amp;", "and") %>%
+    # Remove punctuation, using a standard character class
+    str_remove_all("[[:punct:]]") %>%
+    # Remove "RT: " from beginning of retweets
+    str_remove_all("^RT:? ") %>%
+    # Replace any newline characters with a space
+    str_replace_all("\\\n", " ") %>%
+    # Make everything lowercase
+    str_to_lower() %>%
+    # Remove any trailing whitespace around the text
+    str_trim("both") %>% 
+    # remove unnecessary space
+    str_replace_all("  "," ")
+}
 ```
 
 ```{r}
-
-df <- read_csv("./resources/data_medical.csv")
-data_medical_filtered <- tagging(df)
-write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
-
-df <- read_csv("./resources/data_newsmedia.csv")
-data_newsmedia_filtered <- tagging(df)
-write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
-
-df <- read_csv("./resources/data_politicians.csv")
-data_politicians_filtered <- tagging(df)
-write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
-```
-```{r}
-tagging <- function(df) {
+tagging <- function(df, cleaned_text) {
   output <- c()
-  cleaned_text <- clean_tweets(df$text)
   for (words in str_split(cleaned_text, " ")) {
     f <- if_else(any(words %in% tag), 1, 0)
     output <- append(output, f)
@@ -38,6 +45,31 @@ tagging <- function(df) {
   filtered_df <- df %>% filter(output ==1) 
   return(filtered_df)
 }
+```
+
+
+
+```{r}
+df <- read_csv("./resources/data_medical.csv")
+cleaned_text <- clean_tweets(df$text)
+data_medical_filtered <- tagging(df, cleaned_text)
+write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
+
+df <- read_csv("./resources/data_newsmedia.csv")
+cleaned_text <- clean_tweets(df$text)
+data_newsmedia_filtered <- tagging(df, cleaned_text)
+write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
+
+df <- read_csv("./resources/data_politicians.csv")
+cleaned_text <- clean_tweets(df$text)
+data_politicians_filtered <- tagging(df, cleaned_text)
+write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
+```
+```{r}
+
+
+
+
 ```
 
 ```{r}

@@ -1,1 +1,90 @@
 # Data transformation
+
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(ggnewscale)
+library(rtweet)
+library(sjmisc)
+library(readr)
+library(rtweet)
+```
+
+====================politicians=======================
+```{r}
+df_politicians <- read_csv("./resources/data_politicians.csv")
+```
+
+```{r}
+output <- c()
+cleaned_text <- clean_tweets(df_politicians$text)
+for (words in str_split(cleaned_text, " ")) {
+  f <- if_else(any(words %in% tag), 1, 0)
+  output <- append(output, f)
+}
+
+df_politicians$output <- output
+
+df_politicians %>% filter(output == 1) -> filtered_df_politicians
+```
+
+====================medical=======================
+```{r}
+df_medical <- read_csv("./resources/data_medical.csv")
+```
+
+```{r}
+output <- c()
+cleaned_text <- clean_tweets(df_medical$text)
+for (words in str_split(cleaned_text, " ")) {
+  f <- if_else(any(words %in% tag), 1, 0)
+  output <- append(output, f)
+}
+
+df_medical$output <- output
+
+df_medical %>% filter(output == 1) -> filtered_df_medical
+```
+
+====================newsmedia=======================
+```{r}
+df_newsmedia <- read_csv("./resources/data_newsmedia.csv")
+```
+
+```{r}
+output <- c()
+cleaned_text <- clean_tweets(df_newsmedia$text)
+for (words in str_split(cleaned_text, " ")) {
+  f <- if_else(any(words %in% tag), 1, 0)
+  output <- append(output, f)
+}
+
+df_newsmedia$output <- output
+
+df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
+```
+
+====================celebrities=======================
+```{r}
+df_celebrities <- read_csv("./resources/data_celebrities.csv")
+```
+
+```{r}
+output <- c()
+cleaned_text <- clean_tweets(df_celebrities$text)
+for (words in str_split(cleaned_text, " ")) {
+  f <- if_else(any(words %in% tag), 1, 0)
+  output <- append(output, f)
+}
+
+df_celebrities$output <- output
+
+df_celebrities %>% filter(output == 1) -> filtered_df_celebrities
+```
+
