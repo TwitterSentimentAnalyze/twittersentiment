@@ -1,3 +1,10 @@
 # Results
 
-Subsections
+## What were the sentimental reactions of different groups to Covid-19 news?
+
+## Deep dive into reactions of politicians and news media: 
+- Relationship between political stance and reactions
+
+
+## Deep dive into correlations of key metrics and sentiments:
+- Do retweet/likes/reply have any correlation with certain sentiments?
