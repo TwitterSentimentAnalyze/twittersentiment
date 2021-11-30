@@ -1,2 +1,118 @@
 # Data sources
 
+We mainly focused on getting datasets for four different groups of influential people/organizations. We used Twitter API (rtweet) to extract user information. The four groups are politicians, medical associations, news media, and celebrities. For each group, we chose top 10 most-followed twitter accounts, and we extracted 10,000 most recent tweets from each user with time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(ggnewscale)
+library(rtweet)
+library(sjmisc)
+library(readr)
+library(rtweet)
+```
+
+## politicians
+```{r eval=FALSE}
+politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
+
+df_politicians <- data.frame()
+for (name in politicians) {
+  new <- get_timelines(name,
+                          n = 10000,
+                          since_id = '1238238576141352965', # 2020-03-12 23:00:56
+                          max_id = '1465010274029785092') # 2021-11-28 17:30:42
+  df_politicians <- rbind(new, df_politicians)
+}
+```
+
+```{r eval=FALSE}
+write_csv(df_politicians, "./resources/data_politicians.csv")
+```
+
+
+## medical
+
+Get the most influencial medical Twitter accounts. (Ref: https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow )
+```{r eval=FALSE}
+medical <- c('AANP_News', 'allnurses', 'AmerMedicalAssn', 'American_Heart', 'amjnurs', 'RedCross', 'mindofandre', 'picardonhealth', 'andrewspong', 'PublicHealth', 'Atul_Gawande', 'Berci', 'ahier', 'mobilehealth', 'TheNerdyNurse', 'Doctor_V', 'CMichaelGibson', 'CDCgov', 'CDCemergency', 'ClevelandClinic', 'chasedave', 'ePatientDave', 'drwalker_rph', 'healthblawg', 'dlschermd', 'MSF_USA', 'donaldhackett', 'giasison', 'mtnmd', 'DrKevinCampbell', 'orenfu', 'drsanjaygupta', 'drseisenberg', 'EricTopol', 'FierceHealth', 'GavinPrestonMD', 'gnayyar', 'drhubaevaluator', 'chimoose', '2healthguru', 'HarvardHealth', 'Health_Affairs', 'HealthITNews', 'HealthLeaders', 'HHSGov', 'HIMSS', 'hjluks', 'JAMA_current', 'healthythinker', 'JohnNosta', 'HopkinsMedicine', 'KHNews', 'kentbottles', 'kevinmd', 'DrLeanaWen', 'LeeAase', 'DrLindseyFitz', 'lisagualtieri', 'MandiBPro', 'matthewherper', 'MayoClinic', 'MDAndersonNews', 'medcitynews', 'MedEconomics', 'medpagetoday', 'medscape', 'drmikesevilla', 'modrnhealthcr', 'NeilFlochMD', 'NEJM', 'NPRhealth', 'NurseGroups', 'michellekatzmsn', 'Nurse_com', 'ANANursingWorld', 'nursingtimes', 'NYTHealth', 'Paul_Sonnier', 'physicianspract', 'Reuters_Health', 'ReviewNursing', 'RichDuszak', 'sarahkliff', 'Cascadia', 'StJude', 'StanfordMed', 'SusannahFox', 'Docweighsin', 'THCBstaff', 'TheLancet', 'vmontori', 'futuredocs', 'WSJhealth', 'WebMD', 'HealthcareWen', 'WeNurses', 'WHO', 'ZDoggMD')
+
+temp <- data.frame()
+for (name in medical){
+  line <- get_timelines(name, n=1)
+  temp <- rbind(line, temp)
+}
+```
+
+```{r eval=FALSE}
+sorted_medical_accounts <- temp %>% arrange(desc(followers_count)) 
+medical <- sorted_medical_accounts$screen_name[1:10] # top 10 medical account
+
+df_medical <- data.frame()
+for (name in medical) {
+  new <- get_timelines(name, 
+                          n = 10000,
+                          since_id = '1238238576141352965', # 2020-03-12 23:00:56
+                          max_id = '1465010274029785092') # 2021-11-28 17:30:42	  
+  df_medical <- rbind(new, df_medical)
+}
+```
+
+```{r eval=FALSE}
+write_csv(df_medical, "./resources/data_medical.csv")
+```
+
+## newsmedia
+```{r eval=FALSE}
+newsmedia <- c("cnnbrk", "nytimes", "wsj", "time", "abc", "washingtonpost", "ap", "huffpost", "guardian","foxnews")
+
+df_newsmedia <- data.frame()
+for (name in newsmedia) {
+  new <- get_timelines(name, 
+                          n = 10000,
+                          since_id = '1238238576141352965', # 2020-03-12 23:00:56
+                          max_id = '1465010274029785092') # 2021-11-28 17:30:42	  
+  df_newsmedia <- rbind(new, df_newsmedia)
+}
+```
+
+```{r eval=FALSE}
+write_csv(df_newsmedia, "./resources/data_newsmedia.csv")
+```
+
+```{r eval=FALSE}
+output <- c()
+cleaned_text <- clean_tweets(df_newsmedia$text)
+for (words in str_split(cleaned_text, " ")) {
+  f <- if_else(any(words %in% tag), 1, 0)
+  output <- append(output, f)
+}
+
+df_newsmedia$output <- output
+
+df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
+```
+
+## celebrities
+```{r eval=FALSE}
+celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
+
+df_celebrities <- data.frame()
+for (name in celebrities) {
+  new <- get_timelines(name, 
+                          n = 10000,
+                          since_id = '1238238576141352965', # 2020-03-12 23:00:56
+                          max_id = '1465010274029785092') # 2021-11-28 17:30:42	  
+  df_celebrities <- rbind(new, df_celebrities)
+}
+```
+
+```{r eval=FALSE}
+write_csv(df_celebrities, "./resources/data_celebrities.csv")
+```
+
