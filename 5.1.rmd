@@ -1,0 +1,51 @@
+---
+title: '5.1'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+
+df <- read_csv("./resources/data_medical.csv")
+data_medical_filtered <- tagging(df)
+write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
+
+df <- read_csv("./resources/data_newsmedia.csv")
+data_newsmedia_filtered <- tagging(df)
+write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
+
+df <- read_csv("./resources/data_politicians.csv")
+data_politicians_filtered <- tagging(df)
+write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
+```
+```{r}
+tagging <- function(df) {
+  output <- c()
+  cleaned_text <- clean_tweets(df$text)
+  for (words in str_split(cleaned_text, " ")) {
+    f <- if_else(any(words %in% tag), 1, 0)
+    output <- append(output, f)
+  }
+  df$ouput <- output
+  filtered_df <- df %>% filter(output ==1) 
+  return(filtered_df)
+}
+```
+
+```{r}
+#df_celebrities <- tagging(df_celebrities)
+write_csv(df_celebrities, "./resources/data_celebrities_filtered.csv")
+
+```
+
+
+
+
