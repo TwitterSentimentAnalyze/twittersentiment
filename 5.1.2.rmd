@@ -1,0 +1,93 @@
+---
+title: '5.1'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(tidytext)
+library(textdata)
+```
+
+
+```{r}
+df_celebrities <- read_csv("./resources/data_celebrities_filtered.csv")
+```
+```{r}
+df_celebrities <- df_celebrities %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count))
+
+df_celebrities
+```
+```{r}
+# Create new columns as placeholders
+df_celebrities[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "sentiment_score")] <- NA
+
+```
+
+```{r}
+for(i in 1:nrow(df_celebrities)) {
+  tweets_data <- df_celebrities[i,] %>%
+    unnest_tokens(word, text) %>% # break down into individual words
+    filter(!nchar(word) < 3) %>% # remove words that are unnecessary, like exclamations
+    anti_join(stop_words) # need to remove stop words because they are also unnecessary
+  
+  tweets_nrc <- tweets_data %>% 
+    inner_join(get_sentiments("nrc")) %>% 
+    filter(!sentiment %in% c("positive", "negative"))
+
+  tweets_nrc_np <- tweets_data %>% 
+    inner_join(get_sentiments("nrc")) %>% 
+    filter(sentiment %in% c("positive", "negative")) %>% 
+    mutate(score = if_else(sentiment=="positive", 1, -1))
+  
+  sentiment_score <- sum(tweets_nrc_np$score) / nrow(tweets_nrc_np)
+  sentiments <- tweets_nrc %>%
+    group_by(sentiment, .drop = FALSE) %>%
+    summarise(word_count = n()) %>% 
+    ungroup()
+
+  if("joy" %in% sentiments$sentiment){
+    df_celebrities[i, "joy"] <- sentiments$word_count[which(sentiments$sentiment=="joy")]
+  }
+  if("trust" %in% sentiments$sentiment){
+    df_celebrities[i, "trust"] <- sentiments$word_count[which(sentiments$sentiment=="trust")]
+  }
+  if("anticipation" %in% sentiments$sentiment){
+    df_celebrities[i, "anticipation"] <- sentiments$word_count[which(sentiments$sentiment=="anticipation")]
+  }
+  if("sadness" %in% sentiments$sentiment){
+    df_celebrities[i, "sadness"] <- sentiments$word_count[which(sentiments$sentiment=="sadness")]
+  }
+  if("fear" %in% sentiments$sentiment){
+    df_celebrities[i, "fear"] <- sentiments$word_count[which(sentiments$sentiment=="fear")]
+  }
+  if("anger" %in% sentiments$sentiment){
+    df_celebrities[i, "anger"] <- sentiments$word_count[which(sentiments$sentiment=="anger")]
+  }
+  if("surprise" %in% sentiments$sentiment){
+    df_celebrities[i, "surprise"] <- sentiments$word_count[which(sentiments$sentiment=="surprise")]
+  }
+  if("disgust" %in% sentiments$sentiment){
+    df_celebrities[i, "disgust"] <- sentiments$word_count[which(sentiments$sentiment=="disgust")]
+  }
+  
+  df_celebrities[i, "sentiment_score"] <- sentiment_score
+}
+
+df_celebrities
+```
+```{r}
+ggplot() + 
+```
+
+
+
+
+
+
+
