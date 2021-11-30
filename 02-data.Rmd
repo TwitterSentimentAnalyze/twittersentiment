@@ -1,5 +1,8 @@
 # Data sources
 
+Explanation: ~~
+
+
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
 ```
@@ -14,7 +17,7 @@ library(readr)
 library(rtweet)
 ```
 
-====================politicians=======================
+## politicians
 ```{r eval=FALSE}
 politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
 
@@ -33,7 +36,7 @@ write_csv(df_politicians, "./resources/data_politicians.csv")
 ```
 
 
-====================medical=======================
+## medical
 
 Get the most influencial medical Twitter accounts. (Ref: https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow )
 ```{r eval=FALSE}
@@ -64,7 +67,7 @@ for (name in medical) {
 write_csv(df_medical, "./resources/data_medical.csv")
 ```
 
-====================newsmedia=======================
+## newsmedia
 ```{r eval=FALSE}
 newsmedia <- c("cnnbrk", "nytimes", "wsj", "time", "abc", "washingtonpost", "ap", "huffpost", "guardian","foxnews")
 
@@ -95,7 +98,7 @@ df_newsmedia$output <- output
 df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
 ```
 
-====================celebrities=======================
+## celebrities
 ```{r eval=FALSE}
 celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
 
