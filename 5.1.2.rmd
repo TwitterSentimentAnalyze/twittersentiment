@@ -25,7 +25,7 @@ df_celebrities
 ```
 ```{r}
 # Create new columns as placeholders
-df_celebrities[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "sentiment_score")] <- NA
+df_celebrities[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score")] <- NA
 
 ```
 
@@ -74,6 +74,12 @@ for(i in 1:nrow(df_celebrities)) {
   }
   if("disgust" %in% sentiments$sentiment){
     df_celebrities[i, "disgust"] <- sentiments$word_count[which(sentiments$sentiment=="disgust")]
+  }
+  if(1 %in% tweets_nrc_np$score){
+    df_celebrities[i, "positive"] <- length(which(tweets_nrc_np$score == 1))
+  }
+  if(-1 %in% tweets_nrc_np$score){
+    df_celebrities[i, "negative"] <- length(which(tweets_nrc_np$score == -1))
   }
   
   df_celebrities[i, "sentiment_score"] <- sentiment_score
