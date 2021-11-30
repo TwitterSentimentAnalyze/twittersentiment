@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Conclusion | Twitter Sentiment Analysis</title>
-  <meta name="description" content="Chapter 7 Conclusion | Twitter Sentiment Analysis" />
+  <title>Chapter 7 Conclusion | TwitterAPI</title>
+  <meta name="description" content="Chapter 7 Conclusion | TwitterAPI" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Conclusion | Twitter Sentiment Analysis" />
+  <meta property="og:title" content="Chapter 7 Conclusion | TwitterAPI" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Conclusion | Twitter Sentiment Analysis" />
+  <meta name="twitter:title" content="Chapter 7 Conclusion | TwitterAPI" />
   
   
   
@@ -148,7 +148,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#r-markdown"><i class="fa fa-check"></i><b>7.1</b> R Markdown</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -160,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Twitter Sentiment Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TwitterAPI</a>
           </h1>
         </div>
 
@@ -171,6 +174,230 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="conclusion" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Conclusion</h1>
 
+<div id="r-markdown" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="conclusion.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb24-2"><a href="conclusion.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
+<span id="cb24-3"><a href="conclusion.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb24-4"><a href="conclusion.html#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="conclusion.html#cb24-5" aria-hidden="true" tabindex="-1"></a>tag <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;corona&#39;</span>, <span class="st">&#39;#corona&#39;</span>, <span class="st">&#39;coronavirus&#39;</span>, <span class="st">&#39;#coronavirus&#39;</span>, <span class="st">&#39;covid&#39;</span>, <span class="st">&#39;#covid&#39;</span>, <span class="st">&#39;covid19&#39;</span>, <span class="st">&#39;#covid19&#39;</span>, <span class="st">&#39;covid-19&#39;</span>, <span class="st">&#39;#covid-19&#39;</span>, <span class="st">&#39;sarscov2&#39;</span>, <span class="st">&#39;#sarscov2&#39;</span>, <span class="st">&#39;sars cov2&#39;</span>, <span class="st">&#39;sars cov 2&#39;</span>, <span class="st">&#39;covid_19&#39;</span>, <span class="st">&#39;#covid_19&#39;</span>, <span class="st">&#39;#ncov&#39;</span>, <span class="st">&#39;ncov&#39;</span>, <span class="st">&#39;#ncov2019&#39;</span>, <span class="st">&#39;ncov2019&#39;</span>, <span class="st">&#39;2019-ncov&#39;</span>, <span class="st">&#39;#2019-ncov&#39;</span>, <span class="st">&#39;pandemic&#39;</span>, <span class="st">&#39;#pandemic #2019ncov&#39;</span>, <span class="st">&#39;2019ncov&#39;</span>, <span class="st">&#39;quarantine&#39;</span>, <span class="st">&#39;#quarantine&#39;</span>, <span class="st">&#39;flatten the curve&#39;</span>, <span class="st">&#39;flattening the curve&#39;</span>, <span class="st">&#39;#flatteningthecurve&#39;</span>, <span class="st">&#39;#flattenthecurve&#39;</span>, <span class="st">&#39;hand sanitizer&#39;</span>, <span class="st">&#39;#handsanitizer&#39;</span>, <span class="st">&#39;#lockdown&#39;</span>, <span class="st">&#39;lockdown&#39;</span>, <span class="st">&#39;social distancing&#39;</span>, <span class="st">&#39;#socialdistancing&#39;</span>, <span class="st">&#39;work from home&#39;</span>, <span class="st">&#39;#workfromhome&#39;</span>, <span class="st">&#39;working from home&#39;</span>, <span class="st">&#39;#workingfromhome&#39;</span>, <span class="st">&#39;ppe&#39;</span>, <span class="st">&#39;n95&#39;</span>, <span class="st">&#39;#ppe&#39;</span>, <span class="st">&#39;#n95&#39;</span>, <span class="st">&#39;#covidiots&#39;</span>, <span class="st">&#39;covidiots&#39;</span>, <span class="st">&#39;herd immunity&#39;</span>, <span class="st">&#39;#herdimmunity&#39;</span>, <span class="st">&#39;pneumonia&#39;</span>, <span class="st">&#39;#pneumonia&#39;</span>, <span class="st">&#39;chinese virus&#39;</span>, <span class="st">&#39;#chinesevirus&#39;</span>, <span class="st">&#39;wuhan virus&#39;</span>, <span class="st">&#39;#wuhanvirus&#39;</span>, <span class="st">&#39;kung flu&#39;</span>, <span class="st">&#39;#kungflu&#39;</span>, <span class="st">&#39;wearamask&#39;</span>, <span class="st">&#39;#wearamask&#39;</span>, <span class="st">&#39;wear a mask&#39;</span>, <span class="st">&#39;vaccine&#39;</span>, <span class="st">&#39;vaccines&#39;</span>, <span class="st">&#39;#vaccine&#39;</span>, <span class="st">&#39;#vaccines&#39;</span>, <span class="st">&#39;corona vaccine&#39;</span>, <span class="st">&#39;corona vaccines&#39;</span>, <span class="st">&#39;#coronavaccine&#39;</span>, <span class="st">&#39;#coronavaccines&#39;</span>, <span class="st">&#39;face shield&#39;</span>, <span class="st">&#39;#faceshield&#39;</span>, <span class="st">&#39;face shields&#39;</span>, <span class="st">&#39;#faceshields&#39;</span>, <span class="st">&#39;health worker&#39;</span>, <span class="st">&#39;#healthworker&#39;</span>, <span class="st">&#39;health workers&#39;</span>, <span class="st">&#39;#healthworkers&#39;</span>, <span class="st">&#39;#stayhomestaysafe&#39;</span>, <span class="st">&#39;#coronaupdate&#39;</span>, <span class="st">&#39;#frontlineheroes&#39;</span>, <span class="st">&#39;#coronawarriors&#39;</span>, <span class="st">&#39;#homeschool&#39;</span>, <span class="st">&#39;#homeschooling&#39;</span>, <span class="st">&#39;#hometasking&#39;</span>, <span class="st">&#39;#masks4all&#39;</span>, <span class="st">&#39;#wfh&#39;</span>, <span class="st">&#39;wash ur hands&#39;</span>, <span class="st">&#39;wash your hands&#39;</span>, <span class="st">&#39;#washurhands&#39;</span>, <span class="st">&#39;#washyourhands&#39;</span>, <span class="st">&#39;#stayathome&#39;</span>, <span class="st">&#39;#stayhome&#39;</span>, <span class="st">&#39;#selfisolating&#39;</span>, <span class="st">&#39;self isolating&#39;</span>)</span></code></pre></div>
+<p>Getting # followers</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="conclusion.html#cb25-1" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;BarackObama&#39;</span>, <span class="st">&#39;justinbieber&#39;</span>, <span class="st">&#39;ArianaGrande&#39;</span>)</span>
+<span id="cb25-2"><a href="conclusion.html#cb25-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb25-3"><a href="conclusion.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> names){</span>
+<span id="cb25-4"><a href="conclusion.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  line <span class="ot">&lt;-</span> <span class="fu">get_timelines</span>(name, <span class="at">n=</span><span class="dv">20</span>)</span>
+<span id="cb25-5"><a href="conclusion.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(line, temp)</span>
+<span id="cb25-6"><a href="conclusion.html#cb25-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-7"><a href="conclusion.html#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="conclusion.html#cb25-8" aria-hidden="true" tabindex="-1"></a>followers_count <span class="ot">&lt;-</span> temp<span class="sc">$</span>followers_count</span>
+<span id="cb25-9"><a href="conclusion.html#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="conclusion.html#cb25-10" aria-hidden="true" tabindex="-1"></a>temp</span></code></pre></div>
+<pre><code>## # A tibble: 60 x 90
+##    user_id  status_id           created_at          screen_name  text     source
+##    &lt;chr&gt;    &lt;chr&gt;               &lt;dttm&gt;              &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt; 
+##  1 34507480 1465479935712137217 2021-11-30 00:36:58 ArianaGrande &quot;!!!!! ~ Twitt~
+##  2 34507480 1465472555527991299 2021-11-30 00:07:39 ArianaGrande &quot;one ho~ Twitt~
+##  3 34507480 1465458087087656963 2021-11-29 23:10:09 ArianaGrande &quot;https:~ Twitt~
+##  4 34507480 1465456598982164480 2021-11-29 23:04:14 ArianaGrande &quot;two ho~ Twitt~
+##  5 34507480 1465447373258166272 2021-11-29 22:27:35 ArianaGrande &quot;on my ~ Twitt~
+##  6 34507480 1465443184461299717 2021-11-29 22:10:56 ArianaGrande &quot;The #V~ Twitt~
+##  7 34507480 1465417007197605888 2021-11-29 20:26:55 ArianaGrande &quot;jimmy ~ Twitt~
+##  8 34507480 1465388892660453376 2021-11-29 18:35:12 ArianaGrande &quot;every ~ Twitt~
+##  9 34507480 1465381395983790088 2021-11-29 18:05:24 ArianaGrande &quot;foreve~ Twitt~
+## 10 34507480 1465378351590219779 2021-11-29 17:53:19 ArianaGrande &quot;@vcutg~ Twitt~
+## # ... with 50 more rows, and 84 more variables: display_text_width &lt;dbl&gt;,
+## #   reply_to_status_id &lt;chr&gt;, reply_to_user_id &lt;chr&gt;,
+## #   reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;, is_retweet &lt;lgl&gt;,
+## #   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, quote_count &lt;int&gt;,
+## #   reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;, urls_url &lt;list&gt;,
+## #   urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;, media_url &lt;list&gt;,
+## #   media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;, media_type &lt;list&gt;, ...</code></pre>
+<p>Reference: <a href="https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r" class="uri">https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r</a></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="conclusion.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb27-2"><a href="conclusion.html#cb27-2" aria-hidden="true" tabindex="-1"></a>clean_tweets <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb27-3"><a href="conclusion.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="conclusion.html#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove URLs</span></span>
+<span id="cb27-5"><a href="conclusion.html#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot; ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="conclusion.html#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove mentions e.g. &quot;@my_account&quot;</span></span>
+<span id="cb27-7"><a href="conclusion.html#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;@[[:alnum:]_]{4,}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="conclusion.html#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace &quot;&amp;&quot; character reference with &quot;and&quot;</span></span>
+<span id="cb27-9"><a href="conclusion.html#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;&amp;amp;&quot;</span>, <span class="st">&quot;and&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="conclusion.html#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove punctuation, using a standard character class</span></span>
+<span id="cb27-11"><a href="conclusion.html#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;[[:punct:]]&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="conclusion.html#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove &quot;RT: &quot; from beginning of retweets</span></span>
+<span id="cb27-13"><a href="conclusion.html#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;^RT:? &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-14"><a href="conclusion.html#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace any newline characters with a space</span></span>
+<span id="cb27-15"><a href="conclusion.html#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\\n</span><span class="st">&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-16"><a href="conclusion.html#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make everything lowercase</span></span>
+<span id="cb27-17"><a href="conclusion.html#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-18"><a href="conclusion.html#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove any trailing whitespace around the text</span></span>
+<span id="cb27-19"><a href="conclusion.html#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_trim</span>(<span class="st">&quot;both&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-20"><a href="conclusion.html#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove unnecessary space</span></span>
+<span id="cb27-21"><a href="conclusion.html#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;  &quot;</span>,<span class="st">&quot; &quot;</span>)</span>
+<span id="cb27-22"><a href="conclusion.html#cb27-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Clean the tweet data and extract the tweets that contains COVID related tags</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="conclusion.html#cb28-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb28-2"><a href="conclusion.html#cb28-2" aria-hidden="true" tabindex="-1"></a>cleaned_text <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(temp<span class="sc">$</span>text)</span>
+<span id="cb28-3"><a href="conclusion.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (words <span class="cf">in</span> <span class="fu">str_split</span>(cleaned_text, <span class="st">&quot; &quot;</span>)) {</span>
+<span id="cb28-4"><a href="conclusion.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">if_else</span>(<span class="fu">any</span>(words <span class="sc">%in%</span> tag), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb28-5"><a href="conclusion.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">append</span>(output, f)</span>
+<span id="cb28-6"><a href="conclusion.html#cb28-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-7"><a href="conclusion.html#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="conclusion.html#cb28-8" aria-hidden="true" tabindex="-1"></a>temp<span class="sc">$</span>output <span class="ot">&lt;-</span> output</span>
+<span id="cb28-9"><a href="conclusion.html#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="conclusion.html#cb28-10" aria-hidden="true" tabindex="-1"></a>temp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(output <span class="sc">==</span> <span class="dv">1</span>) <span class="ot">-&gt;</span> temp2</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="conclusion.html#cb29-1" aria-hidden="true" tabindex="-1"></a>temp2 <span class="ot">&lt;-</span> temp2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(user_id, text, lang, name, location, followers_count)</span>
+<span id="cb29-2"><a href="conclusion.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="conclusion.html#cb29-3" aria-hidden="true" tabindex="-1"></a>temp2</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 6
+##   user_id text                          lang  name     location  followers_count
+##   &lt;chr&gt;   &lt;chr&gt;                         &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;               &lt;int&gt;
+## 1 813286  The epidemic of gun violence~ en    Barack ~ Washingt~       130310207</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="conclusion.html#cb31-1" aria-hidden="true" tabindex="-1"></a>temp2[, <span class="fu">c</span>(<span class="st">&quot;joy&quot;</span>, <span class="st">&quot;trust&quot;</span>, <span class="st">&quot;anticipation&quot;</span>, <span class="st">&quot;sadness&quot;</span>, <span class="st">&quot;fear&quot;</span>, <span class="st">&quot;anger&quot;</span>, <span class="st">&quot;surprise&quot;</span>, <span class="st">&quot;disgust&quot;</span>, <span class="st">&quot;sentiment_score&quot;</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb31-2"><a href="conclusion.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="conclusion.html#cb31-3" aria-hidden="true" tabindex="-1"></a>temp2</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 15
+##   user_id text     lang  name  location followers_count joy   trust anticipation
+##   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;int&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;       
+## 1 813286  The epi~ en    Bara~ Washing~       130310207 NA    NA    NA          
+## # ... with 6 more variables: sadness &lt;lgl&gt;, fear &lt;lgl&gt;, anger &lt;lgl&gt;,
+## #   surprise &lt;lgl&gt;, disgust &lt;lgl&gt;, sentiment_score &lt;lgl&gt;</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="conclusion.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-2"><a href="conclusion.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb33-3"><a href="conclusion.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span>
+<span id="cb33-4"><a href="conclusion.html#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="conclusion.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(temp2)) {</span>
+<span id="cb33-6"><a href="conclusion.html#cb33-6" aria-hidden="true" tabindex="-1"></a>  tweets_data <span class="ot">&lt;-</span> temp2[i,] <span class="sc">%&gt;%</span></span>
+<span id="cb33-7"><a href="conclusion.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span> <span class="co"># break down into individual words</span></span>
+<span id="cb33-8"><a href="conclusion.html#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">nchar</span>(word) <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> <span class="co"># remove words that are unnecessary, like exclamations</span></span>
+<span id="cb33-9"><a href="conclusion.html#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stop_words) <span class="co"># need to remove stop words because they are also unnecessary</span></span>
+<span id="cb33-10"><a href="conclusion.html#cb33-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-11"><a href="conclusion.html#cb33-11" aria-hidden="true" tabindex="-1"></a>  tweets_nrc <span class="ot">&lt;-</span> tweets_data <span class="sc">%&gt;%</span> </span>
+<span id="cb33-12"><a href="conclusion.html#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(<span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-13"><a href="conclusion.html#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>sentiment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>))</span>
+<span id="cb33-14"><a href="conclusion.html#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="conclusion.html#cb33-15" aria-hidden="true" tabindex="-1"></a>  tweets_nrc_np <span class="ot">&lt;-</span> tweets_data <span class="sc">%&gt;%</span> </span>
+<span id="cb33-16"><a href="conclusion.html#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(<span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-17"><a href="conclusion.html#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sentiment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-18"><a href="conclusion.html#cb33-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">score =</span> <span class="fu">if_else</span>(sentiment<span class="sc">==</span><span class="st">&quot;positive&quot;</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb33-19"><a href="conclusion.html#cb33-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-20"><a href="conclusion.html#cb33-20" aria-hidden="true" tabindex="-1"></a>  sentiment_score <span class="ot">&lt;-</span> <span class="fu">sum</span>(tweets_nrc_np<span class="sc">$</span>score) <span class="sc">/</span> <span class="fu">nrow</span>(tweets_nrc_np)</span>
+<span id="cb33-21"><a href="conclusion.html#cb33-21" aria-hidden="true" tabindex="-1"></a>  sentiments <span class="ot">&lt;-</span> tweets_nrc <span class="sc">%&gt;%</span></span>
+<span id="cb33-22"><a href="conclusion.html#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sentiment, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-23"><a href="conclusion.html#cb33-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">word_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-24"><a href="conclusion.html#cb33-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb33-25"><a href="conclusion.html#cb33-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="conclusion.html#cb33-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;joy&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-27"><a href="conclusion.html#cb33-27" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;joy&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;joy&quot;</span>)]</span>
+<span id="cb33-28"><a href="conclusion.html#cb33-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-29"><a href="conclusion.html#cb33-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;trust&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-30"><a href="conclusion.html#cb33-30" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;trust&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;trust&quot;</span>)]</span>
+<span id="cb33-31"><a href="conclusion.html#cb33-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-32"><a href="conclusion.html#cb33-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;anticipation&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-33"><a href="conclusion.html#cb33-33" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;anticipation&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;anticipation&quot;</span>)]</span>
+<span id="cb33-34"><a href="conclusion.html#cb33-34" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-35"><a href="conclusion.html#cb33-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;sadness&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-36"><a href="conclusion.html#cb33-36" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;sadness&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;sadness&quot;</span>)]</span>
+<span id="cb33-37"><a href="conclusion.html#cb33-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-38"><a href="conclusion.html#cb33-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;fear&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-39"><a href="conclusion.html#cb33-39" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;fear&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;fear&quot;</span>)]</span>
+<span id="cb33-40"><a href="conclusion.html#cb33-40" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-41"><a href="conclusion.html#cb33-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;anger&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-42"><a href="conclusion.html#cb33-42" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;anger&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;anger&quot;</span>)]</span>
+<span id="cb33-43"><a href="conclusion.html#cb33-43" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-44"><a href="conclusion.html#cb33-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;surprise&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-45"><a href="conclusion.html#cb33-45" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;surprise&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;surprise&quot;</span>)]</span>
+<span id="cb33-46"><a href="conclusion.html#cb33-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-47"><a href="conclusion.html#cb33-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="st">&quot;disgust&quot;</span> <span class="sc">%in%</span> sentiments<span class="sc">$</span>sentiment){</span>
+<span id="cb33-48"><a href="conclusion.html#cb33-48" aria-hidden="true" tabindex="-1"></a>    temp2[i, <span class="st">&quot;disgust&quot;</span>] <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>word_count[<span class="fu">which</span>(sentiments<span class="sc">$</span>sentiment<span class="sc">==</span><span class="st">&quot;disgust&quot;</span>)]</span>
+<span id="cb33-49"><a href="conclusion.html#cb33-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-50"><a href="conclusion.html#cb33-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-51"><a href="conclusion.html#cb33-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;joy&quot;] &lt;- if_else(&quot;joy&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;joy&quot;)], 0)</span></span>
+<span id="cb33-52"><a href="conclusion.html#cb33-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;trust&quot;] &lt;- if_else(&quot;trust&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;trust&quot;)], 0)</span></span>
+<span id="cb33-53"><a href="conclusion.html#cb33-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;anticipation&quot;] &lt;- if_else(&quot;anticipation&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;anticipation&quot;)], 0)</span></span>
+<span id="cb33-54"><a href="conclusion.html#cb33-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;sadness&quot;] &lt;- if_else(&quot;sadness&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;sadness&quot;)], 0)</span></span>
+<span id="cb33-55"><a href="conclusion.html#cb33-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;fear&quot;] &lt;- if_else(&quot;fear&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;fear&quot;)], 0)</span></span>
+<span id="cb33-56"><a href="conclusion.html#cb33-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;anger&quot;] &lt;- if_else(&quot;anger&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;anger&quot;)], 0)</span></span>
+<span id="cb33-57"><a href="conclusion.html#cb33-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;surprise&quot;] &lt;- if_else(&quot;surprise&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;surprise&quot;)], 0)</span></span>
+<span id="cb33-58"><a href="conclusion.html#cb33-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp2[i,&quot;disgust&quot;] &lt;- if_else(&quot;disgust&quot; %in% sentiments$sentiment, sentiments$word_count[which(sentiments$sentiment==&quot;disgust&quot;)], 0)</span></span>
+<span id="cb33-59"><a href="conclusion.html#cb33-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-60"><a href="conclusion.html#cb33-60" aria-hidden="true" tabindex="-1"></a>  temp2[i, <span class="st">&quot;sentiment_score&quot;</span>] <span class="ot">&lt;-</span> sentiment_score</span>
+<span id="cb33-61"><a href="conclusion.html#cb33-61" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-62"><a href="conclusion.html#cb33-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-63"><a href="conclusion.html#cb33-63" aria-hidden="true" tabindex="-1"></a>temp2</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 15
+##   user_id text     lang  name  location followers_count joy   trust anticipation
+##   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;int&gt; &lt;lgl&gt; &lt;int&gt;        &lt;int&gt;
+## 1 813286  The epi~ en    Bara~ Washing~       130310207 NA        1            1
+## # ... with 6 more variables: sadness &lt;int&gt;, fear &lt;int&gt;, anger &lt;int&gt;,
+## #   surprise &lt;int&gt;, disgust &lt;int&gt;, sentiment_score &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="conclusion.html#cb35-1" aria-hidden="true" tabindex="-1"></a>tweets_nrc <span class="ot">&lt;-</span> tweets_data <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="conclusion.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="conclusion.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>sentiment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="conclusion.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_id, lang, name, location, followers_count, word, sentiment)</span>
+<span id="cb35-5"><a href="conclusion.html#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="conclusion.html#cb35-6" aria-hidden="true" tabindex="-1"></a>tweets_nrc_np <span class="ot">&lt;-</span> tweets_data <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="conclusion.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-8"><a href="conclusion.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-9"><a href="conclusion.html#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(user_id, lang, name, location, followers_count, word, sentiment) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-10"><a href="conclusion.html#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="fu">if_else</span>(sentiment<span class="sc">==</span><span class="st">&quot;positive&quot;</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb35-11"><a href="conclusion.html#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="conclusion.html#cb35-12" aria-hidden="true" tabindex="-1"></a>tweets_nrc_np</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 8
+##   user_id lang  name         location     followers_count word   sentiment score
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
+## 1 813286  en    Barack Obama Washington,~       130310207 epide~ negative     -1
+## 2 813286  en    Barack Obama Washington,~       130310207 gun    negative     -1
+## 3 813286  en    Barack Obama Washington,~       130310207 viole~ negative     -1
+## 4 813286  en    Barack Obama Washington,~       130310207 worse  negative     -1
+## 5 813286  en    Barack Obama Washington,~       130310207 pande~ negative     -1
+## 6 813286  en    Barack Obama Washington,~       130310207 bias   negative     -1
+## 7 813286  en    Barack Obama Washington,~       130310207 reform positive      1
+## 8 813286  en    Barack Obama Washington,~       130310207 police positive      1</code></pre>
+<p>Barplot for sentiments (excluding positive and negative)</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="conclusion.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb37-2"><a href="conclusion.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="conclusion.html#cb37-3" aria-hidden="true" tabindex="-1"></a>sentiment_plot <span class="ot">&lt;-</span> tweets_nrc <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="conclusion.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="conclusion.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">word_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="conclusion.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="conclusion.html#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> <span class="fu">reorder</span>(sentiment, word_count)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="conclusion.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Use `fill = -word_count` to make the larger bars darker</span></span>
+<span id="cb37-9"><a href="conclusion.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sentiment, word_count, <span class="at">fill =</span> <span class="sc">-</span>word_count)) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="conclusion.html#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb37-11"><a href="conclusion.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="co"># no legend</span></span>
+<span id="cb37-12"><a href="conclusion.html#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Word Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-13"><a href="conclusion.html#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_y_continuous(limits = c(0, 100)) +</span></span>
+<span id="cb37-14"><a href="conclusion.html#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Tweeter Sentiment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-15"><a href="conclusion.html#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb37-16"><a href="conclusion.html#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="conclusion.html#cb37-17" aria-hidden="true" tabindex="-1"></a>sentiment_plot</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Comparison of positive vs. negative</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="conclusion.html#cb38-1" aria-hidden="true" tabindex="-1"></a>sentiment_plot_np <span class="ot">&lt;-</span> tweets_nrc_np <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="conclusion.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="conclusion.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">word_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="conclusion.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="conclusion.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> <span class="fu">reorder</span>(sentiment, word_count)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="conclusion.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Use `fill = -word_count` to make the larger bars darker</span></span>
+<span id="cb38-7"><a href="conclusion.html#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sentiment, word_count, <span class="at">fill =</span> <span class="sc">-</span>word_count)) <span class="sc">+</span></span>
+<span id="cb38-8"><a href="conclusion.html#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb38-9"><a href="conclusion.html#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="co"># no legend</span></span>
+<span id="cb38-10"><a href="conclusion.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Word Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="conclusion.html#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_y_continuous(limits = c(0, 100)) +</span></span>
+<span id="cb38-12"><a href="conclusion.html#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Tweeter Sentiment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-13"><a href="conclusion.html#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb38-14"><a href="conclusion.html#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="conclusion.html#cb38-15" aria-hidden="true" tabindex="-1"></a>sentiment_score <span class="ot">&lt;-</span> <span class="fu">sum</span>(tweets_nrc_np<span class="sc">$</span>score) <span class="sc">/</span> <span class="fu">nrow</span>(tweets_nrc_np)</span>
+<span id="cb38-16"><a href="conclusion.html#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="conclusion.html#cb38-17" aria-hidden="true" tabindex="-1"></a>sentiment_score</span></code></pre></div>
+<pre><code>## [1] -0.5</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="conclusion.html#cb40-1" aria-hidden="true" tabindex="-1"></a>sentiment_plot_np</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+
+</div>
 </div>
             </section>
 

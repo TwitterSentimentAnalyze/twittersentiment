@@ -8,3 +8,4 @@ deep-dive-into-reactions-of-politicians-and-news-media
 deep-dive-into-correlations-of-key-metrics-and-sentiments
 interactive-component
 conclusion
+r-markdown
