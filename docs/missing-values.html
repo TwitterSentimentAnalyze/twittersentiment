@@ -21,10 +21,10 @@
   
   
 
-<meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
+<meta name="author" content="Sung Jun Won(sw3049), Hyo Won (Elin) Kim(hk3175), Alex Kita(ak4729)" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-11-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -314,17 +314,17 @@ Reference: <a href="https://stackoverflow.com/questions/31348453/how-do-i-clean-
 <pre><code>## [1] 403</code></pre>
 <p>Then we checked how many missing values each column has.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="missing-values.html#cb10-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 91
+<pre><code>## # A tibble: 1 x 91
 ##   user_id status_id created_at screen_name  text source display_text_width
 ##     &lt;int&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;int&gt;  &lt;int&gt;              &lt;int&gt;
 ## 1       0         0          0           0     0      0                  0
-## # … with 84 more variables: reply_to_status_id &lt;int&gt;, reply_to_user_id &lt;int&gt;,
+## # ... with 84 more variables: reply_to_status_id &lt;int&gt;, reply_to_user_id &lt;int&gt;,
 ## #   reply_to_screen_name &lt;int&gt;, is_quote &lt;int&gt;, is_retweet &lt;int&gt;,
 ## #   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, quote_count &lt;int&gt;,
 ## #   reply_count &lt;int&gt;, hashtags &lt;int&gt;, symbols &lt;int&gt;, urls_url &lt;int&gt;,
 ## #   urls_t.co &lt;int&gt;, urls_expanded_url &lt;int&gt;, media_url &lt;int&gt;,
 ## #   media_t.co &lt;int&gt;, media_expanded_url &lt;int&gt;, media_type &lt;int&gt;,
-## #   ext_media_url &lt;int&gt;, ext_media_t.co &lt;int&gt;, ext_media_expanded_url &lt;int&gt;, …</code></pre>
+## #   ext_media_url &lt;int&gt;, ext_media_t.co &lt;int&gt;, ...</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="missing-values.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df2, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="missing-values.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df2, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
@@ -334,38 +334,38 @@ Thus, we decided to remove all columns that have NA in more than 95% of entries.
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="missing-values.html#cb14-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">which</span>(<span class="fu">colMeans</span>(<span class="fu">is.na</span>(.)) <span class="sc">&lt;=</span> <span class="fl">0.95</span>))</span>
 <span id="cb14-2"><a href="missing-values.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="missing-values.html#cb14-3" aria-hidden="true" tabindex="-1"></a>df3</span></code></pre></div>
-<pre><code>## # A tibble: 403 × 48
+<pre><code>## # A tibble: 403 x 48
 ##      user_id status_id created_at          screen_name text              source 
 ##        &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;             &lt;chr&gt;  
-##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS judge Der… Social…
-##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 Star Rock… Social…
-##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing With th… Social…
-##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Teller Se… Social…
-##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can see thi… Twitte…
-##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by the way,… Twitte…
-##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striketober co… Twitte…
-##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank you all f… Twitte…
-##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard Ayvazya… Social…
-## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter is almos… Social…
-## # … with 393 more rows, and 42 more variables: display_text_width &lt;dbl&gt;,
+##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS judge Der~ Social~
+##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 Star Rock~ Social~
+##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing With th~ Social~
+##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Teller Se~ Social~
+##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can see thi~ Twitte~
+##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by the way,~ Twitte~
+##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striketober co~ Twitte~
+##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank you all f~ Twitte~
+##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard Ayvazya~ Social~
+## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter is almos~ Social~
+## # ... with 393 more rows, and 42 more variables: display_text_width &lt;dbl&gt;,
 ## #   reply_to_user_id &lt;dbl&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,
 ## #   is_retweet &lt;lgl&gt;, favorite_count &lt;dbl&gt;, retweet_count &lt;dbl&gt;, lang &lt;chr&gt;,
 ## #   retweet_status_id &lt;dbl&gt;, retweet_text &lt;chr&gt;, retweet_created_at &lt;dttm&gt;,
 ## #   retweet_source &lt;chr&gt;, retweet_favorite_count &lt;dbl&gt;,
 ## #   retweet_retweet_count &lt;dbl&gt;, retweet_user_id &lt;dbl&gt;,
-## #   retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;, …</code></pre>
+## #   retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;, ...</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="missing-values.html#cb16-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 48
+<pre><code>## # A tibble: 1 x 48
 ##   user_id status_id created_at screen_name  text source display_text_width
 ##     &lt;int&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;int&gt;  &lt;int&gt;              &lt;int&gt;
 ## 1       0         0          0           0     0      0                  0
-## # … with 41 more variables: reply_to_user_id &lt;int&gt;, reply_to_screen_name &lt;int&gt;,
-## #   is_quote &lt;int&gt;, is_retweet &lt;int&gt;, favorite_count &lt;int&gt;,
-## #   retweet_count &lt;int&gt;, lang &lt;int&gt;, retweet_status_id &lt;int&gt;,
-## #   retweet_text &lt;int&gt;, retweet_created_at &lt;int&gt;, retweet_source &lt;int&gt;,
-## #   retweet_favorite_count &lt;int&gt;, retweet_retweet_count &lt;int&gt;,
-## #   retweet_user_id &lt;int&gt;, retweet_screen_name &lt;int&gt;, retweet_name &lt;int&gt;,
-## #   retweet_followers_count &lt;int&gt;, retweet_friends_count &lt;int&gt;, …</code></pre>
+## # ... with 41 more variables: reply_to_user_id &lt;int&gt;,
+## #   reply_to_screen_name &lt;int&gt;, is_quote &lt;int&gt;, is_retweet &lt;int&gt;,
+## #   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, lang &lt;int&gt;,
+## #   retweet_status_id &lt;int&gt;, retweet_text &lt;int&gt;, retweet_created_at &lt;int&gt;,
+## #   retweet_source &lt;int&gt;, retweet_favorite_count &lt;int&gt;,
+## #   retweet_retweet_count &lt;int&gt;, retweet_user_id &lt;int&gt;,
+## #   retweet_screen_name &lt;int&gt;, retweet_name &lt;int&gt;, ...</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="missing-values.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df3, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="missing-values.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df3, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
@@ -380,23 +380,24 @@ Columns such as [source, display_text_width, reply_to_user_id, reply_to_screen_n
 <span id="cb20-3"><a href="missing-values.html#cb20-3" aria-hidden="true" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">select</span>(df3, <span class="sc">-</span>cols_to_remove)</span>
 <span id="cb20-4"><a href="missing-values.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="missing-values.html#cb20-5" aria-hidden="true" tabindex="-1"></a>df4</span></code></pre></div>
-<pre><code>## # A tibble: 403 × 18
+<pre><code>## # A tibble: 403 x 18
 ##      user_id status_id created_at          screen_name text       favorite_count
 ##        &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;
-##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS ju…             46
-##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 St…             82
-##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing …             73
-##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Te…             82
-##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can …           2123
-##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by t…          18504
-##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striket…          14418
-##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank yo…          83780
-##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard …             33
-## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter i…             63
-## # … with 393 more rows, and 12 more variables: retweet_count &lt;dbl&gt;, lang &lt;chr&gt;,
-## #   name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;, followers_count &lt;dbl&gt;,
-## #   friends_count &lt;dbl&gt;, listed_count &lt;dbl&gt;, statuses_count &lt;dbl&gt;,
-## #   favourites_count &lt;dbl&gt;, account_created_at &lt;dttm&gt;, verified &lt;lgl&gt;</code></pre>
+##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS ju~             46
+##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 St~             82
+##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing ~             73
+##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Te~             82
+##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can ~           2123
+##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by t~          18504
+##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striket~          14418
+##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank yo~          83780
+##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard ~             33
+## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter i~             63
+## # ... with 393 more rows, and 12 more variables: retweet_count &lt;dbl&gt;,
+## #   lang &lt;chr&gt;, name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;,
+## #   followers_count &lt;dbl&gt;, friends_count &lt;dbl&gt;, listed_count &lt;dbl&gt;,
+## #   statuses_count &lt;dbl&gt;, favourites_count &lt;dbl&gt;, account_created_at &lt;dttm&gt;,
+## #   verified &lt;lgl&gt;</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="missing-values.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df4, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="missing-values.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df4, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
