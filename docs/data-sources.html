@@ -21,7 +21,7 @@
   
   
 
-<meta name="author" content="Sung Jun Won(sw3049), Hyo Won (Elin) Kim(hk3175), Alex Kita(ak4729)" />
+<meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
 
 
 <meta name="date" content="2021-11-30" />
@@ -147,24 +147,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for cleaning</a></li>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-data-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for data cleaning</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#politicians-1"><i class="fa fa-check"></i><b>3.2</b> Politicians</a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#medical"><i class="fa fa-check"></i><b>3.3</b> Medical</a></li>
-<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#new-media"><i class="fa fa-check"></i><b>3.4</b> New Media</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#medical-associations-1"><i class="fa fa-check"></i><b>3.3</b> Medical Associations</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#news-media-1"><i class="fa fa-check"></i><b>3.4</b> News Media</a></li>
 <li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#celebrities-1"><i class="fa fa-check"></i><b>3.5</b> Celebrities</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.1</b> What were the sentimental reactions of different groups to Covid-19 news?</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.2</b> Deep dive into reactions of politicians and news media:</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#r-markdown"><i class="fa fa-check"></i><b>7.1</b> R Markdown</a></li>
-</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -188,9 +180,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>Our dataset consists of tweets data collected by rtweet Twitter API. We mainly collected tweets for four groups of people/organizations: politicians, medical associations, news media, and celebrities. For each group, we chose top 10 most-followed twitter accounts and extracted 10,000 most recent tweets of each user within time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42. For the users that have less than 10,000 tweets during that time, all their tweets in the time range are collected.</p>
-<p>All three of the team members contributed to collecting data. Alex ~~, Elin ~~, and Kevin found top 100 most-followed medical Twitter accounts. (Ref: <a href="https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow" class="uri">https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow</a> )</p>
-<p>Main issue we faced when collecting data was that there was no API that allows us to find top x most-followed accounts for specific group of people/organizations. Thus, we had to manually look for twitter accounts listed in Twitter Statistics websites such as SocialBlade. For medical associations, we had to narrow down the top 100 most-followed accounts to top 10 using # of followers provided by get_timelines function in rtweet.
-Also, another issue is that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Democrats have 4~10 times more followers than the Republicans, and this could result in one party’s opinion influencing sentiment score more than the other.</p>
+<p>All three of the team members contributed to collecting data. Alex ~, Elin ~, and Kevin found top 100 most-followed medical Twitter accounts. (Ref: <a href="https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow" class="uri">https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow</a> )</p>
+<p>The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, media, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet.
+Also, another issue is that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Democrats have 4~10 times more followers than the Republicans, and this could result in one party’s opinion influencing sentiment score more than the other.
+In addition, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-sources.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="data-sources.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="data-sources.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
