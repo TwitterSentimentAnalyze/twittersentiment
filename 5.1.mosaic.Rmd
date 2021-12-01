@@ -1,0 +1,41 @@
+---
+title: "5.1.mosaic"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(tidytext)
+library(textdata)
+library(vcd)
+```
+
+```{r}
+df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+```
+
+```{r}
+colnames(df)
+```
+```{r}
+head(df)
+```
+
+
+```{r}
+df <- df %>% filter(group != "newsmedia") %>%  mutate(type = case_when(
+         sentiment_score > 0.01  ~ "positive",
+         sentiment_score < -0.01 ~ "negative",
+         TRUE ~ "neutral"))
+
+mosaic(type ~ group, direction = c("v", "h"), main = "Sentiment Results for Different Groups", df)
+```
+
+
+
+
