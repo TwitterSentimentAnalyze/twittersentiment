@@ -24,7 +24,7 @@
 <meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,12 +138,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#politicians"><i class="fa fa-check"></i><b>2.1</b> Politicians</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#medical-associations"><i class="fa fa-check"></i><b>2.2</b> Medical Associations</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#celebrities"><i class="fa fa-check"></i><b>2.3</b> Celebrities</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-data-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for data cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#politicians-1"><i class="fa fa-check"></i><b>3.2</b> Politicians</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#medical-associations-1"><i class="fa fa-check"></i><b>3.3</b> Medical Associations</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#celebrities-1"><i class="fa fa-check"></i><b>3.4</b> Celebrities</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -165,7 +177,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>For cleaning the data, we mainly used two functions: clean_tweets and tagging.</p>
+<p>clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, <span class="citation">@username</span>, special characters, newlines, and whitespaces to have the texts ready for analysis.</p>
+<p>tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with “corona” or “covid-19” would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.</p>
+<p>We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-transformation.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="data-transformation.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="data-transformation.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
+<span id="cb1-4"><a href="data-transformation.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb1-5"><a href="data-transformation.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
+<span id="cb1-6"><a href="data-transformation.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-7"><a href="data-transformation.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span></code></pre></div>
+<div id="functions-for-data-cleaning" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Functions for data cleaning</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-transformation.html#cb2-1" aria-hidden="true" tabindex="-1"></a>clean_tweets <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb2-2"><a href="data-transformation.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="data-transformation.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove URLs</span></span>
+<span id="cb2-4"><a href="data-transformation.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot; ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="data-transformation.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove mentions e.g. &quot;@my_account&quot;</span></span>
+<span id="cb2-6"><a href="data-transformation.html#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;@[[:alnum:]_]{4,}&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="data-transformation.html#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace &quot;&amp;&quot; character reference with &quot;and&quot;</span></span>
+<span id="cb2-8"><a href="data-transformation.html#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;&amp;amp;&quot;</span>, <span class="st">&quot;and&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="data-transformation.html#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove punctuation, using a standard character class</span></span>
+<span id="cb2-10"><a href="data-transformation.html#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;[[:punct:]]&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="data-transformation.html#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove &quot;RT: &quot; from beginning of retweets</span></span>
+<span id="cb2-12"><a href="data-transformation.html#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;^RT:? &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="data-transformation.html#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace any newline characters with a space</span></span>
+<span id="cb2-14"><a href="data-transformation.html#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\\n</span><span class="st">&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="data-transformation.html#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make everything lowercase</span></span>
+<span id="cb2-16"><a href="data-transformation.html#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="data-transformation.html#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove any trailing whitespace around the text</span></span>
+<span id="cb2-18"><a href="data-transformation.html#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_trim</span>(<span class="st">&quot;both&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a href="data-transformation.html#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove unnecessary space</span></span>
+<span id="cb2-20"><a href="data-transformation.html#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;  &quot;</span>,<span class="st">&quot; &quot;</span>)</span>
+<span id="cb2-21"><a href="data-transformation.html#cb2-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-transformation.html#cb3-1" aria-hidden="true" tabindex="-1"></a>tag <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;corona&#39;</span>, <span class="st">&#39;#corona&#39;</span>, <span class="st">&#39;coronavirus&#39;</span>, <span class="st">&#39;#coronavirus&#39;</span>, <span class="st">&#39;covid&#39;</span>, <span class="st">&#39;#covid&#39;</span>, <span class="st">&#39;covid19&#39;</span>, <span class="st">&#39;#covid19&#39;</span>, <span class="st">&#39;covid-19&#39;</span>, <span class="st">&#39;#covid-19&#39;</span>, <span class="st">&#39;sarscov2&#39;</span>, <span class="st">&#39;#sarscov2&#39;</span>, <span class="st">&#39;sars cov2&#39;</span>, <span class="st">&#39;sars cov 2&#39;</span>, <span class="st">&#39;covid_19&#39;</span>, <span class="st">&#39;#covid_19&#39;</span>, <span class="st">&#39;#ncov&#39;</span>, <span class="st">&#39;ncov&#39;</span>, <span class="st">&#39;#ncov2019&#39;</span>, <span class="st">&#39;ncov2019&#39;</span>, <span class="st">&#39;2019-ncov&#39;</span>, <span class="st">&#39;#2019-ncov&#39;</span>, <span class="st">&#39;pandemic&#39;</span>, <span class="st">&#39;#pandemic #2019ncov&#39;</span>, <span class="st">&#39;2019ncov&#39;</span>, <span class="st">&#39;quarantine&#39;</span>, <span class="st">&#39;#quarantine&#39;</span>, <span class="st">&#39;flatten the curve&#39;</span>, <span class="st">&#39;flattening the curve&#39;</span>, <span class="st">&#39;#flatteningthecurve&#39;</span>, <span class="st">&#39;#flattenthecurve&#39;</span>, <span class="st">&#39;hand sanitizer&#39;</span>, <span class="st">&#39;#handsanitizer&#39;</span>, <span class="st">&#39;#lockdown&#39;</span>, <span class="st">&#39;lockdown&#39;</span>, <span class="st">&#39;social distancing&#39;</span>, <span class="st">&#39;#socialdistancing&#39;</span>, <span class="st">&#39;work from home&#39;</span>, <span class="st">&#39;#workfromhome&#39;</span>, <span class="st">&#39;working from home&#39;</span>, <span class="st">&#39;#workingfromhome&#39;</span>, <span class="st">&#39;ppe&#39;</span>, <span class="st">&#39;n95&#39;</span>, <span class="st">&#39;#ppe&#39;</span>, <span class="st">&#39;#n95&#39;</span>, <span class="st">&#39;#covidiots&#39;</span>, <span class="st">&#39;covidiots&#39;</span>, <span class="st">&#39;herd immunity&#39;</span>, <span class="st">&#39;#herdimmunity&#39;</span>, <span class="st">&#39;pneumonia&#39;</span>, <span class="st">&#39;#pneumonia&#39;</span>, <span class="st">&#39;chinese virus&#39;</span>, <span class="st">&#39;#chinesevirus&#39;</span>, <span class="st">&#39;wuhan virus&#39;</span>, <span class="st">&#39;#wuhanvirus&#39;</span>, <span class="st">&#39;kung flu&#39;</span>, <span class="st">&#39;#kungflu&#39;</span>, <span class="st">&#39;wearamask&#39;</span>, <span class="st">&#39;#wearamask&#39;</span>, <span class="st">&#39;wear a mask&#39;</span>, <span class="st">&#39;vaccine&#39;</span>, <span class="st">&#39;vaccines&#39;</span>, <span class="st">&#39;#vaccine&#39;</span>, <span class="st">&#39;#vaccines&#39;</span>, <span class="st">&#39;corona vaccine&#39;</span>, <span class="st">&#39;corona vaccines&#39;</span>, <span class="st">&#39;#coronavaccine&#39;</span>, <span class="st">&#39;#coronavaccines&#39;</span>, <span class="st">&#39;face shield&#39;</span>, <span class="st">&#39;#faceshield&#39;</span>, <span class="st">&#39;face shields&#39;</span>, <span class="st">&#39;#faceshields&#39;</span>, <span class="st">&#39;health worker&#39;</span>, <span class="st">&#39;#healthworker&#39;</span>, <span class="st">&#39;health workers&#39;</span>, <span class="st">&#39;#healthworkers&#39;</span>, <span class="st">&#39;#stayhomestaysafe&#39;</span>, <span class="st">&#39;#coronaupdate&#39;</span>, <span class="st">&#39;#frontlineheroes&#39;</span>, <span class="st">&#39;#coronawarriors&#39;</span>, <span class="st">&#39;#homeschool&#39;</span>, <span class="st">&#39;#homeschooling&#39;</span>, <span class="st">&#39;#hometasking&#39;</span>, <span class="st">&#39;#masks4all&#39;</span>, <span class="st">&#39;#wfh&#39;</span>, <span class="st">&#39;wash ur hands&#39;</span>, <span class="st">&#39;wash your hands&#39;</span>, <span class="st">&#39;#washurhands&#39;</span>, <span class="st">&#39;#washyourhands&#39;</span>, <span class="st">&#39;#stayathome&#39;</span>, <span class="st">&#39;#stayhome&#39;</span>, <span class="st">&#39;#selfisolating&#39;</span>, <span class="st">&#39;self isolating&#39;</span>)</span>
+<span id="cb3-2"><a href="data-transformation.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="data-transformation.html#cb3-3" aria-hidden="true" tabindex="-1"></a>tagging <span class="ot">&lt;-</span> <span class="cf">function</span>(df, cleaned_text) {</span>
+<span id="cb3-4"><a href="data-transformation.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb3-5"><a href="data-transformation.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (words <span class="cf">in</span> <span class="fu">str_split</span>(cleaned_text, <span class="st">&quot; &quot;</span>)) {</span>
+<span id="cb3-6"><a href="data-transformation.html#cb3-6" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">if_else</span>(<span class="fu">any</span>(words <span class="sc">%in%</span> tag), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb3-7"><a href="data-transformation.html#cb3-7" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> <span class="fu">append</span>(output, f)</span>
+<span id="cb3-8"><a href="data-transformation.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-9"><a href="data-transformation.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>ouput <span class="ot">&lt;-</span> output</span>
+<span id="cb3-10"><a href="data-transformation.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  filtered_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(output <span class="sc">==</span><span class="dv">1</span>) </span>
+<span id="cb3-11"><a href="data-transformation.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(filtered_df)</span>
+<span id="cb3-12"><a href="data-transformation.html#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="politicians-1" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Politicians</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-transformation.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_politicians.csv&quot;</span>)</span>
+<span id="cb4-2"><a href="data-transformation.html#cb4-2" aria-hidden="true" tabindex="-1"></a>cleaned_text <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df3<span class="sc">$</span>text)</span>
+<span id="cb4-3"><a href="data-transformation.html#cb4-3" aria-hidden="true" tabindex="-1"></a>data_politicians_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df3, cleaned_text)</span>
+<span id="cb4-4"><a href="data-transformation.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_politicians_filtered, <span class="st">&quot;./resources/data_politicians_filtered.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="medical-associations-1" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Medical Associations</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-transformation.html#cb5-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_medical.csv&quot;</span>)</span>
+<span id="cb5-2"><a href="data-transformation.html#cb5-2" aria-hidden="true" tabindex="-1"></a>cleaned_text2 <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df2<span class="sc">$</span>text)</span>
+<span id="cb5-3"><a href="data-transformation.html#cb5-3" aria-hidden="true" tabindex="-1"></a>data_medical_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df2, cleaned_text2)</span>
+<span id="cb5-4"><a href="data-transformation.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_medical_filtered, <span class="st">&quot;./resources/data_medical_filtered.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="celebrities-1" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Celebrities</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-transformation.html#cb6-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_celebrities.csv&quot;</span>)</span>
+<span id="cb6-2"><a href="data-transformation.html#cb6-2" aria-hidden="true" tabindex="-1"></a>cleaned_text3 <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df3<span class="sc">$</span>text)</span>
+<span id="cb6-3"><a href="data-transformation.html#cb6-3" aria-hidden="true" tabindex="-1"></a>data_celebrities_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df3, cleaned_text3)</span>
+<span id="cb6-4"><a href="data-transformation.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_celebrities_filtered, <span class="st">&quot;./resources/data_celebrities_filtered.csv&quot;</span>)</span></code></pre></div>
 
+</div>
 </div>
             </section>
 

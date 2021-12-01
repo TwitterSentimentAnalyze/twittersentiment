@@ -203,29 +203,34 @@ df_medical %>% filter(output == 1) -> filtered_df_medical
 nrow(filtered_df_medical)
 ```
 ====================newsmedia=======================
+```{r eval=FALSE}
+politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
+
+df_politicians <- data.frame()
+for (name in politicians) {
+  new <- get_timelines(name,
+                          n = 10000,
+                          since_id = '1238238576141352965', # 2020-03-12 23:00:56
+                          max_id = '1465010274029785092') # 2021-11-28 17:30:42
+  df_politicians <- rbind(new, df_politicians)
+}
+```
 
 ```{r eval=FALSE}
 newsmedia <- c("cnnbrk", "nytimes", "wsj", "time", "abc", "washingtonpost", "ap", "huffpost", "guardian","foxnews")
 
-temp <- data.frame()
-for (name in newsmedia){
-  line <- get_timelines(name, n=1)
-  temp <- rbind(line, temp)
-}
-```
-
-```{r}
-sorted_newsmedia_accounts <- temp %>% arrange(desc(followers_count)) 
-newsmedia <- sorted_newsmedia_accounts$screen_name[1:10] # top 10 newsmedia account
-
 df_newsmedia <- data.frame()
 for (name in newsmedia) {
-  new <- get_timelines(name, 
+  new <- get_timelines(name,
                           n = 10000,
                           since_id = '1238238576141352965', # 2020-03-12 23:00:56
                           max_id = '1465010274029785092') # 2021-11-28 17:30:42	  
   df_newsmedia <- rbind(new, df_newsmedia)
 }
+```
+```{r}
+asdf <- df_newsmedia %>% filter(screen_name == "ABC")
+nrow(asdf)
 ```
 
 ```{r}
