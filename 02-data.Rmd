@@ -1,11 +1,12 @@
 # Data sources
 
-We mainly focused on getting datasets for four different groups of influential people/organizations. We used Twitter API (rtweet) to extract user information. The four groups are politicians, medical associations, news media, and celebrities. For each group, we chose top 10 most-followed twitter accounts, and we attempted to extract 10,000 most recent tweets from each user with time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42. For the users that have less than 10,000 tweets in that time period, all their tweets are extracted.
+  Our dataset consists of tweets data collected by rtweet Twitter API. We mainly collected tweets for four groups of people/organizations: politicians, medical associations, news media, and celebrities. For each group, we chose top 10 most-followed twitter accounts and extracted 10,000 most recent tweets of each user within time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42. For the users that have less than 10,000 tweets during that time, all their tweets in the time range are collected.
 
-Each of us contributed to collecting dataset. Alex ~~, Elin ~~, Kevin found top 100 most influencial medical twitter accounts. (Ref: https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow)
+  All three of the team members contributed to collecting data. Alex ~, Elin ~, and Kevin found top 100 most-followed medical Twitter accounts. (Ref: https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow )
 
-The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, media, medical field, and celebrities and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet. 
-Also, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)
+  The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, media, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet. 
+  Also, another issue is that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Democrats have 4~10 times more followers than the Republicans, and this could result in one party's opinion influencing sentiment score more than the other.
+  In addition, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)
 
 
 ```{r, include=FALSE}
@@ -22,7 +23,7 @@ library(readr)
 library(rtweet)
 ```
 
-## politicians
+## Politicians
 ```{r eval=FALSE}
 politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
 
@@ -41,7 +42,7 @@ write_csv(df_politicians, "./resources/data_politicians.csv")
 ```
 
 
-## medical
+## Medical Associations
 ```{r eval=FALSE}
 medical <- c('AANP_News', 'allnurses', 'AmerMedicalAssn', 'American_Heart', 'amjnurs', 'RedCross', 'mindofandre', 'picardonhealth', 'andrewspong', 'PublicHealth', 'Atul_Gawande', 'Berci', 'ahier', 'mobilehealth', 'TheNerdyNurse', 'Doctor_V', 'CMichaelGibson', 'CDCgov', 'CDCemergency', 'ClevelandClinic', 'chasedave', 'ePatientDave', 'drwalker_rph', 'healthblawg', 'dlschermd', 'MSF_USA', 'donaldhackett', 'giasison', 'mtnmd', 'DrKevinCampbell', 'orenfu', 'drsanjaygupta', 'drseisenberg', 'EricTopol', 'FierceHealth', 'GavinPrestonMD', 'gnayyar', 'drhubaevaluator', 'chimoose', '2healthguru', 'HarvardHealth', 'Health_Affairs', 'HealthITNews', 'HealthLeaders', 'HHSGov', 'HIMSS', 'hjluks', 'JAMA_current', 'healthythinker', 'JohnNosta', 'HopkinsMedicine', 'KHNews', 'kentbottles', 'kevinmd', 'DrLeanaWen', 'LeeAase', 'DrLindseyFitz', 'lisagualtieri', 'MandiBPro', 'matthewherper', 'MayoClinic', 'MDAndersonNews', 'medcitynews', 'MedEconomics', 'medpagetoday', 'medscape', 'drmikesevilla', 'modrnhealthcr', 'NeilFlochMD', 'NEJM', 'NPRhealth', 'NurseGroups', 'michellekatzmsn', 'Nurse_com', 'ANANursingWorld', 'nursingtimes', 'NYTHealth', 'Paul_Sonnier', 'physicianspract', 'Reuters_Health', 'ReviewNursing', 'RichDuszak', 'sarahkliff', 'Cascadia', 'StJude', 'StanfordMed', 'SusannahFox', 'Docweighsin', 'THCBstaff', 'TheLancet', 'vmontori', 'futuredocs', 'WSJhealth', 'WebMD', 'HealthcareWen', 'WeNurses', 'WHO', 'ZDoggMD')
 
@@ -70,7 +71,7 @@ for (name in medical) {
 write_csv(df_medical, "./resources/data_medical.csv")
 ```
 
-## newsmedia
+## News Media
 ```{r eval=FALSE}
 newsmedia <- c("cnnbrk", "nytimes", "wsj", "time", "abc", "washingtonpost", "ap", "huffpost", "guardian","foxnews")
 
@@ -101,7 +102,7 @@ df_newsmedia$output <- output
 df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
 ```
 
-## celebrities
+## Celebrities
 ```{r eval=FALSE}
 celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
 
