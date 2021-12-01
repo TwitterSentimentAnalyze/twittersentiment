@@ -72,16 +72,16 @@ write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv"
 
 ## Medical Associations
 ```{r}
-df2 <- read_csv("./resources/data_newsmedia.csv")
+df2 <- read_csv("./resources/data_medical.csv")
 cleaned_text2 <- clean_tweets(df2$text)
-data_newsmedia_filtered <- tagging(df2, cleaned_text2)
-write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
+data_medical_filtered <- tagging(df2, cleaned_text2)
+write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
 ```
 
 ## Celebrities
 ```{r}
-df4 <- read_csv("./resources/data_celebrities.csv")
-cleaned_text4 <- clean_tweets(df4$text)
-data_celebrities_filtered <- tagging(df4, cleaned_text4)
+df3 <- read_csv("./resources/data_celebrities.csv")
+cleaned_text3 <- clean_tweets(df3$text)
+data_celebrities_filtered <- tagging(df3, cleaned_text3)
 write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv")
 ```
