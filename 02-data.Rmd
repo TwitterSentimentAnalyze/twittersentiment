@@ -20,13 +20,11 @@ library(ggnewscale)
 library(rtweet)
 library(sjmisc)
 library(readr)
-library(rtweet)
 ```
 
 ## Politicians
 ```{r eval=FALSE}
 politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
-
 df_politicians <- data.frame()
 for (name in politicians) {
   new <- get_timelines(name,
@@ -44,7 +42,6 @@ write_csv(df_politicians, "./resources/data_politicians.csv")
 ## Medical Associations
 ```{r eval=FALSE}
 medical <- c('AANP_News', 'allnurses', 'AmerMedicalAssn', 'American_Heart', 'amjnurs', 'RedCross', 'mindofandre', 'picardonhealth', 'andrewspong', 'PublicHealth', 'Atul_Gawande', 'Berci', 'ahier', 'mobilehealth', 'TheNerdyNurse', 'Doctor_V', 'CMichaelGibson', 'CDCgov', 'CDCemergency', 'ClevelandClinic', 'chasedave', 'ePatientDave', 'drwalker_rph', 'healthblawg', 'dlschermd', 'MSF_USA', 'donaldhackett', 'giasison', 'mtnmd', 'DrKevinCampbell', 'orenfu', 'drsanjaygupta', 'drseisenberg', 'EricTopol', 'FierceHealth', 'GavinPrestonMD', 'gnayyar', 'drhubaevaluator', 'chimoose', '2healthguru', 'HarvardHealth', 'Health_Affairs', 'HealthITNews', 'HealthLeaders', 'HHSGov', 'HIMSS', 'hjluks', 'JAMA_current', 'healthythinker', 'JohnNosta', 'HopkinsMedicine', 'KHNews', 'kentbottles', 'kevinmd', 'DrLeanaWen', 'LeeAase', 'DrLindseyFitz', 'lisagualtieri', 'MandiBPro', 'matthewherper', 'MayoClinic', 'MDAndersonNews', 'medcitynews', 'MedEconomics', 'medpagetoday', 'medscape', 'drmikesevilla', 'modrnhealthcr', 'NeilFlochMD', 'NEJM', 'NPRhealth', 'NurseGroups', 'michellekatzmsn', 'Nurse_com', 'ANANursingWorld', 'nursingtimes', 'NYTHealth', 'Paul_Sonnier', 'physicianspract', 'Reuters_Health', 'ReviewNursing', 'RichDuszak', 'sarahkliff', 'Cascadia', 'StJude', 'StanfordMed', 'SusannahFox', 'Docweighsin', 'THCBstaff', 'TheLancet', 'vmontori', 'futuredocs', 'WSJhealth', 'WebMD', 'HealthcareWen', 'WeNurses', 'WHO', 'ZDoggMD')
-
 temp <- data.frame()
 for (name in medical){
   line <- get_timelines(name, n=1)
@@ -55,7 +52,6 @@ for (name in medical){
 ```{r eval=FALSE}
 sorted_medical_accounts <- temp %>% arrange(desc(followers_count)) 
 medical <- sorted_medical_accounts$screen_name[1:10] # top 10 medical account
-
 df_medical <- data.frame()
 for (name in medical) {
   new <- get_timelines(name, 
@@ -73,7 +69,6 @@ write_csv(df_medical, "./resources/data_medical.csv")
 ## Celebrities
 ```{r eval=FALSE}
 celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
-
 df_celebrities <- data.frame()
 for (name in celebrities) {
   new <- get_timelines(name, 
@@ -87,4 +82,3 @@ for (name in celebrities) {
 ```{r eval=FALSE}
 write_csv(df_celebrities, "./resources/data_celebrities.csv")
 ```
-
