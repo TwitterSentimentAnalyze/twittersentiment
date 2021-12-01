@@ -233,16 +233,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="medical-associations-1" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Medical Associations</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-transformation.html#cb5-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_newsmedia.csv&quot;</span>)</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-transformation.html#cb5-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_medical.csv&quot;</span>)</span>
 <span id="cb5-2"><a href="data-transformation.html#cb5-2" aria-hidden="true" tabindex="-1"></a>cleaned_text2 <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df2<span class="sc">$</span>text)</span>
-<span id="cb5-3"><a href="data-transformation.html#cb5-3" aria-hidden="true" tabindex="-1"></a>data_newsmedia_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df2, cleaned_text2)</span>
-<span id="cb5-4"><a href="data-transformation.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_newsmedia_filtered, <span class="st">&quot;./resources/data_newsmedia_filtered.csv&quot;</span>)</span></code></pre></div>
+<span id="cb5-3"><a href="data-transformation.html#cb5-3" aria-hidden="true" tabindex="-1"></a>data_medical_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df2, cleaned_text2)</span>
+<span id="cb5-4"><a href="data-transformation.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_medical_filtered, <span class="st">&quot;./resources/data_medical_filtered.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="celebrities-1" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Celebrities</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-transformation.html#cb6-1" aria-hidden="true" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_celebrities.csv&quot;</span>)</span>
-<span id="cb6-2"><a href="data-transformation.html#cb6-2" aria-hidden="true" tabindex="-1"></a>cleaned_text4 <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df4<span class="sc">$</span>text)</span>
-<span id="cb6-3"><a href="data-transformation.html#cb6-3" aria-hidden="true" tabindex="-1"></a>data_celebrities_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df4, cleaned_text4)</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-transformation.html#cb6-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_celebrities.csv&quot;</span>)</span>
+<span id="cb6-2"><a href="data-transformation.html#cb6-2" aria-hidden="true" tabindex="-1"></a>cleaned_text3 <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df3<span class="sc">$</span>text)</span>
+<span id="cb6-3"><a href="data-transformation.html#cb6-3" aria-hidden="true" tabindex="-1"></a>data_celebrities_filtered <span class="ot">&lt;-</span> <span class="fu">tagging</span>(df3, cleaned_text3)</span>
 <span id="cb6-4"><a href="data-transformation.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(data_celebrities_filtered, <span class="st">&quot;./resources/data_celebrities_filtered.csv&quot;</span>)</span></code></pre></div>
 
 </div>
