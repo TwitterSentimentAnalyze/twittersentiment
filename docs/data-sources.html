@@ -142,16 +142,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#politicians"><i class="fa fa-check"></i><b>2.1</b> Politicians</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#medical-associations"><i class="fa fa-check"></i><b>2.2</b> Medical Associations</a></li>
-<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#news-media"><i class="fa fa-check"></i><b>2.3</b> News Media</a></li>
-<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#celebrities"><i class="fa fa-check"></i><b>2.4</b> Celebrities</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#celebrities"><i class="fa fa-check"></i><b>2.3</b> Celebrities</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-data-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for data cleaning</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#politicians-1"><i class="fa fa-check"></i><b>3.2</b> Politicians</a></li>
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#medical-associations-1"><i class="fa fa-check"></i><b>3.3</b> Medical Associations</a></li>
-<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#news-media-1"><i class="fa fa-check"></i><b>3.4</b> News Media</a></li>
-<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#celebrities-1"><i class="fa fa-check"></i><b>3.5</b> Celebrities</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#celebrities-1"><i class="fa fa-check"></i><b>3.4</b> Celebrities</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -179,9 +177,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>Our dataset consists of tweets data collected by rtweet Twitter API. We mainly collected tweets for four groups of people/organizations: politicians, medical associations, news media, and celebrities. For each group, we chose top 10 most-followed twitter accounts and extracted 10,000 most recent tweets of each user within time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42. For the users that have less than 10,000 tweets during that time, all their tweets in the time range are collected.</p>
-<p>All three of the team members contributed to collecting data. Alex ~, Elin ~, and Kevin found top 100 most-followed medical Twitter accounts. (Ref: <a href="https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow" class="uri">https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow</a> )</p>
-<p>The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, media, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet.
+<p>Our dataset consists of tweets data collected by rtweet Twitter API. We mainly collected tweets for three groups of people/organizations: politicians, medical associations, and celebrities. For each group, we chose top 10 most-followed twitter accounts and extracted 10,000 most recent tweets of each user within time range 2020-03-12 23:00:56 ~ 2021-11-28 17:30:42. For the users that have less than 10,000 tweets during that time, all their tweets in the time range are collected.</p>
+<p>All three of the team members contributed to collecting data. Alex ~, Elin ~, and Kevin found top 100 most-followed medical Twitter accounts. (Ref: <a href="https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow" class="uri">https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow</a>)</p>
+<p>The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet.
 Also, another issue is that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Democrats have 4~10 times more followers than the Republicans, and this could result in one party’s opinion influencing sentiment score more than the other.
 In addition, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-sources.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -227,43 +225,19 @@ In addition, there are numerous unnecessary or insignificant features in the dat
 <span id="cb5-11"><a href="data-sources.html#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-sources.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_medical, <span class="st">&quot;./resources/data_medical.csv&quot;</span>)</span></code></pre></div>
 </div>
-<div id="news-media" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> News Media</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-sources.html#cb7-1" aria-hidden="true" tabindex="-1"></a>newsmedia <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cnnbrk&quot;</span>, <span class="st">&quot;nytimes&quot;</span>, <span class="st">&quot;wsj&quot;</span>, <span class="st">&quot;time&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;washingtonpost&quot;</span>, <span class="st">&quot;ap&quot;</span>, <span class="st">&quot;huffpost&quot;</span>, <span class="st">&quot;guardian&quot;</span>,<span class="st">&quot;foxnews&quot;</span>)</span>
+<div id="celebrities" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Celebrities</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-sources.html#cb7-1" aria-hidden="true" tabindex="-1"></a>celebrities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;justinbieber&quot;</span>,<span class="st">&quot;katyperry&quot;</span>,<span class="st">&quot;rihanna&quot;</span>,<span class="st">&quot;taylorswift13&quot;</span>,<span class="st">&quot;arianagrande&quot;</span>,<span class="st">&quot;ladygaga&quot;</span>,<span class="st">&quot;TheEllenShow&quot;</span>,<span class="st">&quot;KimKardashian&quot;</span>,<span class="st">&quot;selenagomez&quot;</span>,<span class="st">&quot;elonmusk&quot;</span>)</span>
 <span id="cb7-2"><a href="data-sources.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="data-sources.html#cb7-3" aria-hidden="true" tabindex="-1"></a>df_newsmedia <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb7-4"><a href="data-sources.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> newsmedia) {</span>
+<span id="cb7-3"><a href="data-sources.html#cb7-3" aria-hidden="true" tabindex="-1"></a>df_celebrities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb7-4"><a href="data-sources.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> celebrities) {</span>
 <span id="cb7-5"><a href="data-sources.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  new <span class="ot">&lt;-</span> <span class="fu">get_timelines</span>(name, </span>
 <span id="cb7-6"><a href="data-sources.html#cb7-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n =</span> <span class="dv">10000</span>,</span>
 <span id="cb7-7"><a href="data-sources.html#cb7-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">since_id =</span> <span class="st">&#39;1238238576141352965&#39;</span>, <span class="co"># 2020-03-12 23:00:56</span></span>
 <span id="cb7-8"><a href="data-sources.html#cb7-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">max_id =</span> <span class="st">&#39;1465010274029785092&#39;</span>) <span class="co"># 2021-11-28 17:30:42   </span></span>
-<span id="cb7-9"><a href="data-sources.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  df_newsmedia <span class="ot">&lt;-</span> <span class="fu">rbind</span>(new, df_newsmedia)</span>
+<span id="cb7-9"><a href="data-sources.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  df_celebrities <span class="ot">&lt;-</span> <span class="fu">rbind</span>(new, df_celebrities)</span>
 <span id="cb7-10"><a href="data-sources.html#cb7-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-sources.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_newsmedia, <span class="st">&quot;./resources/data_newsmedia.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-sources.html#cb9-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb9-2"><a href="data-sources.html#cb9-2" aria-hidden="true" tabindex="-1"></a>cleaned_text <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df_newsmedia<span class="sc">$</span>text)</span>
-<span id="cb9-3"><a href="data-sources.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (words <span class="cf">in</span> <span class="fu">str_split</span>(cleaned_text, <span class="st">&quot; &quot;</span>)) {</span>
-<span id="cb9-4"><a href="data-sources.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">if_else</span>(<span class="fu">any</span>(words <span class="sc">%in%</span> tag), <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb9-5"><a href="data-sources.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">append</span>(output, f)</span>
-<span id="cb9-6"><a href="data-sources.html#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-7"><a href="data-sources.html#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="data-sources.html#cb9-8" aria-hidden="true" tabindex="-1"></a>df_newsmedia<span class="sc">$</span>output <span class="ot">&lt;-</span> output</span>
-<span id="cb9-9"><a href="data-sources.html#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="data-sources.html#cb9-10" aria-hidden="true" tabindex="-1"></a>df_newsmedia <span class="sc">%&gt;%</span> <span class="fu">filter</span>(output <span class="sc">==</span> <span class="dv">1</span>) <span class="ot">-&gt;</span> filtered_df_newsmedia</span></code></pre></div>
-</div>
-<div id="celebrities" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Celebrities</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-sources.html#cb10-1" aria-hidden="true" tabindex="-1"></a>celebrities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;justinbieber&quot;</span>,<span class="st">&quot;katyperry&quot;</span>,<span class="st">&quot;rihanna&quot;</span>,<span class="st">&quot;taylorswift13&quot;</span>,<span class="st">&quot;arianagrande&quot;</span>,<span class="st">&quot;ladygaga&quot;</span>,<span class="st">&quot;TheEllenShow&quot;</span>,<span class="st">&quot;KimKardashian&quot;</span>,<span class="st">&quot;selenagomez&quot;</span>,<span class="st">&quot;elonmusk&quot;</span>)</span>
-<span id="cb10-2"><a href="data-sources.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="data-sources.html#cb10-3" aria-hidden="true" tabindex="-1"></a>df_celebrities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb10-4"><a href="data-sources.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> celebrities) {</span>
-<span id="cb10-5"><a href="data-sources.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  new <span class="ot">&lt;-</span> <span class="fu">get_timelines</span>(name, </span>
-<span id="cb10-6"><a href="data-sources.html#cb10-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n =</span> <span class="dv">10000</span>,</span>
-<span id="cb10-7"><a href="data-sources.html#cb10-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">since_id =</span> <span class="st">&#39;1238238576141352965&#39;</span>, <span class="co"># 2020-03-12 23:00:56</span></span>
-<span id="cb10-8"><a href="data-sources.html#cb10-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">max_id =</span> <span class="st">&#39;1465010274029785092&#39;</span>) <span class="co"># 2021-11-28 17:30:42   </span></span>
-<span id="cb10-9"><a href="data-sources.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  df_celebrities <span class="ot">&lt;-</span> <span class="fu">rbind</span>(new, df_celebrities)</span>
-<span id="cb10-10"><a href="data-sources.html#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-sources.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_celebrities, <span class="st">&quot;./resources/data_celebrities.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-sources.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_celebrities, <span class="st">&quot;./resources/data_celebrities.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
