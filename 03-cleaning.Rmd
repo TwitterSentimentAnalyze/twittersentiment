@@ -8,6 +8,11 @@ tagging function selects the tweets that have at least one of the tags related t
 
 We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
 
+We then combined the three groups into a single dataframe with the group indicator column, and saved in data_combined_filtered.csv.
+By doing so, we could access the entire data from a single csv file.
+
+After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words pertaining to that sentiment. By making these columns, we are then able to move forward to creating 
+
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
 ```
@@ -19,13 +24,14 @@ library(ggnewscale)
 library(rtweet)
 library(sjmisc)
 library(readr)
-library(rtweet)
+library(tidytext)
+library(textdata)
 ```
 
 ## Functions for data cleaning
-```{r}
+```{r eval=FALSE}
 clean_tweets <- function(x) {
-  x %>%
+  x <- x %>%
     # Remove URLs
     str_remove_all(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)") %>%
     # Remove mentions e.g. "@my_account"
@@ -44,44 +50,129 @@ clean_tweets <- function(x) {
     str_trim("both") %>% 
     # remove unnecessary space
     str_replace_all("  "," ")
+  return(x)
 }
 ```
 
-```{r}
+```{r eval=FALSE}
 tag <- c('corona', '#corona', 'coronavirus', '#coronavirus', 'covid', '#covid', 'covid19', '#covid19', 'covid-19', '#covid-19', 'sarscov2', '#sarscov2', 'sars cov2', 'sars cov 2', 'covid_19', '#covid_19', '#ncov', 'ncov', '#ncov2019', 'ncov2019', '2019-ncov', '#2019-ncov', 'pandemic', '#pandemic #2019ncov', '2019ncov', 'quarantine', '#quarantine', 'flatten the curve', 'flattening the curve', '#flatteningthecurve', '#flattenthecurve', 'hand sanitizer', '#handsanitizer', '#lockdown', 'lockdown', 'social distancing', '#socialdistancing', 'work from home', '#workfromhome', 'working from home', '#workingfromhome', 'ppe', 'n95', '#ppe', '#n95', '#covidiots', 'covidiots', 'herd immunity', '#herdimmunity', 'pneumonia', '#pneumonia', 'chinese virus', '#chinesevirus', 'wuhan virus', '#wuhanvirus', 'kung flu', '#kungflu', 'wearamask', '#wearamask', 'wear a mask', 'vaccine', 'vaccines', '#vaccine', '#vaccines', 'corona vaccine', 'corona vaccines', '#coronavaccine', '#coronavaccines', 'face shield', '#faceshield', 'face shields', '#faceshields', 'health worker', '#healthworker', 'health workers', '#healthworkers', '#stayhomestaysafe', '#coronaupdate', '#frontlineheroes', '#coronawarriors', '#homeschool', '#homeschooling', '#hometasking', '#masks4all', '#wfh', 'wash ur hands', 'wash your hands', '#washurhands', '#washyourhands', '#stayathome', '#stayhome', '#selfisolating', 'self isolating')
 
-tagging <- function(df, cleaned_text) {
+tagging <- function(df) {
   output <- c()
-  for (words in str_split(cleaned_text, " ")) {
+  for (words in str_split(df$text, " ")) {
     f <- if_else(any(words %in% tag), 1, 0)
-    output <- append(output, f)
+    output <- append(f, output)
   }
-  df$ouput <- output
-  filtered_df <- df %>% filter(output ==1) 
-  return(filtered_df)
+  df$output <- output
+  df <- df %>% filter(output ==1) 
+  return(df)
 }
 ```
 
-## Politicians
-```{r}
-df3 <- read_csv("./resources/data_politicians.csv")
-cleaned_text <- clean_tweets(df3$text)
-data_politicians_filtered <- tagging(df3, cleaned_text)
+
+## Cleaning process
+```{r eval=FALSE}
+df <- read_csv("./resources/data_politicians.csv")
+df$text <- clean_tweets(as.character(df$text))
+data_politicians_filtered <- tagging(df)
 write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
-```
 
-## Medical Associations
-```{r}
 df2 <- read_csv("./resources/data_medical.csv")
-cleaned_text2 <- clean_tweets(df2$text)
-data_medical_filtered <- tagging(df2, cleaned_text2)
+df2$text <- clean_tweets(as.character(df2$text))
+data_medical_filtered <- tagging(df2)
 write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
+
+df3 <- read_csv("./resources/data_celebrities.csv")
+df3$text <- clean_tweets(as.character(df3$text))
+data_celebrities_filtered <- tagging(df3)
+write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv")
 ```
 
-## Celebrities
-```{r}
-df3 <- read_csv("./resources/data_celebrities.csv")
-cleaned_text3 <- clean_tweets(df3$text)
-data_celebrities_filtered <- tagging(df3, cleaned_text3)
-write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv")
+
+## Combining all three groups with indicator column
+```{r eval=FALSE}
+df_c <- read_csv("./resources/data_celebrities_filtered.csv")
+df_c$group <- "celebrities"
+output <- df_c
+
+df_m <- read_csv("./resources/data_medical_filtered.csv")
+df_m$group <- "medical"
+output <- rbind(output, df_m)
+
+df_p <- read_csv("./resources/data_politicians_filtered.csv")
+df_p$group <- "politicians"
+output <- rbind(output, df_p)
+```
+
+```{r eval=FALSE}
+write_csv(output, './resources/data_combined_filtered.csv')
+```
+
+```{r eval=FALSE}
+df_combined <- read_csv("./resources/data_combined_filtered.csv")
+```
+
+```{r eval=FALSE}
+df_combined <- df_combined %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count, group))
+
+df_combined[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score")] <- NA
+
+for(i in 1:nrow(df_combined)) {
+  tweets_data <- df_combined[i,] %>%
+    unnest_tokens(word, text) %>% # break down into individual words
+    filter(!nchar(word) < 3) %>% # remove words that are unnecessary, like exclamations
+    anti_join(stop_words) # need to remove stop words because they are also unnecessary
+  
+  tweets_nrc <- tweets_data %>% 
+    inner_join(get_sentiments("nrc")) %>% 
+    filter(!sentiment %in% c("positive", "negative"))
+
+  tweets_nrc_np <- tweets_data %>% 
+    inner_join(get_sentiments("nrc")) %>% 
+    filter(sentiment %in% c("positive", "negative")) %>% 
+    mutate(score = if_else(sentiment=="positive", 1, -1))
+  
+  sentiment_score <- sum(tweets_nrc_np$score) / nrow(tweets_nrc_np)
+  sentiments <- tweets_nrc %>%
+    group_by(sentiment, .drop = FALSE) %>%
+    summarise(word_count = n()) %>% 
+    ungroup()
+
+  if("joy" %in% sentiments$sentiment){
+    df_combined[i, "joy"] <- sentiments$word_count[which(sentiments$sentiment=="joy")]
+  }
+  if("trust" %in% sentiments$sentiment){
+    df_combined[i, "trust"] <- sentiments$word_count[which(sentiments$sentiment=="trust")]
+  }
+  if("anticipation" %in% sentiments$sentiment){
+    df_combined[i, "anticipation"] <- sentiments$word_count[which(sentiments$sentiment=="anticipation")]
+  }
+  if("sadness" %in% sentiments$sentiment){
+    df_combined[i, "sadness"] <- sentiments$word_count[which(sentiments$sentiment=="sadness")]
+  }
+  if("fear" %in% sentiments$sentiment){
+    df_combined[i, "fear"] <- sentiments$word_count[which(sentiments$sentiment=="fear")]
+  }
+  if("anger" %in% sentiments$sentiment){
+    df_combined[i, "anger"] <- sentiments$word_count[which(sentiments$sentiment=="anger")]
+  }
+  if("surprise" %in% sentiments$sentiment){
+    df_combined[i, "surprise"] <- sentiments$word_count[which(sentiments$sentiment=="surprise")]
+  }
+  if("disgust" %in% sentiments$sentiment){
+    df_combined[i, "disgust"] <- sentiments$word_count[which(sentiments$sentiment=="disgust")]
+  }
+  if(1 %in% tweets_nrc_np$score){
+    df_combined[i, "positive"] <- length(which(tweets_nrc_np$score == 1))
+  }
+  if(-1 %in% tweets_nrc_np$score){
+    df_combined[i, "negative"] <- length(which(tweets_nrc_np$score == -1))
+  }
+  
+  df_combined[i, "sentiment_score"] <- sentiment_score
+}
+```
+
+```{r eval=FALSE}
+write_csv(df_combined, "./resources/data_combined_filtered_sentiment.csv")
 ```

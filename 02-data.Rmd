@@ -20,7 +20,6 @@ library(ggnewscale)
 library(rtweet)
 library(sjmisc)
 library(readr)
-library(rtweet)
 ```
 
 ## Politicians

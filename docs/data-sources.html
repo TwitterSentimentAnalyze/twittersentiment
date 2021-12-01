@@ -21,10 +21,10 @@
   
   
 
-<meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
+<meta name="author" content="Sung Jun Won(sw3049), Hyo Won (Elin) Kim(hk3175), Alex Kita(ak4729)" />
 
 
-<meta name="date" content="2021-11-30" />
+<meta name="date" content="2021-12-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,14 +147,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-data-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for data cleaning</a></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#politicians-1"><i class="fa fa-check"></i><b>3.2</b> Politicians</a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#medical-associations-1"><i class="fa fa-check"></i><b>3.3</b> Medical Associations</a></li>
-<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#celebrities-1"><i class="fa fa-check"></i><b>3.4</b> Celebrities</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#cleaning-process"><i class="fa fa-check"></i><b>3.2</b> Cleaning process</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#combining-all-three-groups-with-indicator-column"><i class="fa fa-check"></i><b>3.3</b> Combining all three groups with indicator column</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.1</b> What were the sentimental reactions of different groups to Covid-19 news?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.2</b> Deep dive into reactions of politicians and news media:</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#stacked-barplot"><i class="fa fa-check"></i><b>7.1</b> Stacked Barplot</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#r-markdown"><i class="fa fa-check"></i><b>7.2</b> R Markdown</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -187,8 +195,7 @@ In addition, there are numerous unnecessary or insignificant features in the dat
 <span id="cb1-3"><a href="data-sources.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
 <span id="cb1-4"><a href="data-sources.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
 <span id="cb1-5"><a href="data-sources.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
-<span id="cb1-6"><a href="data-sources.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-7"><a href="data-sources.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span></code></pre></div>
+<span id="cb1-6"><a href="data-sources.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div>
 <div id="politicians" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Politicians</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-sources.html#cb2-1" aria-hidden="true" tabindex="-1"></a>politicians <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;BarackObama&#39;</span>,<span class="st">&#39;JoeBiden&#39;</span>,<span class="st">&#39;HillaryClinton&#39;</span>,<span class="st">&#39;KamalaHarris&#39;</span>,<span class="st">&#39;AOC&#39;</span>,<span class="st">&#39;Mike_Pence&#39;</span>,<span class="st">&#39;tedcruz&#39;</span>,<span class="st">&#39;marcorubio&#39;</span>,<span class="st">&#39;randpaul&#39;</span>,<span class="st">&#39;MittRomney&#39;</span>)</span>
