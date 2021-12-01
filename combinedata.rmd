@@ -1,0 +1,40 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(rtweet)
+```
+```{r}
+df_c <- read_csv("./resources/data_celebrities_filtered.csv")
+df_c$group <- "celebrities"
+output <- df_c
+
+df_m <- read_csv("./resources/data_medical_filtered.csv")
+df_m$group <- "medical"
+output <- rbind(output, df_m)
+
+df_nm <- read_csv("./resources/data_newsmedia_filtered.csv")
+df_nm$group <- "newsmedia"
+output <- rbind(output, df_nm)
+
+df_p <- read_csv("./resources/data_politicians_filtered.csv")
+df_p$group <- "politicians"
+output <- rbind(output, df_p)
+```
+
+```{r}
+count(output,group)
+```
+```{r}
+write_csv(output, './resources/data_combined_filtered.csv')
+```
+
+
