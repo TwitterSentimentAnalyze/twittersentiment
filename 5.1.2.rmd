@@ -16,20 +16,18 @@ library(textdata)
 
 
 ```{r}
-df_celebrities <- read_csv("./resources/data_celebrities_filtered.csv")
+df_celebrities <- read_csv("./resources/data_combined_filtered.csv")
 ```
 ```{r}
-df_celebrities <- df_celebrities %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count))
-
-df_celebrities
 ```
 ```{r}
 # Create new columns as placeholders
-df_celebrities[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score")] <- NA
 
 ```
 
 ```{r}
+df_celebrities <- df_celebrities %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count, group))
+df_celebrities[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score")] <- NA
 for(i in 1:nrow(df_celebrities)) {
   tweets_data <- df_celebrities[i,] %>%
     unnest_tokens(word, text) %>% # break down into individual words
@@ -88,7 +86,18 @@ for(i in 1:nrow(df_celebrities)) {
 df_celebrities
 ```
 ```{r}
-ggplot() + 
+write_csv(df_celebrities, "./resources/data_combined_filtered_sentiment.csv")
+```
+
+
+```{r}
+df_celebrities$created_at <- as.Date(df_celebrities$created_at)
+
+date_group <- df_celebrities %>% group_by(created_at, group)
+avg <- date_group %>% summarise(avg_sentiment = mean(sentiment_score)) 
+# avg <- avg %>% mutate(avg_sentiment = ifelse(is.na(avg_sentiment), 0, avg_sentiment))
+avg
+ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) + geom_smooth(method = "loess", span = .5, se = FALSE)
 ```
 
 
