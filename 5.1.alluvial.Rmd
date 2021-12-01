@@ -1,0 +1,79 @@
+---
+title: "5.1.alluvial"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(tidytext)
+library(textdata)
+library(vcd)
+library(ggalluvial)
+```
+
+```{r}
+df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+df <- df %>% filter(group != "newsmedia")
+df$created_at <- as.Date(df$created_at)
+# df2$date_group <-
+# q1 = c
+df$yearqtr <- paste(
+  format(df$created_at, "%Y"),
+  sprintf("%01i", (as.POSIXlt(df$created_at)$mon) %/% 3L + 1L), 
+  sep = " Q")
+df
+```
+
+
+```{r}
+colnames(df)
+```
+
+```{r}
+sentiment <- c("joy","trust","anticipation","sadness","fear","anger","surprise","disgust")
+# df2 <- df %>% select(joy,trust,anticipation,sadness,fear,anger,surprise,disgust)
+df[is.na(df)] <- 0
+df <- df %>% group_by(yearqtr, screen_name, group) %>% summarise(joy = mean(joy), trust=mean(trust),anticipation=mean(anticipation),
+                                       sadness = mean(sadness),fear = mean(fear),anger = mean(anger),surprise = mean(surprise),
+                                       disgust = mean(disgust))
+df$dom_sentiment <- colnames(df)[max.col(df[,sentiment], ties.method = "first")+3]
+```
+
+```{r}
+unique(df$dom_sentiment)
+```
+
+
+```{r}
+df %>% ggplot(aes(axis1 = group,
+                  axis2 = dom_sentiment,
+                  axis3 = dom_sentiment,
+                  axis4 = dom_sentiment,
+                  axis5 = dom_sentiment,
+                  axis6 = dom_sentiment,
+                  axis7 = dom_sentiment,
+                  axis8 = dom_sentiment,
+                  axis9 = dom_sentiment,
+                  x = yearqtr,
+                  stratum = dom_sentiment,
+                  fill = dom_sentiment,
+                  alluvium = screen_name,
+                  label = dom_sentiment)) +
+  geom_alluvium(aes(fill = group)) +
+  geom_stratum() +
+  # geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  theme(legend.position = "bottom") +
+  ggtitle("Sentiment Movement of Popular Twitter Accounts During COVID-19")
+
+```
+
+```{r}
+
+
+```
+
