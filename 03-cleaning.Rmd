@@ -1,14 +1,15 @@
 # Data transformation
+
 For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
 
 clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
 
 tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
 
-We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19. 
+We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
@@ -21,7 +22,7 @@ library(readr)
 library(rtweet)
 ```
 
-## Functions for cleaning
+## Functions for data cleaning
 ```{r}
 clean_tweets <- function(x) {
   x %>%
@@ -63,32 +64,32 @@ tagging <- function(df, cleaned_text) {
 
 ## Politicians
 ```{r}
-df1 <- read_csv("./resources/data_politicians.csv")
-cleaned_text <- clean_tweets(df1$text)
-data_politicians_filtered <- tagging(df1, cleaned_text)
+df3 <- read_csv("./resources/data_politicians.csv")
+cleaned_text <- clean_tweets(df3$text)
+data_politicians_filtered <- tagging(df3, cleaned_text)
 write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
 ```
 
-## Medical
+## Medical Associations
 ```{r}
-df2 <- read_csv("./resources/data_medical.csv")
-cleaned_text <- clean_tweets(df2$text)
-data_medical_filtered <- tagging(df2, cleaned_text)
-write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
+df2 <- read_csv("./resources/data_newsmedia.csv")
+cleaned_text2 <- clean_tweets(df2$text)
+data_newsmedia_filtered <- tagging(df2, cleaned_text2)
+write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
 ```
 
-## New Media
+## News Media
 ```{r}
-df3 <- read_csv("./resources/data_newsmedia.csv")
-cleaned_text <- clean_tweets(df3$text)
-data_newsmedia_filtered <- tagging(df3, cleaned_text)
-write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
+df <- read_csv("./resources/data_medical.csv")
+cleaned_text3 <- clean_tweets(df$text)
+data_medical_filtered <- tagging(df, cleaned_text3)
+write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
 ```
 
 ## Celebrities
 ```{r}
 df4 <- read_csv("./resources/data_celebrities.csv")
-cleaned_text <- clean_tweets(df4$text)
-data_celebrities_filtered <- tagging(df4, cleaned_text)
-write_csv(df_celebrities, "./resources/data_celebrities_filtered.csv")
+cleaned_text4 <- clean_tweets(df4$text)
+data_celebrities_filtered <- tagging(df4, cleaned_text4)
+write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv")
 ```
