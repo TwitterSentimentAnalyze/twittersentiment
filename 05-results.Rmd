@@ -1,5 +1,8 @@
 # Results
 
+## What were the sentimental reactions of different groups to Covid-19 news?
+- Ratio of covid-related post / total post
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -13,6 +16,8 @@ library(dplyr)
 library(ggpubr)
 ```
 
+
+### Stacked Barplot
 ```{r, fig.height=10, fig.width=10}
 df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 
@@ -59,3 +64,11 @@ figure <- ggarrange(plot_p, plot_m, plot_c,
 figure
 
 ```
+
+
+## Deep dive into reactions of politicians and news media: 
+- Relationship between political stance and reactions
+
+
+## Deep dive into correlations of key metrics and sentiments:
+- Do retweet/likes/reply have any correlation with certain sentiments?

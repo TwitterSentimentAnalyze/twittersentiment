@@ -151,7 +151,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#combining-all-three-groups-with-indicator-column"><i class="fa fa-check"></i><b>3.3</b> Combining all three groups with indicator column</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.1</b> What were the sentimental reactions of different groups to Covid-19 news?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#stacked-barplot"><i class="fa fa-check"></i><b>5.1.1</b> Stacked Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.2</b> Deep dive into reactions of politicians and news media:</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
@@ -176,12 +184,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
+<div id="what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> What were the sentimental reactions of different groups to Covid-19 news?</h2>
+<ul>
+<li>Ratio of covid-related post / total post</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="results.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="results.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="results.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
 <span id="cb1-4"><a href="results.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span>
 <span id="cb1-5"><a href="results.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-6"><a href="results.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div>
+<div id="stacked-barplot" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Stacked Barplot</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="results.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_combined_filtered_sentiment.csv&quot;</span>)</span>
 <span id="cb2-2"><a href="results.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="results.html#cb2-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>created_at <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>created_at)</span>
@@ -226,7 +241,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-42"><a href="results.html#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-43"><a href="results.html#cb2-43" aria-hidden="true" tabindex="-1"></a>figure</span></code></pre></div>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+</div>
+</div>
+<div id="deep-dive-into-reactions-of-politicians-and-news-media" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Deep dive into reactions of politicians and news media:</h2>
+<ul>
+<li>Relationship between political stance and reactions</li>
+</ul>
+</div>
+<div id="deep-dive-into-correlations-of-key-metrics-and-sentiments" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Deep dive into correlations of key metrics and sentiments:</h2>
+<ul>
+<li>Do retweet/likes/reply have any correlation with certain sentiments?</li>
+</ul>
 
+</div>
 </div>
             </section>
 
