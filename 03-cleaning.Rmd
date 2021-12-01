@@ -1,6 +1,12 @@
 # Data transformation
 
+For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
 
+clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
+
+tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
+
+We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
@@ -16,75 +22,66 @@ library(readr)
 library(rtweet)
 ```
 
-====================politicians=======================
+## Functions for data cleaning
 ```{r}
-df_politicians <- read_csv("./resources/data_politicians.csv")
-```
-
-```{r}
-output <- c()
-cleaned_text <- clean_tweets(df_politicians$text)
-for (words in str_split(cleaned_text, " ")) {
-  f <- if_else(any(words %in% tag), 1, 0)
-  output <- append(output, f)
+clean_tweets <- function(x) {
+  x %>%
+    # Remove URLs
+    str_remove_all(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)") %>%
+    # Remove mentions e.g. "@my_account"
+    str_remove_all("@[[:alnum:]_]{4,}") %>%
+    # Replace "&" character reference with "and"
+    str_replace_all("&amp;", "and") %>%
+    # Remove punctuation, using a standard character class
+    str_remove_all("[[:punct:]]") %>%
+    # Remove "RT: " from beginning of retweets
+    str_remove_all("^RT:? ") %>%
+    # Replace any newline characters with a space
+    str_replace_all("\\\n", " ") %>%
+    # Make everything lowercase
+    str_to_lower() %>%
+    # Remove any trailing whitespace around the text
+    str_trim("both") %>% 
+    # remove unnecessary space
+    str_replace_all("  "," ")
 }
-
-df_politicians$output <- output
-
-df_politicians %>% filter(output == 1) -> filtered_df_politicians
-```
-
-====================medical=======================
-```{r}
-df_medical <- read_csv("./resources/data_medical.csv")
 ```
 
 ```{r}
-output <- c()
-cleaned_text <- clean_tweets(df_medical$text)
-for (words in str_split(cleaned_text, " ")) {
-  f <- if_else(any(words %in% tag), 1, 0)
-  output <- append(output, f)
+tag <- c('corona', '#corona', 'coronavirus', '#coronavirus', 'covid', '#covid', 'covid19', '#covid19', 'covid-19', '#covid-19', 'sarscov2', '#sarscov2', 'sars cov2', 'sars cov 2', 'covid_19', '#covid_19', '#ncov', 'ncov', '#ncov2019', 'ncov2019', '2019-ncov', '#2019-ncov', 'pandemic', '#pandemic #2019ncov', '2019ncov', 'quarantine', '#quarantine', 'flatten the curve', 'flattening the curve', '#flatteningthecurve', '#flattenthecurve', 'hand sanitizer', '#handsanitizer', '#lockdown', 'lockdown', 'social distancing', '#socialdistancing', 'work from home', '#workfromhome', 'working from home', '#workingfromhome', 'ppe', 'n95', '#ppe', '#n95', '#covidiots', 'covidiots', 'herd immunity', '#herdimmunity', 'pneumonia', '#pneumonia', 'chinese virus', '#chinesevirus', 'wuhan virus', '#wuhanvirus', 'kung flu', '#kungflu', 'wearamask', '#wearamask', 'wear a mask', 'vaccine', 'vaccines', '#vaccine', '#vaccines', 'corona vaccine', 'corona vaccines', '#coronavaccine', '#coronavaccines', 'face shield', '#faceshield', 'face shields', '#faceshields', 'health worker', '#healthworker', 'health workers', '#healthworkers', '#stayhomestaysafe', '#coronaupdate', '#frontlineheroes', '#coronawarriors', '#homeschool', '#homeschooling', '#hometasking', '#masks4all', '#wfh', 'wash ur hands', 'wash your hands', '#washurhands', '#washyourhands', '#stayathome', '#stayhome', '#selfisolating', 'self isolating')
+
+tagging <- function(df, cleaned_text) {
+  output <- c()
+  for (words in str_split(cleaned_text, " ")) {
+    f <- if_else(any(words %in% tag), 1, 0)
+    output <- append(output, f)
+  }
+  df$ouput <- output
+  filtered_df <- df %>% filter(output ==1) 
+  return(filtered_df)
 }
-
-df_medical$output <- output
-
-df_medical %>% filter(output == 1) -> filtered_df_medical
 ```
 
-====================newsmedia=======================
+## Politicians
 ```{r}
-df_newsmedia <- read_csv("./resources/data_newsmedia.csv")
+df3 <- read_csv("./resources/data_politicians.csv")
+cleaned_text <- clean_tweets(df3$text)
+data_politicians_filtered <- tagging(df3, cleaned_text)
+write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
 ```
 
+## Medical Associations
 ```{r}
-output <- c()
-cleaned_text <- clean_tweets(df_newsmedia$text)
-for (words in str_split(cleaned_text, " ")) {
-  f <- if_else(any(words %in% tag), 1, 0)
-  output <- append(output, f)
-}
-
-df_newsmedia$output <- output
-
-df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
+df2 <- read_csv("./resources/data_medical.csv")
+cleaned_text2 <- clean_tweets(df2$text)
+data_medical_filtered <- tagging(df2, cleaned_text2)
+write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
 ```
 
-====================celebrities=======================
+## Celebrities
 ```{r}
-df_celebrities <- read_csv("./resources/data_celebrities.csv")
+df3 <- read_csv("./resources/data_celebrities.csv")
+cleaned_text3 <- clean_tweets(df3$text)
+data_celebrities_filtered <- tagging(df3, cleaned_text3)
+write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv")
 ```
-
-```{r}
-output <- c()
-cleaned_text <- clean_tweets(df_celebrities$text)
-for (words in str_split(cleaned_text, " ")) {
-  f <- if_else(any(words %in% tag), 1, 0)
-  output <- append(output, f)
-}
-
-df_celebrities$output <- output
-
-df_celebrities %>% filter(output == 1) -> filtered_df_celebrities
-```
-
