@@ -7,7 +7,6 @@ All three of the team members contributed to collecting data. Alex ~~, Elin ~~, 
 Main issue we faced when collecting data was that there was no API that allows us to find top x most-followed accounts for specific group of people/organizations. Thus, we had to manually look for twitter accounts listed in Twitter Statistics websites such as SocialBlade. For medical associations, we had to narrow down the top 100 most-followed accounts to top 10 using # of followers provided by get_timelines function in rtweet. 
 Also, another issue is that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Democrats have 4~10 times more followers than the Republicans, and this could result in one party's opinion influencing sentiment score more than the other. 
 
-
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE) 
 ```
@@ -22,7 +21,7 @@ library(readr)
 library(rtweet)
 ```
 
-## politicians
+## Politicians
 ```{r eval=FALSE}
 politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
 
@@ -41,7 +40,7 @@ write_csv(df_politicians, "./resources/data_politicians.csv")
 ```
 
 
-## medical
+## Medical Associations
 ```{r eval=FALSE}
 medical <- c('AANP_News', 'allnurses', 'AmerMedicalAssn', 'American_Heart', 'amjnurs', 'RedCross', 'mindofandre', 'picardonhealth', 'andrewspong', 'PublicHealth', 'Atul_Gawande', 'Berci', 'ahier', 'mobilehealth', 'TheNerdyNurse', 'Doctor_V', 'CMichaelGibson', 'CDCgov', 'CDCemergency', 'ClevelandClinic', 'chasedave', 'ePatientDave', 'drwalker_rph', 'healthblawg', 'dlschermd', 'MSF_USA', 'donaldhackett', 'giasison', 'mtnmd', 'DrKevinCampbell', 'orenfu', 'drsanjaygupta', 'drseisenberg', 'EricTopol', 'FierceHealth', 'GavinPrestonMD', 'gnayyar', 'drhubaevaluator', 'chimoose', '2healthguru', 'HarvardHealth', 'Health_Affairs', 'HealthITNews', 'HealthLeaders', 'HHSGov', 'HIMSS', 'hjluks', 'JAMA_current', 'healthythinker', 'JohnNosta', 'HopkinsMedicine', 'KHNews', 'kentbottles', 'kevinmd', 'DrLeanaWen', 'LeeAase', 'DrLindseyFitz', 'lisagualtieri', 'MandiBPro', 'matthewherper', 'MayoClinic', 'MDAndersonNews', 'medcitynews', 'MedEconomics', 'medpagetoday', 'medscape', 'drmikesevilla', 'modrnhealthcr', 'NeilFlochMD', 'NEJM', 'NPRhealth', 'NurseGroups', 'michellekatzmsn', 'Nurse_com', 'ANANursingWorld', 'nursingtimes', 'NYTHealth', 'Paul_Sonnier', 'physicianspract', 'Reuters_Health', 'ReviewNursing', 'RichDuszak', 'sarahkliff', 'Cascadia', 'StJude', 'StanfordMed', 'SusannahFox', 'Docweighsin', 'THCBstaff', 'TheLancet', 'vmontori', 'futuredocs', 'WSJhealth', 'WebMD', 'HealthcareWen', 'WeNurses', 'WHO', 'ZDoggMD')
 
@@ -70,7 +69,7 @@ for (name in medical) {
 write_csv(df_medical, "./resources/data_medical.csv")
 ```
 
-## newsmedia
+## News Media
 ```{r eval=FALSE}
 newsmedia <- c("cnnbrk", "nytimes", "wsj", "time", "abc", "washingtonpost", "ap", "huffpost", "guardian","foxnews")
 
@@ -101,7 +100,7 @@ df_newsmedia$output <- output
 df_newsmedia %>% filter(output == 1) -> filtered_df_newsmedia
 ```
 
-## celebrities
+## Celebrities
 ```{r eval=FALSE}
 celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
 
