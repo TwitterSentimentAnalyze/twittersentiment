@@ -1,0 +1,44 @@
+---
+title: '5.2'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(rtweet)
+```
+
+```{r}
+df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+```
+```{r}
+republican = c('Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
+democratic = c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC')
+
+df %>% mutate (party = if_else(tolower(screen_name) %in% tolower(republican), "republican", if_else(tolower(screen_name) %in% tolower(democratic),"democratic","NA"))) %>% filter(group == "politicians") -> df
+```
+
+
+```{r}
+df$created_at <- as.Date(df$created_at)
+
+date_group <- df %>% group_by(created_at, screen_name, group, party)
+avg <- date_group %>% summarise(avg_sentiment = mean(sentiment_score)) 
+# avg <- avg %>% mutate(avg_sentiment = ifelse(is.na(avg_sentiment), 0, avg_sentiment))
+
+```
+
+```{r}
+avg %>% filter(group == "politicians") -> avg
+
+avg
+ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) + geom_smooth(method = "loess", span = .5, se = FALSE)
+
+
+```
+
