@@ -21,6 +21,8 @@ republican = c('Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
 democratic = c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC')
 
 df %>% mutate (party = if_else(tolower(screen_name) %in% tolower(republican), "republican", if_else(tolower(screen_name) %in% tolower(democratic),"democratic","NA"))) %>% filter(group == "politicians") -> df
+
+
 ```
 
 
@@ -35,10 +37,29 @@ avg <- date_group %>% summarise(avg_sentiment = mean(sentiment_score))
 
 ```{r}
 avg %>% filter(group == "politicians") -> avg
-
 avg
-ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) + geom_smooth(method = "loess", span = .5, se = FALSE)
-
 
 ```
+```{R}
+date_range <- which(avg$created_at %in% as.Date(c("2020-10-01", "2020-12-01", "2020-07-01", "2021-04-01"))) 
 
+ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) + 
+  geom_smooth(method = "loess", span = .5, se = FALSE) +
+  scale_x_date(date_labels = "%Y %b", date_breaks = "1 month") +
+  theme(axis.text.x=element_text(angle=60, hjust=1)) +
+  xlab("Tweet Date") +
+  ggtitle("Twitter Sentiments of Politicians") +
+  ylab("Avg. Sentiment Score") + 
+  geom_vline(xintercept = as.numeric(avg$created_at[date_range]), color = "black", linetype = "dotdash") +
+  geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "Trump tested positive",color="republican")) +
+  geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "1st vaccine authorized",color="republican")) +
+  geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "2nd wave",color="republican")) +
+  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "200+M vaccine administered",color="democratic"))
+  
+
+```
+  
+  
+
+
+  
