@@ -1,1 +1,61 @@
 # Results
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(tidytext)
+library(textdata)
+library(dplyr)
+library(ggpubr)
+```
+
+```{r, fig.height=10, fig.width=10}
+df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+
+df$created_at <- as.Date(df$created_at)
+
+df$yearqtr <- paste(
+  format(df$created_at, "%Y"),
+  sprintf("%01i", (as.POSIXlt(df$created_at)$mon) %/% 3L + 1L), 
+  sep = " Q")
+
+df <- df %>% select(c(group, yearqtr, joy, trust, anticipation, sadness, fear, anger, surprise, disgust)) 
+
+df[is.na(df)] <- 0
+
+df_p <- df %>% filter(group == "politicians") 
+df_m <- df %>% filter(group == "medical")
+df_c <- df %>% filter(group == "celebrities")
+
+df_p_qtr <- df_p %>% group_by(yearqtr) %>% dplyr::summarise(across(where(is.numeric), sum))
+df_m_qtr <- df_m %>% group_by(yearqtr) %>% dplyr::summarise(across(where(is.numeric), sum))
+df_c_qtr <- df_c %>% group_by(yearqtr) %>% dplyr::summarise(across(where(is.numeric), sum))
+
+sent_cols <- c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust")
+
+sents_p <- df_p_qtr %>% 
+  gather(variable, value, -yearqtr)
+sents_m <- df_m_qtr %>% 
+  gather(variable, value, -yearqtr)
+sents_c <- df_c_qtr %>% 
+  gather(variable, value, -yearqtr)
+
+plot_p <- ggplot(sents_p, aes(fill=variable, y=value, x=yearqtr)) + 
+    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
+plot_m <- ggplot(sents_m, aes(fill=variable, y=value, x=yearqtr)) +
+    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
+plot_c <- ggplot(sents_c, aes(fill=variable, y=value, x=yearqtr)) + 
+    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
+
+figure <- ggarrange(plot_p, plot_m, plot_c,
+                    labels = c("Politicians", "Medical Associations", "Celebrities"),
+                    common.legend = TRUE, legend="bottom",
+                    ncol = 2, nrow = 2)
+
+figure
+
+```
