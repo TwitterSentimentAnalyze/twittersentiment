@@ -106,3 +106,5 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) + geom_smooth(
 
 
 
+
+
