@@ -78,14 +78,6 @@ data_newsmedia_filtered <- tagging(df2, cleaned_text2)
 write_csv(data_newsmedia_filtered, "./resources/data_newsmedia_filtered.csv")
 ```
 
-## News Media
-```{r}
-df <- read_csv("./resources/data_medical.csv")
-cleaned_text3 <- clean_tweets(df$text)
-data_medical_filtered <- tagging(df, cleaned_text3)
-write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
-```
-
 ## Celebrities
 ```{r}
 df4 <- read_csv("./resources/data_celebrities.csv")
