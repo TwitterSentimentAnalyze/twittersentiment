@@ -16,8 +16,8 @@ library(forcats)
 
 
 ```{r}
-df <- read.csv('./resources/data_combined_filtered.csv')
-df <- df %>% filter(group != 'newsmedia') %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count, group))
+df <- read.csv('./resources/data_combined_filtered_sentiment.csv')
+
 ```
 
 ```{r}
@@ -32,5 +32,9 @@ ggplot(df, aes(x=reorder(group, -followers_count), y= followers_count/1000000000
   ylab("Followers Count (in billion)") +
   xlab("Group") +
   geom_text(aes(label=comma(followers_count)), vjust=2)
+```
+
+```{r}
+
 ```
 

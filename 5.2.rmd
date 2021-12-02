@@ -54,11 +54,12 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
   geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "Trump tested positive",color="republican")) +
   geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "1st vaccine authorized",color="republican")) +
   geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "2nd wave",color="republican")) +
-  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "200+M vaccine administered",color="democratic"))
+  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "200+M vaccine administered",color="republican"))
   
 
 ```
-  
+
+  It seems that both parties are moving in the general same direction although the magnitude is different. It is reasonable to observe that politicians from both parties react similarly for the same news. 
   
 
 
