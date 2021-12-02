@@ -107,120 +107,49 @@ plot_missing <- function(data, percent) {
 }
 ```
 
-Our dataset contains top 50 most followed twitter users. We are mainly concerned with the tweets regarding COVID-19, so we set various tags to filter out the tweets containing at least one of the tags.
 ```{r}
-names <- c('BarackObama', 'justinbieber', 'ArianaGrande', 'ladygaga', 'YouTube', 'KimKardashian', 'elonmusk', 'Twitter', 'BillGates', 'CNN', 'ddlovato', 'nytimes', 'NASA', 'BBCBreaking', 'KylieJenner', 'wizkhalifa', 'LilTunechi', 'NBA', 'POTUS', 'Pink', 'JoeBiden', 'NFL', 'AmitShah', 'WhiteHouse', 'danieltosh', 'AnushkaSharma', 'davidguetta', 'SnoopDogg', 'WSJ', 'KamalaHarris', 'SpaceX', 'VancityReynolds', 'Forbes', 'ABC', 'RobertDowneyJr', 'FLOTUS', 'TheRock', 'AP', 'RyanSeacrest', 'UN', 'BigSean', 'johnlegend', 'netflix', 'FortniteGame', 'JohnCena', 'cnni', 'AOC', 'Marvel', 'enews')
-
-tag <- c('corona', '#corona', 'coronavirus', '#coronavirus', 'covid', '#covid', 'covid19', '#covid19', 'covid-19', '#covid-19', 'sarscov2', '#sarscov2', 'sars cov2', 'sars cov 2', 'covid_19', '#covid_19', '#ncov', 'ncov', '#ncov2019', 'ncov2019', '2019-ncov', '#2019-ncov', 'pandemic', '#pandemic #2019ncov', '2019ncov', 'quarantine', '#quarantine', 'flatten the curve', 'flattening the curve', '#flatteningthecurve', '#flattenthecurve', 'hand sanitizer', '#handsanitizer', '#lockdown', 'lockdown', 'social distancing', '#socialdistancing', 'work from home', '#workfromhome', 'working from home', '#workingfromhome', 'ppe', 'n95', '#ppe', '#n95', '#covidiots', 'covidiots', 'herd immunity', '#herdimmunity', 'pneumonia', '#pneumonia', 'chinese virus', '#chinesevirus', 'wuhan virus', '#wuhanvirus', 'kung flu', '#kungflu', 'wearamask', '#wearamask', 'wear a mask', 'vaccine', 'vaccines', '#vaccine', '#vaccines', 'corona vaccine', 'corona vaccines', '#coronavaccine', '#coronavaccines', 'face shield', '#faceshield', 'face shields', '#faceshields', 'health worker', '#healthworker', 'health workers', '#healthworkers', '#stayhomestaysafe', '#coronaupdate', '#frontlineheroes', '#coronawarriors', '#homeschool', '#homeschooling', '#hometasking', '#masks4all', '#wfh', 'wash ur hands', 'wash your hands', '#washurhands', '#washyourhands', '#stayathome', '#stayhome', '#selfisolating', 'self isolating')
-```
-
-We collected 200 most recent tweets from top 50 users and chose the tweets that have at least one of the tags in them.
-```{r eval=FALSE}
-write_df <- data.frame()
-for (name in names){
-  new <- get_timelines(name, n=200)
-  write_df <- rbind(new, write_df)
-}
-write_csv(write_df, "./resources/data.csv")
-```
-
-Get the tweet data from the csv file.
-```{r}
-df <- read_csv('./resources/data.csv')
-```
-
-We define the function that cleans the tweet data.
-Reference: https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r
-```{r}
-clean_tweets <- function(x) {
-  x %>%
-    # Remove URLs
-    str_remove_all(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)") %>%
-    # Remove mentions e.g. "@my_account"
-    str_remove_all("@[[:alnum:]_]{4,}") %>%
-    # Replace "&" character reference with "and"
-    str_replace_all("&amp;", "and") %>%
-    # Remove punctuation, using a standard character class
-    str_remove_all("[[:punct:]]") %>%
-    # Remove "RT: " from beginning of retweets
-    str_remove_all("^RT:? ") %>%
-    # Replace any newline characters with a space
-    str_replace_all("\\\n", " ") %>%
-    # Make everything lowercase
-    str_to_lower() %>%
-    # Remove any trailing whitespace around the text
-    str_trim("both") %>% 
-    # remove unnecessary space
-    str_replace_all("  "," ")
-}
-```
-
-Clean the tweet data and extract the tweets that contains COVID related tags.
-```{r}
-output <- c()
-cleaned_text <- clean_tweets(df$text)
-for (words in str_split(cleaned_text, " ")) {
-  f <- if_else(any(words %in% tag), 1, 0)
-  output <- append(output, f)
-}
-
-df$output <- output
-
-df %>% filter(output == 1) -> df2
-```
-
-After filtering, there are total of 403 rows (tweets).
-```{r}
-nrow(df2)
+df_combined <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 ```
 
 Then we checked how many missing values each column has.
 ```{r}
-df2 %>% summarise_all(funs(sum(is.na(.))))
+df_combined %>% summarise_all(funs(sum(is.na(.))))
 ```
 
 ```{r, fig.width=10, fig.height=10}
-plot_missing(df2, percent = TRUE)
-plot_missing(df2, percent = FALSE)
+plot_missing(df_combined, percent = TRUE)
+plot_missing(df_combined, percent = FALSE)
 ```
 
-It is hard to draw any significant conclusion from columns that have more than 95% of entries with missing values.
-Thus, we decided to remove all columns that have NA in more than 95% of entries.
-```{r}
-df3 <- df2 %>% select(which(colMeans(is.na(.)) <= 0.95))
+It is hard to draw any significant conclusion from columns that have more than 90% of entries with missing values. Thus, we decided to remove all columns that have NA in more than 90% of entries. As a matter of fact, "quote_count" and "reply_count" columns have 100% of the entries with NA, so they will be removed from this filtering. 
 
-df3
+```{r}
+df <- df_combined %>% select(which(colMeans(is.na(.)) <= 0.9))
+```
+
+Also, there are 33 rows that have NA for text, which is the tweet. We can't perform any sentiment analysis on rows that have no tweet, so we are removing those 33 rows.
+
+```{r}
+df <- df %>% drop_na(text)
+```
+
+Also, we want to remove the rows that have NA for all the sentiments - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative. Having NA for all 8 sentiments mean that the tweet doesn't contain any information to perform sentiment analysis, so we should remove those rows.
+
+```{r}
+
+df <- df[!apply(is.na(df[,c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")]), 1, all),]
+```
+In addition, for sentiment columns - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative - we want to replace NAs with 0s because NA in those columns means that the tweet didn't contain any word that pertains to those sentiments. Having 0s in place of NAs will ensure that all the sentiment columns have valid number entries, 0 meaning no count. 
+```{r}
+df[c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")][is.na(df[c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")])] <- 0
 ```
 
 ```{r}
-df3 %>% summarise_all(funs(sum(is.na(.))))
+df %>% summarise_all(funs(sum(is.na(.))))
 ```
 
 ```{r, fig.width=10, fig.height=10}
-plot_missing(df3, percent = TRUE)
-plot_missing(df3, percent = FALSE)
+plot_missing(df, percent = TRUE)
+plot_missing(df, percent = FALSE)
 ```
-
-We can observe that columns [retweet_status_id, retweet_text, retweet_created_at, retweet_source, retweet_favorite_count, retweet_retweet_count, retweet_user_id, retweet_screen_name, retweet_name, retweet_followers_count, retweet_friends_count, retweet_statuses_count, retweet_verified] all have 365 missing values, meaning they all have correlations to each other. They have equal number of missing values and there are 365 out of 405 tweets that have those column values missing, so we can assume that most twitter users don't retweet the tweets regarding COVID. 
-Also, columns [reply_to_user_id, reply_to_screen_name] have 384 values missing. These two columns are correlated to each other. Having 384 out of 405 entries missing indicates that most of the tweets regarding COVID are original posts, not replies to other posts. 
-Column location has 78 missing values, which is approximately 25% of the 405 total entries. It seems that majority of the tweets regarding COVID have locations indicated, but it is at users' discretion. Moreover, column profile_background_url has 48 missing values, which is approximately 12% of 405. The low proportion of missing values indicates that most users have profile background url posted, but it is also up to users' choice.
-
-There are still many columns that are not very significant for our final project's purpose, even some columns that have no missing values. Thus, we trimmed down the number of columns further.
-Columns such as [source, display_text_width, reply_to_user_id, reply_to_screen_name, is_quote, is_retweet, retweet_status_id, retweet_text, retweet_created_at, retweet_source, retweet_favorite_count, retweet_retweet_count, retweet_user_id, retweet_screen_name, retweet_name, retweet_followers_count, retweet_friends_count, retweet_statuses_count, retweet_location, retweet_description, retweet_verified, status_url, url, protected, profile_url, profile_expanded_url, profile_banner_url, profile_background_url, profile_image_url, output] are all irrelevant or very insignificant in telling user's activity and tweets regarding COVID, which is what we are mainly concerned with. Thus, we removed all those columns for the sake of simplicity and cleanliness.
-
-```{r}
-cols_to_remove <- c('source', 'display_text_width', 'reply_to_user_id', 'reply_to_screen_name', 'is_quote', 'is_retweet', 'retweet_status_id', 'retweet_text', 'retweet_created_at', 'retweet_source', 'retweet_favorite_count', 'retweet_retweet_count', 'retweet_user_id', 'retweet_screen_name', 'retweet_name', 'retweet_followers_count', 'retweet_friends_count', 'retweet_statuses_count', 'retweet_location', 'retweet_description', 'retweet_verified', 'status_url', 'url', 'protected', 'profile_url', 'profile_expanded_url', 'profile_banner_url', 'profile_background_url', 'profile_image_url', 'output')
-
-df4 <- select(df3, -cols_to_remove)
-
-df4
-```
-
-```{r, fig.width=10, fig.height=10}
-plot_missing(df4, percent = TRUE)
-plot_missing(df4, percent = FALSE)
-```
-
-We can see that out of 18 columns, only 'location' column has some missing values remaining. We would have to impute the missing values or make a separate column for missing value indicator if we deem this column to be important for our future analysis. We used 200 tweets of top 50 users for creating this dataset, so the size of the dataset is small compared to what we will have for the final version of our project. When we use more tweets on more users, we may potentially have some more important observations.
-
 
