@@ -5,3 +5,14 @@ missing-values
 results
 interactive-component
 conclusion
+politicians
+medical-associations
+celebrities
+functions-for-data-cleaning
+cleaning-process
+combining-all-three-groups-with-indicator-column
+missing-values-1
+what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news
+deep-dive-into-reactions-of-politicians-and-news-media
+deep-dive-into-correlations-of-key-metrics-and-sentiments
+stacked-barplot

@@ -24,7 +24,7 @@
 <meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
 
 
-<meta name="date" content="2021-12-01" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,7 +151,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#combining-all-three-groups-with-indicator-column"><i class="fa fa-check"></i><b>3.3</b> Combining all three groups with indicator column</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.1</b> What were the sentimental reactions of different groups to Covid-19 news?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#stacked-barplot"><i class="fa fa-check"></i><b>5.1.1</b> Stacked Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.2</b> Deep dive into reactions of politicians and news media:</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
@@ -177,12 +185,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
 <p>For cleaning the data, we mainly used two functions: clean_tweets and tagging.</p>
-<p>clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, <span class="citation">@username</span>, special characters, newlines, and whitespaces to have the texts ready for analysis.</p>
-<p>tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with “corona” or “covid-19” would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.</p>
+<ol style="list-style-type: decimal">
+<li>clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, <span class="citation">@username</span>, special characters, newlines, and whitespaces to have the texts ready for analysis.</li>
+<li>tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with “corona” or “covid-19” would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.</li>
+</ol>
 <p>We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.</p>
 <p>We then combined the three groups into a single dataframe with the group indicator column, and saved in data_combined_filtered.csv.
 By doing so, we could access the entire data from a single csv file.</p>
-<p>After doing so, we made new columns to the dataframe: “joy”, “trust”, “anticipation”, “sadness”, “fear”, “anger”, “surprise”, “disgust”, “positive”, “negative”, “sentiment_score”. Each column except for “sentiment_score” would have entries of the number of words pertaining to that sentiment. By making these columns, we are then able to move forward to creating</p>
+<p>After doing so, we made new columns to the dataframe: “joy”, “trust”, “anticipation”, “sadness”, “fear”, “anger”, “surprise”, “disgust”, “positive”, “negative”, “sentiment_score”. Each column except for “sentiment_score” would have entries of the number of words in each tweet pertaining to that sentiment. By making these columns, we can see numerically, for instance, what was the dominating sentiment in a tweet or how each group reacted to COVID-19 in a certain period of time.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-transformation.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="data-transformation.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="data-transformation.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>

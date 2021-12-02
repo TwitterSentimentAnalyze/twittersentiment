@@ -2,16 +2,15 @@
 
 For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
 
-clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
-
-tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
+1. clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
+2. tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
 
 We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
 
 We then combined the three groups into a single dataframe with the group indicator column, and saved in data_combined_filtered.csv.
 By doing so, we could access the entire data from a single csv file.
 
-After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words pertaining to that sentiment. By making these columns, we are then able to move forward to creating 
+After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words in each tweet pertaining to that sentiment. By making these columns, we can see numerically, for instance, what was the dominating sentiment in a tweet or how each group reacted to COVID-19 in a certain period of time. 
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
