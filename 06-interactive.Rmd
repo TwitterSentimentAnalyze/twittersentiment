@@ -2,7 +2,7 @@
 
 
 ```{r}
-
+library(base)
 ```
 
 <<insertHTML:[test.html]
@@ -14,6 +14,53 @@ htmltools::includeHTML("interactive.html")
 
 ```{r}
 df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+```
+
+```{r}
+df_t <- df %>% select(created_at, group, sentiment_score)
+```
+
+```{r}
+times <- as.character(df_t$created_at)
+
+dates <- c()
+
+for (time in times){
+  date <- strsplit(time, " +")[[1]][1]
+  dates <- c(dates, date)
+}
+
+df_t$created_at <- dates
+df_t
+```
+```{r}
+df_p <- df_t %>% filter(group == "politicians") 
+df_m <- df_t %>% filter(group == "medical")
+df_c <- df_t %>% filter(group == "celebrities")
+
+df_p <- df_p %>%
+  group_by(created_at) %>%
+  summarise(sentiment_score = mean(sentiment_score))
+
+df_p
+
+df_m <- df_m %>%
+  group_by(created_at) %>%
+  summarise(sentiment_score = mean(sentiment_score))
+
+df_c <- df_c %>%
+  group_by(created_at) %>%
+  summarise(sentiment_score = mean(sentiment_score))
+
+df_combined <- merge(df_p, df_m, by = "created_at")
+df_combined <- merge(df_combined, df_c, by = "created_at")
+
+df_combined_na <- merge(df_p, df_m, by = "created_at", all = TRUE)
+df_combined_na <- merge(df_combined_na, df_c, by = "created_at", all = TRUE)
+df_combined_na
+
+write_csv(df_combined_na, "./resources/interactive_with_na.csv")
+write_csv(df_combined, "./resources/interactive_without_na.csv")
 ```
 
 
