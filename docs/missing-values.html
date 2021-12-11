@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | TwitterAPI</title>
-  <meta name="description" content="Chapter 4 Missing values | TwitterAPI" />
+  <title>Chapter 4 Missing values | Twitter Sentiment Analysis</title>
+  <meta name="description" content="Chapter 4 Missing values | Twitter Sentiment Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | TwitterAPI" />
+  <meta property="og:title" content="Chapter 4 Missing values | Twitter Sentiment Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | TwitterAPI" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Twitter Sentiment Analysis" />
   
   
   
 
-<meta name="author" content="Sung Jun Won(sw3049), Hyo Won (Elin) Kim(hk3175), Alex Kita(ak4729)" />
+<meta name="author" content="Sung Jun Won(sw3049), Elin Kim(hk3175), Alex Kita(ak4729)" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,20 +138,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#politicians"><i class="fa fa-check"></i><b>2.1</b> Politicians</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#medical-associations"><i class="fa fa-check"></i><b>2.2</b> Medical Associations</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#celebrities"><i class="fa fa-check"></i><b>2.3</b> Celebrities</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#functions-for-data-cleaning"><i class="fa fa-check"></i><b>3.1</b> Functions for data cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#cleaning-process"><i class="fa fa-check"></i><b>3.2</b> Cleaning process</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#combining-all-three-groups-with-indicator-column"><i class="fa fa-check"></i><b>3.3</b> Combining all three groups with indicator column</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.1</b> What were the sentimental reactions of different groups to Covid-19 news?</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.2</b> Deep dive into reactions of politicians and news media:</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.3</b> Deep dive into correlations of key metrics and sentiments:</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#data-exploration"><i class="fa fa-check"></i><b>5.1</b> Data Exploration</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#the-number-of-tweets-for-different-groups"><i class="fa fa-check"></i><b>5.1.1</b> The Number of Tweets for Different Groups</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#the-number-of-followers-for-different-groups"><i class="fa fa-check"></i><b>5.1.2</b> The Number of Followers for Different Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.2</b> What were the sentimental reactions of different groups to Covid-19 news?</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#the-transitions-of-sentiments-positivenegative-for-different-groups"><i class="fa fa-check"></i><b>5.2.1</b> The Transitions of Sentiments (Positive/Negative) for Different Groups</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#mosaic-plot"><i class="fa fa-check"></i><b>5.2.2</b> Mosaic Plot</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#alluvial-diagram"><i class="fa fa-check"></i><b>5.2.3</b> Alluvial Diagram</a></li>
+<li class="chapter" data-level="5.2.4" data-path="results.html"><a href="results.html#stacked-barplot"><i class="fa fa-check"></i><b>5.2.4</b> Stacked Barplot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.3</b> Deep dive into reactions of politicians and news media:</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#transition-of-sentiments-for-different-political-parties"><i class="fa fa-check"></i><b>5.3.1</b> Transition of Sentiments for Different Political Parties</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.4</b> Deep dive into correlations of key metrics and sentiments:</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#r-markdown"><i class="fa fa-check"></i><b>7.1</b> R Markdown</a></li>
-</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -163,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TwitterAPI</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Twitter Sentiment Analysis</a>
           </h1>
         </div>
 
@@ -270,147 +292,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-88"><a href="missing-values.html#cb2-88" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
 <span id="cb2-89"><a href="missing-values.html#cb2-89" aria-hidden="true" tabindex="-1"></a>    p1 <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> p3 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">heights =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="st">&#39;cm&#39;</span>,<span class="st">&#39;null&#39;</span>)))</span>
 <span id="cb2-90"><a href="missing-values.html#cb2-90" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Our dataset contains top 50 most followed twitter users. We are mainly concerned with the tweets regarding COVID-19, so we set various tags to filter out the tweets containing at least one of the tags.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="missing-values.html#cb3-1" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;BarackObama&#39;</span>, <span class="st">&#39;justinbieber&#39;</span>, <span class="st">&#39;ArianaGrande&#39;</span>, <span class="st">&#39;ladygaga&#39;</span>, <span class="st">&#39;YouTube&#39;</span>, <span class="st">&#39;KimKardashian&#39;</span>, <span class="st">&#39;elonmusk&#39;</span>, <span class="st">&#39;Twitter&#39;</span>, <span class="st">&#39;BillGates&#39;</span>, <span class="st">&#39;CNN&#39;</span>, <span class="st">&#39;ddlovato&#39;</span>, <span class="st">&#39;nytimes&#39;</span>, <span class="st">&#39;NASA&#39;</span>, <span class="st">&#39;BBCBreaking&#39;</span>, <span class="st">&#39;KylieJenner&#39;</span>, <span class="st">&#39;wizkhalifa&#39;</span>, <span class="st">&#39;LilTunechi&#39;</span>, <span class="st">&#39;NBA&#39;</span>, <span class="st">&#39;POTUS&#39;</span>, <span class="st">&#39;Pink&#39;</span>, <span class="st">&#39;JoeBiden&#39;</span>, <span class="st">&#39;NFL&#39;</span>, <span class="st">&#39;AmitShah&#39;</span>, <span class="st">&#39;WhiteHouse&#39;</span>, <span class="st">&#39;danieltosh&#39;</span>, <span class="st">&#39;AnushkaSharma&#39;</span>, <span class="st">&#39;davidguetta&#39;</span>, <span class="st">&#39;SnoopDogg&#39;</span>, <span class="st">&#39;WSJ&#39;</span>, <span class="st">&#39;KamalaHarris&#39;</span>, <span class="st">&#39;SpaceX&#39;</span>, <span class="st">&#39;VancityReynolds&#39;</span>, <span class="st">&#39;Forbes&#39;</span>, <span class="st">&#39;ABC&#39;</span>, <span class="st">&#39;RobertDowneyJr&#39;</span>, <span class="st">&#39;FLOTUS&#39;</span>, <span class="st">&#39;TheRock&#39;</span>, <span class="st">&#39;AP&#39;</span>, <span class="st">&#39;RyanSeacrest&#39;</span>, <span class="st">&#39;UN&#39;</span>, <span class="st">&#39;BigSean&#39;</span>, <span class="st">&#39;johnlegend&#39;</span>, <span class="st">&#39;netflix&#39;</span>, <span class="st">&#39;FortniteGame&#39;</span>, <span class="st">&#39;JohnCena&#39;</span>, <span class="st">&#39;cnni&#39;</span>, <span class="st">&#39;AOC&#39;</span>, <span class="st">&#39;Marvel&#39;</span>, <span class="st">&#39;enews&#39;</span>)</span>
-<span id="cb3-2"><a href="missing-values.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="missing-values.html#cb3-3" aria-hidden="true" tabindex="-1"></a>tag <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;corona&#39;</span>, <span class="st">&#39;#corona&#39;</span>, <span class="st">&#39;coronavirus&#39;</span>, <span class="st">&#39;#coronavirus&#39;</span>, <span class="st">&#39;covid&#39;</span>, <span class="st">&#39;#covid&#39;</span>, <span class="st">&#39;covid19&#39;</span>, <span class="st">&#39;#covid19&#39;</span>, <span class="st">&#39;covid-19&#39;</span>, <span class="st">&#39;#covid-19&#39;</span>, <span class="st">&#39;sarscov2&#39;</span>, <span class="st">&#39;#sarscov2&#39;</span>, <span class="st">&#39;sars cov2&#39;</span>, <span class="st">&#39;sars cov 2&#39;</span>, <span class="st">&#39;covid_19&#39;</span>, <span class="st">&#39;#covid_19&#39;</span>, <span class="st">&#39;#ncov&#39;</span>, <span class="st">&#39;ncov&#39;</span>, <span class="st">&#39;#ncov2019&#39;</span>, <span class="st">&#39;ncov2019&#39;</span>, <span class="st">&#39;2019-ncov&#39;</span>, <span class="st">&#39;#2019-ncov&#39;</span>, <span class="st">&#39;pandemic&#39;</span>, <span class="st">&#39;#pandemic #2019ncov&#39;</span>, <span class="st">&#39;2019ncov&#39;</span>, <span class="st">&#39;quarantine&#39;</span>, <span class="st">&#39;#quarantine&#39;</span>, <span class="st">&#39;flatten the curve&#39;</span>, <span class="st">&#39;flattening the curve&#39;</span>, <span class="st">&#39;#flatteningthecurve&#39;</span>, <span class="st">&#39;#flattenthecurve&#39;</span>, <span class="st">&#39;hand sanitizer&#39;</span>, <span class="st">&#39;#handsanitizer&#39;</span>, <span class="st">&#39;#lockdown&#39;</span>, <span class="st">&#39;lockdown&#39;</span>, <span class="st">&#39;social distancing&#39;</span>, <span class="st">&#39;#socialdistancing&#39;</span>, <span class="st">&#39;work from home&#39;</span>, <span class="st">&#39;#workfromhome&#39;</span>, <span class="st">&#39;working from home&#39;</span>, <span class="st">&#39;#workingfromhome&#39;</span>, <span class="st">&#39;ppe&#39;</span>, <span class="st">&#39;n95&#39;</span>, <span class="st">&#39;#ppe&#39;</span>, <span class="st">&#39;#n95&#39;</span>, <span class="st">&#39;#covidiots&#39;</span>, <span class="st">&#39;covidiots&#39;</span>, <span class="st">&#39;herd immunity&#39;</span>, <span class="st">&#39;#herdimmunity&#39;</span>, <span class="st">&#39;pneumonia&#39;</span>, <span class="st">&#39;#pneumonia&#39;</span>, <span class="st">&#39;chinese virus&#39;</span>, <span class="st">&#39;#chinesevirus&#39;</span>, <span class="st">&#39;wuhan virus&#39;</span>, <span class="st">&#39;#wuhanvirus&#39;</span>, <span class="st">&#39;kung flu&#39;</span>, <span class="st">&#39;#kungflu&#39;</span>, <span class="st">&#39;wearamask&#39;</span>, <span class="st">&#39;#wearamask&#39;</span>, <span class="st">&#39;wear a mask&#39;</span>, <span class="st">&#39;vaccine&#39;</span>, <span class="st">&#39;vaccines&#39;</span>, <span class="st">&#39;#vaccine&#39;</span>, <span class="st">&#39;#vaccines&#39;</span>, <span class="st">&#39;corona vaccine&#39;</span>, <span class="st">&#39;corona vaccines&#39;</span>, <span class="st">&#39;#coronavaccine&#39;</span>, <span class="st">&#39;#coronavaccines&#39;</span>, <span class="st">&#39;face shield&#39;</span>, <span class="st">&#39;#faceshield&#39;</span>, <span class="st">&#39;face shields&#39;</span>, <span class="st">&#39;#faceshields&#39;</span>, <span class="st">&#39;health worker&#39;</span>, <span class="st">&#39;#healthworker&#39;</span>, <span class="st">&#39;health workers&#39;</span>, <span class="st">&#39;#healthworkers&#39;</span>, <span class="st">&#39;#stayhomestaysafe&#39;</span>, <span class="st">&#39;#coronaupdate&#39;</span>, <span class="st">&#39;#frontlineheroes&#39;</span>, <span class="st">&#39;#coronawarriors&#39;</span>, <span class="st">&#39;#homeschool&#39;</span>, <span class="st">&#39;#homeschooling&#39;</span>, <span class="st">&#39;#hometasking&#39;</span>, <span class="st">&#39;#masks4all&#39;</span>, <span class="st">&#39;#wfh&#39;</span>, <span class="st">&#39;wash ur hands&#39;</span>, <span class="st">&#39;wash your hands&#39;</span>, <span class="st">&#39;#washurhands&#39;</span>, <span class="st">&#39;#washyourhands&#39;</span>, <span class="st">&#39;#stayathome&#39;</span>, <span class="st">&#39;#stayhome&#39;</span>, <span class="st">&#39;#selfisolating&#39;</span>, <span class="st">&#39;self isolating&#39;</span>)</span></code></pre></div>
-<p>We collected 200 most recent tweets from top 50 users and chose the tweets that have at least one of the tags in them.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="missing-values.html#cb4-1" aria-hidden="true" tabindex="-1"></a>write_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb4-2"><a href="missing-values.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> names){</span>
-<span id="cb4-3"><a href="missing-values.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  new <span class="ot">&lt;-</span> <span class="fu">get_timelines</span>(name, <span class="at">n=</span><span class="dv">200</span>)</span>
-<span id="cb4-4"><a href="missing-values.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  write_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(new, write_df)</span>
-<span id="cb4-5"><a href="missing-values.html#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-6"><a href="missing-values.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(write_df, <span class="st">&quot;./resources/data.csv&quot;</span>)</span></code></pre></div>
-<p>Get the tweet data from the csv file.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="missing-values.html#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;./resources/data.csv&#39;</span>)</span></code></pre></div>
-<p>We define the function that cleans the tweet data.
-Reference: <a href="https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r" class="uri">https://stackoverflow.com/questions/31348453/how-do-i-clean-twitter-data-in-r</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a>clean_tweets <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb6-2"><a href="missing-values.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="missing-values.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove URLs</span></span>
-<span id="cb6-4"><a href="missing-values.html#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot; ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="missing-values.html#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove mentions e.g. &quot;@my_account&quot;</span></span>
-<span id="cb6-6"><a href="missing-values.html#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;@[[:alnum:]_]{4,}&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="missing-values.html#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace &quot;&amp;&quot; character reference with &quot;and&quot;</span></span>
-<span id="cb6-8"><a href="missing-values.html#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;&amp;amp;&quot;</span>, <span class="st">&quot;and&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href="missing-values.html#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove punctuation, using a standard character class</span></span>
-<span id="cb6-10"><a href="missing-values.html#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;[[:punct:]]&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-11"><a href="missing-values.html#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove &quot;RT: &quot; from beginning of retweets</span></span>
-<span id="cb6-12"><a href="missing-values.html#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;^RT:? &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-13"><a href="missing-values.html#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace any newline characters with a space</span></span>
-<span id="cb6-14"><a href="missing-values.html#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\\n</span><span class="st">&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-15"><a href="missing-values.html#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make everything lowercase</span></span>
-<span id="cb6-16"><a href="missing-values.html#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-17"><a href="missing-values.html#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove any trailing whitespace around the text</span></span>
-<span id="cb6-18"><a href="missing-values.html#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_trim</span>(<span class="st">&quot;both&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-19"><a href="missing-values.html#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove unnecessary space</span></span>
-<span id="cb6-20"><a href="missing-values.html#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;  &quot;</span>,<span class="st">&quot; &quot;</span>)</span>
-<span id="cb6-21"><a href="missing-values.html#cb6-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Clean the tweet data and extract the tweets that contains COVID related tags.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb7-2"><a href="missing-values.html#cb7-2" aria-hidden="true" tabindex="-1"></a>cleaned_text <span class="ot">&lt;-</span> <span class="fu">clean_tweets</span>(df<span class="sc">$</span>text)</span>
-<span id="cb7-3"><a href="missing-values.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (words <span class="cf">in</span> <span class="fu">str_split</span>(cleaned_text, <span class="st">&quot; &quot;</span>)) {</span>
-<span id="cb7-4"><a href="missing-values.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">if_else</span>(<span class="fu">any</span>(words <span class="sc">%in%</span> tag), <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb7-5"><a href="missing-values.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">append</span>(output, f)</span>
-<span id="cb7-6"><a href="missing-values.html#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-7"><a href="missing-values.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="missing-values.html#cb7-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>output <span class="ot">&lt;-</span> output</span>
-<span id="cb7-9"><a href="missing-values.html#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="missing-values.html#cb7-10" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(output <span class="sc">==</span> <span class="dv">1</span>) <span class="ot">-&gt;</span> df2</span></code></pre></div>
-<p>After filtering, there are total of 403 rows (tweets).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df2)</span></code></pre></div>
-<pre><code>## [1] 403</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="missing-values.html#cb3-1" aria-hidden="true" tabindex="-1"></a>df_combined <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_combined_filtered_sentiment.csv&quot;</span>)</span></code></pre></div>
 <p>Then we checked how many missing values each column has.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="missing-values.html#cb10-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 91
-##   user_id status_id created_at screen_name  text source display_text_width
-##     &lt;int&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;int&gt;  &lt;int&gt;              &lt;int&gt;
-## 1       0         0          0           0     0      0                  0
-## # ... with 84 more variables: reply_to_status_id &lt;int&gt;, reply_to_user_id &lt;int&gt;,
-## #   reply_to_screen_name &lt;int&gt;, is_quote &lt;int&gt;, is_retweet &lt;int&gt;,
-## #   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, quote_count &lt;int&gt;,
-## #   reply_count &lt;int&gt;, hashtags &lt;int&gt;, symbols &lt;int&gt;, urls_url &lt;int&gt;,
-## #   urls_t.co &lt;int&gt;, urls_expanded_url &lt;int&gt;, media_url &lt;int&gt;,
-## #   media_t.co &lt;int&gt;, media_expanded_url &lt;int&gt;, media_type &lt;int&gt;,
-## #   ext_media_url &lt;int&gt;, ext_media_t.co &lt;int&gt;, ...</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="missing-values.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df2, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="missing-values.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df2, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-2.png" width="960" /></p>
-<p>It is hard to draw any significant conclusion from columns that have more than 95% of entries with missing values.
-Thus, we decided to remove all columns that have NA in more than 95% of entries.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="missing-values.html#cb14-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">which</span>(<span class="fu">colMeans</span>(<span class="fu">is.na</span>(.)) <span class="sc">&lt;=</span> <span class="fl">0.95</span>))</span>
-<span id="cb14-2"><a href="missing-values.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="missing-values.html#cb14-3" aria-hidden="true" tabindex="-1"></a>df3</span></code></pre></div>
-<pre><code>## # A tibble: 403 x 48
-##      user_id status_id created_at          screen_name text              source 
-##        &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;             &lt;chr&gt;  
-##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS judge Der~ Social~
-##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 Star Rock~ Social~
-##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing With th~ Social~
-##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Teller Se~ Social~
-##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can see thi~ Twitte~
-##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by the way,~ Twitte~
-##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striketober co~ Twitte~
-##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank you all f~ Twitte~
-##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard Ayvazya~ Social~
-## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter is almos~ Social~
-## # ... with 393 more rows, and 42 more variables: display_text_width &lt;dbl&gt;,
-## #   reply_to_user_id &lt;dbl&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,
-## #   is_retweet &lt;lgl&gt;, favorite_count &lt;dbl&gt;, retweet_count &lt;dbl&gt;, lang &lt;chr&gt;,
-## #   retweet_status_id &lt;dbl&gt;, retweet_text &lt;chr&gt;, retweet_created_at &lt;dttm&gt;,
-## #   retweet_source &lt;chr&gt;, retweet_favorite_count &lt;dbl&gt;,
-## #   retweet_retweet_count &lt;dbl&gt;, retweet_user_id &lt;dbl&gt;,
-## #   retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;, ...</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="missing-values.html#cb16-1" aria-hidden="true" tabindex="-1"></a>df3 <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 48
-##   user_id status_id created_at screen_name  text source display_text_width
-##     &lt;int&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;int&gt;  &lt;int&gt;              &lt;int&gt;
-## 1       0         0          0           0     0      0                  0
-## # ... with 41 more variables: reply_to_user_id &lt;int&gt;,
-## #   reply_to_screen_name &lt;int&gt;, is_quote &lt;int&gt;, is_retweet &lt;int&gt;,
-## #   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, lang &lt;int&gt;,
-## #   retweet_status_id &lt;int&gt;, retweet_text &lt;int&gt;, retweet_created_at &lt;int&gt;,
-## #   retweet_source &lt;int&gt;, retweet_favorite_count &lt;int&gt;,
-## #   retweet_retweet_count &lt;int&gt;, retweet_user_id &lt;int&gt;,
-## #   retweet_screen_name &lt;int&gt;, retweet_name &lt;int&gt;, ...</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="missing-values.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df3, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="missing-values.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df3, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-2.png" width="960" /></p>
-<p>We can observe that columns [retweet_status_id, retweet_text, retweet_created_at, retweet_source, retweet_favorite_count, retweet_retweet_count, retweet_user_id, retweet_screen_name, retweet_name, retweet_followers_count, retweet_friends_count, retweet_statuses_count, retweet_verified] all have 365 missing values, meaning they all have correlations to each other. They have equal number of missing values and there are 365 out of 405 tweets that have those column values missing, so we can assume that most twitter users don’t retweet the tweets regarding COVID.
-Also, columns [reply_to_user_id, reply_to_screen_name] have 384 values missing. These two columns are correlated to each other. Having 384 out of 405 entries missing indicates that most of the tweets regarding COVID are original posts, not replies to other posts.
-Column location has 78 missing values, which is approximately 25% of the 405 total entries. It seems that majority of the tweets regarding COVID have locations indicated, but it is at users’ discretion. Moreover, column profile_background_url has 48 missing values, which is approximately 12% of 405. The low proportion of missing values indicates that most users have profile background url posted, but it is also up to users’ choice.</p>
-<p>There are still many columns that are not very significant for our final project’s purpose, even some columns that have no missing values. Thus, we trimmed down the number of columns further.
-Columns such as [source, display_text_width, reply_to_user_id, reply_to_screen_name, is_quote, is_retweet, retweet_status_id, retweet_text, retweet_created_at, retweet_source, retweet_favorite_count, retweet_retweet_count, retweet_user_id, retweet_screen_name, retweet_name, retweet_followers_count, retweet_friends_count, retweet_statuses_count, retweet_location, retweet_description, retweet_verified, status_url, url, protected, profile_url, profile_expanded_url, profile_banner_url, profile_background_url, profile_image_url, output] are all irrelevant or very insignificant in telling user’s activity and tweets regarding COVID, which is what we are mainly concerned with. Thus, we removed all those columns for the sake of simplicity and cleanliness.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="missing-values.html#cb20-1" aria-hidden="true" tabindex="-1"></a>cols_to_remove <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;source&#39;</span>, <span class="st">&#39;display_text_width&#39;</span>, <span class="st">&#39;reply_to_user_id&#39;</span>, <span class="st">&#39;reply_to_screen_name&#39;</span>, <span class="st">&#39;is_quote&#39;</span>, <span class="st">&#39;is_retweet&#39;</span>, <span class="st">&#39;retweet_status_id&#39;</span>, <span class="st">&#39;retweet_text&#39;</span>, <span class="st">&#39;retweet_created_at&#39;</span>, <span class="st">&#39;retweet_source&#39;</span>, <span class="st">&#39;retweet_favorite_count&#39;</span>, <span class="st">&#39;retweet_retweet_count&#39;</span>, <span class="st">&#39;retweet_user_id&#39;</span>, <span class="st">&#39;retweet_screen_name&#39;</span>, <span class="st">&#39;retweet_name&#39;</span>, <span class="st">&#39;retweet_followers_count&#39;</span>, <span class="st">&#39;retweet_friends_count&#39;</span>, <span class="st">&#39;retweet_statuses_count&#39;</span>, <span class="st">&#39;retweet_location&#39;</span>, <span class="st">&#39;retweet_description&#39;</span>, <span class="st">&#39;retweet_verified&#39;</span>, <span class="st">&#39;status_url&#39;</span>, <span class="st">&#39;url&#39;</span>, <span class="st">&#39;protected&#39;</span>, <span class="st">&#39;profile_url&#39;</span>, <span class="st">&#39;profile_expanded_url&#39;</span>, <span class="st">&#39;profile_banner_url&#39;</span>, <span class="st">&#39;profile_background_url&#39;</span>, <span class="st">&#39;profile_image_url&#39;</span>, <span class="st">&#39;output&#39;</span>)</span>
-<span id="cb20-2"><a href="missing-values.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="missing-values.html#cb20-3" aria-hidden="true" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">select</span>(df3, <span class="sc">-</span>cols_to_remove)</span>
-<span id="cb20-4"><a href="missing-values.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="missing-values.html#cb20-5" aria-hidden="true" tabindex="-1"></a>df4</span></code></pre></div>
-<pre><code>## # A tibble: 403 x 18
-##      user_id status_id created_at          screen_name text       favorite_count
-##        &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;
-##  1   2883841   1.46e18 2021-11-17 19:17:35 enews       &quot;#DWTS ju~             46
-##  2   2883841   1.46e18 2021-11-16 21:58:32 enews       &quot;9-1-1 St~             82
-##  3   2883841   1.46e18 2021-11-16 17:48:51 enews       &quot;Dancing ~             73
-##  4   2883841   1.46e18 2021-11-16 15:24:06 enews       &quot;Miles Te~             82
-##  5 138203134   1.46e18 2021-11-04 15:57:56 AOC         &quot;You can ~           2123
-##  6 138203134   1.45e18 2021-10-15 04:18:53 AOC         &quot;And by t~          18504
-##  7 138203134   1.45e18 2021-10-14 14:57:46 AOC         &quot;#Striket~          14418
-##  8 138203134   1.45e18 2021-10-13 22:40:09 AOC         &quot;Thank yo~          83780
-##  9   2097571   1.46e18 2021-11-18 20:46:03 cnni        &quot;Richard ~             33
-## 10   2097571   1.46e18 2021-11-18 19:45:06 cnni        &quot;Winter i~             63
-## # ... with 393 more rows, and 12 more variables: retweet_count &lt;dbl&gt;,
-## #   lang &lt;chr&gt;, name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;,
-## #   followers_count &lt;dbl&gt;, friends_count &lt;dbl&gt;, listed_count &lt;dbl&gt;,
-## #   statuses_count &lt;dbl&gt;, favourites_count &lt;dbl&gt;, account_created_at &lt;dttm&gt;,
-## #   verified &lt;lgl&gt;</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="missing-values.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df4, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="missing-values.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df4, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-2.png" width="960" /></p>
-<p>We can see that out of 18 columns, only ‘location’ column has some missing values remaining. We would have to impute the missing values or make a separate column for missing value indicator if we deem this column to be important for our future analysis. We used 200 tweets of top 50 users for creating this dataset, so the size of the dataset is small compared to what we will have for the final version of our project. When we use more tweets on more users, we may potentially have some more important observations.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="missing-values.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df_combined <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 17
+##   created_at screen_name  text retweet_count followers_count group   joy trust
+##        &lt;int&gt;       &lt;int&gt; &lt;int&gt;         &lt;int&gt;           &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1          0           0     0             0               0     0     0     0
+## # … with 9 more variables: anticipation &lt;int&gt;, sadness &lt;int&gt;, fear &lt;int&gt;,
+## #   anger &lt;int&gt;, surprise &lt;int&gt;, disgust &lt;int&gt;, positive &lt;int&gt;, negative &lt;int&gt;,
+## #   sentiment_score &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df_combined, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df_combined, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-2.png" width="960" /></p>
+<p>It is hard to draw any significant conclusion from columns that have more than 90% of entries with missing values. Thus, we decided to remove all columns that have NA in more than 90% of entries. As a matter of fact, “quote_count” and “reply_count” columns have 100% of the entries with NA, so they will be removed from this filtering.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="missing-values.html#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df_combined <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">which</span>(<span class="fu">colMeans</span>(<span class="fu">is.na</span>(.)) <span class="sc">&lt;=</span> <span class="fl">0.9</span>))</span></code></pre></div>
+<p>Also, there are 33 rows that have NA for text, which is the tweet. We can’t perform any sentiment analysis on rows that have no tweet, so we are removing those 33 rows.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="missing-values.html#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(text)</span></code></pre></div>
+<p>Also, we want to remove the rows that have NA for “positive” and “negative” sentiments. Having NA for those sentiments mean that the tweet doesn’t contain any information to calculate sentiment score, so we should remove those rows.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="missing-values.html#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="sc">!</span><span class="fu">apply</span>(<span class="fu">is.na</span>(df[,<span class="fu">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)]), <span class="dv">1</span>, all),]</span></code></pre></div>
+<p>In addition, for sentiment columns - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative - we want to replace NAs with 0s because NA in those columns means that the tweet didn’t contain any word that pertains to those sentiments. Having 0s in place of NAs will ensure that all the sentiment columns have valid number entries, 0 meaning no count.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="missing-values.html#cb11-1" aria-hidden="true" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="st">&quot;joy&quot;</span>, <span class="st">&quot;trust&quot;</span>, <span class="st">&quot;anticipation&quot;</span>, <span class="st">&quot;sadness&quot;</span>, <span class="st">&quot;fear&quot;</span>, <span class="st">&quot;anger&quot;</span>, <span class="st">&quot;surprise&quot;</span>, <span class="st">&quot;disgust&quot;</span>, <span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)][<span class="fu">is.na</span>(df[<span class="fu">c</span>(<span class="st">&quot;joy&quot;</span>, <span class="st">&quot;trust&quot;</span>, <span class="st">&quot;anticipation&quot;</span>, <span class="st">&quot;sadness&quot;</span>, <span class="st">&quot;fear&quot;</span>, <span class="st">&quot;anger&quot;</span>, <span class="st">&quot;surprise&quot;</span>, <span class="st">&quot;disgust&quot;</span>, <span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>)])] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="missing-values.html#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(<span class="fu">funs</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 17
+##   created_at screen_name  text retweet_count followers_count group   joy trust
+##        &lt;int&gt;       &lt;int&gt; &lt;int&gt;         &lt;int&gt;           &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1          0           0     0             0               0     0     0     0
+## # … with 9 more variables: anticipation &lt;int&gt;, sadness &lt;int&gt;, fear &lt;int&gt;,
+## #   anger &lt;int&gt;, surprise &lt;int&gt;, disgust &lt;int&gt;, positive &lt;int&gt;, negative &lt;int&gt;,
+## #   sentiment_score &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="missing-values.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df, <span class="at">percent =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="missing-values.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(df, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-2.png" width="960" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="missing-values.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df, <span class="st">&quot;./resources/data_combined_filtered_sentiment.csv&quot;</span>)</span></code></pre></div>
 
 </div>
             </section>
