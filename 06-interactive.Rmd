@@ -1,3 +1,24 @@
 # Interactive component
 
 
+```{r}
+
+```
+
+<<insertHTML:[test.html]
+
+
+```{r, echo=FALSE}
+htmltools::includeHTML("interactive.html")
+```
+
+```{r}
+df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+```
+
+
+
+
+
+
+

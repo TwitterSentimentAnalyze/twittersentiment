@@ -13,6 +13,8 @@ library(textdata)
 library(dplyr)
 library(ggpubr)
 library(vcd)
+library(scales)
+library(ggalluvial)
 ```
 
 ## Data Exploration

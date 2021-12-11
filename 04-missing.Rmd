@@ -133,11 +133,10 @@ Also, there are 33 rows that have NA for text, which is the tweet. We can't perf
 df <- df %>% drop_na(text)
 ```
 
-Also, we want to remove the rows that have NA for all the sentiments - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative. Having NA for all 8 sentiments mean that the tweet doesn't contain any information to perform sentiment analysis, so we should remove those rows.
+Also, we want to remove the rows that have NA for "positive" and "negative" sentiments. Having NA for those sentiments mean that the tweet doesn't contain any information to calculate sentiment score, so we should remove those rows.
 
 ```{r}
-
-df <- df[!apply(is.na(df[,c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")]), 1, all),]
+df <- df[!apply(is.na(df[,c("positive", "negative")]), 1, all),]
 ```
 In addition, for sentiment columns - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative - we want to replace NAs with 0s because NA in those columns means that the tweet didn't contain any word that pertains to those sentiments. Having 0s in place of NAs will ensure that all the sentiment columns have valid number entries, 0 meaning no count. 
 ```{r}
@@ -151,5 +150,9 @@ df %>% summarise_all(funs(sum(is.na(.))))
 ```{r, fig.width=10, fig.height=10}
 plot_missing(df, percent = TRUE)
 plot_missing(df, percent = FALSE)
+```
+
+```{r}
+write_csv(df, "./resources/data_combined_filtered_sentiment.csv")
 ```
 
