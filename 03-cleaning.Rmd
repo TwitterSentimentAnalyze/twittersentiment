@@ -2,16 +2,15 @@
 
 For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
 
-clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
-
-tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
+1. clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
+2. tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
 
 We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
 
 We then combined the three groups into a single dataframe with the group indicator column, and saved in data_combined_filtered.csv.
 By doing so, we could access the entire data from a single csv file.
 
-After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words pertaining to that sentiment. By making these columns, we are then able to move forward to creating 
+After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words in each tweet pertaining to that sentiment. By making these columns, we can see numerically, for instance, what was the dominating sentiment in a tweet or how each group reacted to COVID-19 in a certain period of time. 
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
@@ -56,7 +55,6 @@ clean_tweets <- function(x) {
 
 ```{r eval=FALSE}
 tag <- c('corona', '#corona', 'coronavirus', '#coronavirus', 'covid', '#covid', 'covid19', '#covid19', 'covid-19', '#covid-19', 'sarscov2', '#sarscov2', 'sars cov2', 'sars cov 2', 'covid_19', '#covid_19', '#ncov', 'ncov', '#ncov2019', 'ncov2019', '2019-ncov', '#2019-ncov', 'pandemic', '#pandemic #2019ncov', '2019ncov', 'quarantine', '#quarantine', 'flatten the curve', 'flattening the curve', '#flatteningthecurve', '#flattenthecurve', 'hand sanitizer', '#handsanitizer', '#lockdown', 'lockdown', 'social distancing', '#socialdistancing', 'work from home', '#workfromhome', 'working from home', '#workingfromhome', 'ppe', 'n95', '#ppe', '#n95', '#covidiots', 'covidiots', 'herd immunity', '#herdimmunity', 'pneumonia', '#pneumonia', 'chinese virus', '#chinesevirus', 'wuhan virus', '#wuhanvirus', 'kung flu', '#kungflu', 'wearamask', '#wearamask', 'wear a mask', 'vaccine', 'vaccines', '#vaccine', '#vaccines', 'corona vaccine', 'corona vaccines', '#coronavaccine', '#coronavaccines', 'face shield', '#faceshield', 'face shields', '#faceshields', 'health worker', '#healthworker', 'health workers', '#healthworkers', '#stayhomestaysafe', '#coronaupdate', '#frontlineheroes', '#coronawarriors', '#homeschool', '#homeschooling', '#hometasking', '#masks4all', '#wfh', 'wash ur hands', 'wash your hands', '#washurhands', '#washyourhands', '#stayathome', '#stayhome', '#selfisolating', 'self isolating')
-
 tagging <- function(df) {
   output <- c()
   for (words in str_split(df$text, " ")) {
@@ -76,12 +74,10 @@ df <- read_csv("./resources/data_politicians.csv")
 df$text <- clean_tweets(as.character(df$text))
 data_politicians_filtered <- tagging(df)
 write_csv(data_politicians_filtered, "./resources/data_politicians_filtered.csv")
-
 df2 <- read_csv("./resources/data_medical.csv")
 df2$text <- clean_tweets(as.character(df2$text))
 data_medical_filtered <- tagging(df2)
 write_csv(data_medical_filtered, "./resources/data_medical_filtered.csv")
-
 df3 <- read_csv("./resources/data_celebrities.csv")
 df3$text <- clean_tweets(as.character(df3$text))
 data_celebrities_filtered <- tagging(df3)
@@ -94,11 +90,9 @@ write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv"
 df_c <- read_csv("./resources/data_celebrities_filtered.csv")
 df_c$group <- "celebrities"
 output <- df_c
-
 df_m <- read_csv("./resources/data_medical_filtered.csv")
 df_m$group <- "medical"
 output <- rbind(output, df_m)
-
 df_p <- read_csv("./resources/data_politicians_filtered.csv")
 df_p$group <- "politicians"
 output <- rbind(output, df_p)
@@ -114,9 +108,7 @@ df_combined <- read_csv("./resources/data_combined_filtered.csv")
 
 ```{r eval=FALSE}
 df_combined <- df_combined %>% select(c(created_at, screen_name, text, retweet_count, quote_count, reply_count, followers_count, group))
-
 df_combined[, c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score")] <- NA
-
 for(i in 1:nrow(df_combined)) {
   tweets_data <- df_combined[i,] %>%
     unnest_tokens(word, text) %>% # break down into individual words
@@ -126,7 +118,6 @@ for(i in 1:nrow(df_combined)) {
   tweets_nrc <- tweets_data %>% 
     inner_join(get_sentiments("nrc")) %>% 
     filter(!sentiment %in% c("positive", "negative"))
-
   tweets_nrc_np <- tweets_data %>% 
     inner_join(get_sentiments("nrc")) %>% 
     filter(sentiment %in% c("positive", "negative")) %>% 
@@ -137,7 +128,6 @@ for(i in 1:nrow(df_combined)) {
     group_by(sentiment, .drop = FALSE) %>%
     summarise(word_count = n()) %>% 
     ungroup()
-
   if("joy" %in% sentiments$sentiment){
     df_combined[i, "joy"] <- sentiments$word_count[which(sentiments$sentiment=="joy")]
   }
