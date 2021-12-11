@@ -5,13 +5,6 @@
 library(base)
 ```
 
-<<insertHTML:[test.html]
-
-
-```{r, echo=FALSE}
-htmltools::includeHTML("interactive.html")
-```
-
 ```{r}
 df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 ```
@@ -33,6 +26,8 @@ for (time in times){
 df_t$created_at <- dates
 df_t
 ```
+We made two csv files for interactive graph. Both csv contain four columns - date, politicians' sentiment scores, medicals' sentiment scores, celebrities' sentiment scores. interactive_with_na.csv contains all dates that at least one of the groups has sentiment scores, which means there are NAs in some entries for each group. interactive_without_na.csv only contains dates that all three groups have sentiment scores.
+
 ```{r}
 df_p <- df_t %>% filter(group == "politicians") 
 df_m <- df_t %>% filter(group == "medical")
@@ -41,8 +36,6 @@ df_c <- df_t %>% filter(group == "celebrities")
 df_p <- df_p %>%
   group_by(created_at) %>%
   summarise(sentiment_score = mean(sentiment_score))
-
-df_p
 
 df_m <- df_m %>%
   group_by(created_at) %>%
@@ -54,14 +47,24 @@ df_c <- df_c %>%
 
 df_combined <- merge(df_p, df_m, by = "created_at")
 df_combined <- merge(df_combined, df_c, by = "created_at")
+colnames(df_combined) <- c('date', 'politician', 'medical', 'celebrity')
 
 df_combined_na <- merge(df_p, df_m, by = "created_at", all = TRUE)
 df_combined_na <- merge(df_combined_na, df_c, by = "created_at", all = TRUE)
-df_combined_na
+colnames(df_combined_na) <- c('date', 'politician', 'medical', 'celebrity')
 
 write_csv(df_combined_na, "./resources/interactive_with_na.csv")
 write_csv(df_combined, "./resources/interactive_without_na.csv")
 ```
+Using these csv files, we made an interactive graph. Using the drop-down button at top left, we can choose which group's sentiment score graph over time to display. We smoothed the curve (because there are many missing dates in the dataframe) by using d3 built-in function, d3.curveBasis. The graph will start by showing politicians' sentiment score graph by default, and choosing another group from the button will transform the graph accordingly. 
+
+
+<<insertHTML:[test.html]
+```{r, echo=FALSE}
+htmltools::includeHTML("interactive.html")
+```
+
+
 
 
 
