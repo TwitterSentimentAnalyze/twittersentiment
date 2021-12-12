@@ -8,9 +8,10 @@
 </head>
   
 <body>
-    <h1 style="text-align:center; color:green;">
-        Sentiment Transition
+    <h1 style="text-align:center;">
+        Sentiment Score Transition for Different Groups
     </h1>
+    <p style="text-align: center;">Select Group from the Dropdown List!</p>
     <center>
       <select id="selectButton"></select>
     </center>
@@ -76,6 +77,22 @@
       
         g.append("g")
           .call(d3.axisLeft(yScale))
+
+        g.append("text")            
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                (height + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
+
+        g.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Sentiment Score");
+
         g.append("path")
           .datum(regressionGenerator(temp))
           .attr("d", line)
