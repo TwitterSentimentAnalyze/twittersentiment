@@ -1,9 +1,5 @@
 # Missing values
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(echo= TRUE, warning = FALSE, message = FALSE)
-```
-
 ```{r}
 library(tidyverse)
 library(patchwork)
