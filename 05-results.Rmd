@@ -19,7 +19,10 @@ library(ggalluvial)
 
 ## Data Exploration
 
-### The Number of Tweets for Different Groups
+Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned, the groups we are interested in exploring are celebrities, medical, and politicians.
+
+
+### The Number of Covid-19-related Tweets for Different Groups
 ```{r}
 df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 df$created_at <- as.Date(df$created_at)
@@ -32,11 +35,17 @@ df$yearqtr <- paste(
 df_qtr <- df %>% group_by(yearqtr) %>% count(group)
 ggplot(data=df_qtr, aes(x=yearqtr, y=n, fill=group)) + 
   geom_bar(position = "dodge", stat = "identity") + 
-  ggtitle("The number of tweets for different groups") + 
+  ggtitle("The Number of Covid-19 Tweets by Group") + 
   labs(x = "Year Quarter", y = "# of tweets")
 ```
 
+We can observe that the number of tweets posted by medical was relatively low at the beginning of the pandemic and becomes far greater than the number of posts by the rest groups as time goes on. This seems reasonable since the medical may have gathered more information about Covid-19 as time goes by and have more to share with the public.  
+
+
 ### The Number of Followers for Different Groups
+
+We also wanted to look into the number of followers by each group to understand the potential impact their tweets have on the public. 
+
 ```{r}
 df_followers <- df %>% group_by(group) %>% summarise(followers_count = sum(followers_count))
 ggplot(df_followers, aes(x=reorder(group, -followers_count), y= followers_count/1000000000)) + 
@@ -50,14 +59,24 @@ ggplot(df_followers, aes(x=reorder(group, -followers_count), y= followers_count/
 
 
 ## What were the sentimental reactions of different groups to Covid-19 news?
-- Ratio of covid-related post / total post
 
 ### The Transitions of Sentiments (Positive/Negative) for Different Groups
+
+As part of the sentiment analysis, we first visualized the change in sentiments over time.  
 ```{r}
 date_group <- df %>% group_by(created_at, group)
 avg <- date_group %>% summarise(avg_sentiment = mean(sentiment_score)) 
-ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) + geom_smooth(method = "loess", span = .5, se = FALSE)
+ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) + 
+  geom_smooth(method = "loess", span = .5, se = FALSE) + 
+  scale_x_date(date_labels = "%Y %b", date_breaks = "1 month") +
+  theme(axis.text.x=element_text(angle=60, hjust=1)) + 
+  ggtitle("Sentiment Score Change") + 
+  labs(x="Year Month", y="Avg Sentiment Score")
 ```
+
+Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. 
+  
+It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's score while politicians' score move in the opposite direction of the medical's score. Also, the celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups. 
 
 ### Mosaic Plot
 ```{r}
@@ -66,38 +85,17 @@ df_mosaic <- df %>%  mutate(type = case_when(
          sentiment_score < -0.01 ~ "negative",
          TRUE ~ "neutral"))
 
-mosaic(type ~ group, direction = c("v", "h"), main = "Sentiment Results for Different Groups", df_mosaic)
+mosaic(type ~ group, direction = c("v", "h"), main = "Sentiment for Different Groups", df_mosaic, highlighting_fill = c("red","grey","darkgreen"))
 ```
 
-### Alluvial Diagram
-```{r}
-sentiment <- c("joy","trust","anticipation","sadness","fear","anger","surprise","disgust")
-df_alluvial <- df
-df_alluvial[,sentiment][is.na(df[, sentiment])] <- 0
-# df[] <- 0
-df_alluvial <- df_alluvial %>%
-  group_by(yearqtr, screen_name, group) %>%
-  summarise(joy = mean(joy),
-            trust=mean(trust),
-            anticipation=mean(anticipation),
-            sadness = mean(sadness),
-            fear = mean(fear),
-            anger = mean(anger),
-            surprise = mean(surprise),
-            disgust = mean(disgust))
-df_alluvial$dom_sentiment <- colnames(df_alluvial)[max.col(df_alluvial[,sentiment], ties.method = "first")+3]
 
+We introduced a third sentiment "neutral" and created an overall sentiment mosaic graph. In this view, we look at the overall sentiment score and compare the proportion of the overall sentiment (positive, neutral, and negative) among groups instead of looking at the changes across time. We discovered some useful insights as follows: 
 
-df_alluvial %>% ggplot(aes(x = yearqtr,
-                  stratum = dom_sentiment,
-                  alluvium = screen_name,
-                  label = dom_sentiment)) +
-  geom_alluvium(aes(fill=group)) +
-  geom_stratum() + 
-  geom_text(stat = "stratum", size = 2) +
-  ylab("Number of Twitter Accounts") +
-  ggtitle("Sentiment Movement of Popular Twitter Accounts During COVID-19")
-```
+1) As we noted in the data exploration section, the number of tweets posted by medical is significantly larger than the others'. Therefore, the medical group takes the majority of the space in the mosaic plot.
+
+2) To our surprise, the celebrities' sentiment is not at positive as depicted in the section 5.2.1. Rather than having a large positive score, it was the small negative score that propped up celebrities' sentiment score when all sentiments were summed up. 
+
+3) Although the sentiments of politicians and medical seem to be moving in the opposite directions across time as depicted in section 5.2.1, their overall score is similar (Medical has slightly higher proportion for positive). 
 
 ### Stacked Barplot
 ```{r, fig.height=10, fig.width=10}
@@ -148,6 +146,45 @@ figure
 ```
 
 
+We further divide up the sentiment categories to more granular levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot. In this view, we can see the change of sentiment across time for each group. 
+
+
+
+
+
+### Alluvial Diagram
+```{r}
+sentiment <- c("joy","trust","anticipation","sadness","fear","anger","surprise","disgust")
+df_alluvial <- df
+df_alluvial[,sentiment][is.na(df[, sentiment])] <- 0
+# df[] <- 0
+df_alluvial <- df_alluvial %>%
+  group_by(yearqtr, screen_name, group) %>%
+  summarise(joy = mean(joy),
+            trust=mean(trust),
+            anticipation=mean(anticipation),
+            sadness = mean(sadness),
+            fear = mean(fear),
+            anger = mean(anger),
+            surprise = mean(surprise),
+            disgust = mean(disgust))
+df_alluvial$dom_sentiment <- colnames(df_alluvial)[max.col(df_alluvial[,sentiment], ties.method = "first")+3]
+
+
+df_alluvial %>% ggplot(aes(x = yearqtr,
+                  stratum = dom_sentiment,
+                  alluvium = screen_name,
+                  label = dom_sentiment)) +
+  geom_alluvium(aes(fill=group)) +
+  geom_stratum() + 
+  geom_text(stat = "stratum", size = 2) +
+  ylab("Number of Twitter Accounts") +
+  ggtitle("Sentiment Movement of Popular Twitter Accounts During COVID-19")
+```
+We were interested in seeing how sentiment moves across time so we created an alluvial graph to visualize this movement. We oinstead of of graphing every single tweet as an alluvial we grouped it by group and date and chose the most dominant sentiment for each alluvial. Therefore, some of the smaller sentiments are lost like anger. But we can still track changes in dominant sentiments. 
+
+
+
 ## Deep dive into reactions of politicians and news media: 
 - Relationship between political stance and reactions
 
@@ -171,10 +208,10 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
   ggtitle("Twitter Sentiments of Politicians") +
   ylab("Avg. Sentiment Score") + 
   geom_vline(xintercept = as.numeric(avg$created_at[date_range]), color = "black", linetype = "dotdash") +
-  geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "Trump tested positive",color="republican")) +
-  geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "1st vaccine authorized",color="republican")) +
-  geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "2nd wave",color="republican")) +
-  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "200+M vaccine administered",color="republican"))
+  geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "a) Trump tested positive",color="republican")) +
+  geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "b) 1st vaccine authorized",color="republican")) +
+  geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "c) 2nd wave",color="republican")) +
+  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "d) 200+M vaccine administered",color="republican"))
 
 ```
 
