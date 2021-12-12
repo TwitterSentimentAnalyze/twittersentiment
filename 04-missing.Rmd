@@ -107,11 +107,6 @@ plot_missing <- function(data, percent) {
 df_combined <- read_csv("./resources/data_combined_filtered_sentiment_old.csv")
 ```
 
-Then we checked how many missing values each column has.
-```{r}
-df_combined %>% summarise_all(funs(sum(is.na(.))))
-```
-
 ```{r, fig.width=10, fig.height=10}
 plot_missing(df_combined, percent = TRUE)
 plot_missing(df_combined, percent = FALSE)
@@ -137,10 +132,6 @@ df <- df[!apply(is.na(df[,c("positive", "negative")]), 1, all),]
 In addition, for sentiment columns - joy, trust, anticipation, sadness, fear, anger, surprise, disgust, positive, negative - we want to replace NAs with 0s because NA in those columns means that the tweet didn't contain any word that pertains to those sentiments. Having 0s in place of NAs will ensure that all the sentiment columns have valid number entries, 0 meaning no count. 
 ```{r}
 df[c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")][is.na(df[c("joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative")])] <- 0
-```
-
-```{r}
-df %>% summarise_all(funs(sum(is.na(.))))
 ```
 
 ```{r, fig.width=10, fig.height=10}
