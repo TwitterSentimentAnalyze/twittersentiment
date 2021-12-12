@@ -1,17 +1,5 @@
 # Data transformation
 
-For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
-
-1. clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
-2. tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
-
-We used these two functions on all our datasets for four groups to work with only cleaned tweets that are related to COVID-19.
-
-We then combined the three groups into a single dataframe with the group indicator column, and saved in data_combined_filtered.csv.
-By doing so, we could access the entire data from a single csv file.
-
-After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" would have entries of the number of words in each tweet pertaining to that sentiment. By making these columns, we can see numerically, for instance, what was the dominating sentiment in a tweet or how each group reacted to COVID-19 in a certain period of time. 
-
 ```{r}
 library(tidyverse)
 library(patchwork)
@@ -24,6 +12,14 @@ library(textdata)
 ```
 
 ## Functions for data cleaning
+
+For cleaning the data, we mainly used two functions: clean_tweets and tagging. 
+
+1. clean_tweets function removes the parts of the tweets that are not relevant to sentiment analysis. For instance, we removed URLs, @username, special characters, newlines, and whitespaces to have the texts ready for analysis.
+2. tagging function selects the tweets that have at least one of the tags related to COVID-19. For instance, a tweet with "corona" or "covid-19" would be kept for analysis, while a tweet that has none of the tags in the list would be excluded.
+
+We used these two functions on all our dataset for three groups to work with only cleaned tweets related to COVID-19, and saved the dataset in three separate csv files, one for politicians, one for medical associations, and one for celebrities.
+
 ```{r eval=FALSE}
 clean_tweets <- function(x) {
   x <- x %>%
@@ -64,7 +60,6 @@ tagging <- function(df) {
 ```
 
 
-## Cleaning process
 ```{r eval=FALSE}
 df <- read_csv("./resources/data_politicians.csv")
 df$text <- clean_tweets(as.character(df$text))
@@ -82,6 +77,11 @@ write_csv(data_celebrities_filtered, "./resources/data_celebrities_filtered.csv"
 
 
 ## Combining all three groups with indicator column
+
+We then combined the three groups' dataset into a single dataframe and added a group indicator column. We saved that combined dataframe in data_combined_filtered.csv. By doing so, we can access the entire data from a single csv file for all the subsequent parts.
+
+After doing so, we made new columns to the dataframe: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust", "positive", "negative", "sentiment_score". Each column except for "sentiment_score" contains the number of words in each tweet pertaining to that sentiment. By making these columns, we can see numerically, for instance, what was the dominating sentiment in a tweet or how each group reacted to COVID-19 in certain period of time. 
+
 ```{r eval=FALSE}
 df_c <- read_csv("./resources/data_celebrities_filtered.csv")
 df_c$group <- "celebrities"

@@ -4,9 +4,9 @@
 
   All three of the team members contributed to collecting data. Alex investigated how to use Twitter API to fetch tweets data and collected tweets of top 5 most-followed politicians from both democratic and republic parties (Ref: https://socialblade.com/twitter/top/100, https://www.washingtonpost.com/graphics/2019/lifestyle/magazine/amp-stories/twitter/, and https://viralpitch.co/topinfluencers/twitter/top-200-twitter-influencers/). Elin collected top 10 celebrities list ranked by the number of followers (Ref: https://socialblade.com/twitter/top/100), and Kevin found top 100 most-followed medical Twitter accounts. (Ref: https://emedcert.com/blog/top-healthcare-twitter-accounts-to-follow)
 
-  The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by get_timelines function from rtweet. 
-  Also, it is noteworthy that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Though democrats have 4~10 times more followers than the Republicans, we think that this does not influence our analysis on sentiment score because the number of followers has nothing to do with their tweets' sentiments.
-  In addition, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)
+  The main hardship we faced was that there was no API that provides most-followed twitter accounts for specific group. We had to manually look for twitter accounts in politics, medical field, and celebrities from Twitter Statistics websites such as SocialBlade and list out the top 10 most-followed accounts for each group. For medical associations, we had to narrow down top 100 most followed medical twitter accounts by number of followers provided by rtweet::get_timelines. 
+  
+  Also, it is noteworthy that for the top 10 politicians, the number of followers for 5 Republicans vs. the number of followers for 5 Democrats have a huge gap. Though democrats have 4~10 times more followers than the republicans, we think that this does not influence our analysis on sentiment score because the number of followers has no big correlation to the tweets' sentiments. In addition, there are numerous unnecessary or insignificant features in the dataset collected, so we performed data cleaning in the following chapter (3 Data Transformation)
 
 ```{r}
 library(tidyverse)
@@ -17,7 +17,8 @@ library(sjmisc)
 library(readr)
 ```
 
-## Politicians
+For politicians, we have 'BarackObama', 'JoeBiden', 'HillaryClinton', 'KamalaHarris', 'AOC', 'Mike_Pence', 'tedcruz', 'marcorubio', 'randpaul', 'MittRomney'.
+
 ```{r eval=FALSE}
 politicians <- c('BarackObama','JoeBiden','HillaryClinton','KamalaHarris','AOC','Mike_Pence','tedcruz','marcorubio','randpaul','MittRomney')
 df_politicians <- data.frame()
@@ -34,7 +35,7 @@ for (name in politicians) {
 write_csv(df_politicians, "./resources/data_politicians.csv")
 ```
 
-## Medical Associations
+For medical associations, we narrowed the top 100 most-followed accounts down to 10: 'NYTHealth', 'ClevelandClinic', 'CDCemergency', 'MayoClinic', 'drsanjaygupta', 'HarvardHealth', 'WebMD', 'CDCgov', 'RedCross', 'WHO'.
 ```{r eval=FALSE}
 medical <- c('AANP_News', 'allnurses', 'AmerMedicalAssn', 'American_Heart', 'amjnurs', 'RedCross', 'mindofandre', 'picardonhealth', 'andrewspong', 'PublicHealth', 'Atul_Gawande', 'Berci', 'ahier', 'mobilehealth', 'TheNerdyNurse', 'Doctor_V', 'CMichaelGibson', 'CDCgov', 'CDCemergency', 'ClevelandClinic', 'chasedave', 'ePatientDave', 'drwalker_rph', 'healthblawg', 'dlschermd', 'MSF_USA', 'donaldhackett', 'giasison', 'mtnmd', 'DrKevinCampbell', 'orenfu', 'drsanjaygupta', 'drseisenberg', 'EricTopol', 'FierceHealth', 'GavinPrestonMD', 'gnayyar', 'drhubaevaluator', 'chimoose', '2healthguru', 'HarvardHealth', 'Health_Affairs', 'HealthITNews', 'HealthLeaders', 'HHSGov', 'HIMSS', 'hjluks', 'JAMA_current', 'healthythinker', 'JohnNosta', 'HopkinsMedicine', 'KHNews', 'kentbottles', 'kevinmd', 'DrLeanaWen', 'LeeAase', 'DrLindseyFitz', 'lisagualtieri', 'MandiBPro', 'matthewherper', 'MayoClinic', 'MDAndersonNews', 'medcitynews', 'MedEconomics', 'medpagetoday', 'medscape', 'drmikesevilla', 'modrnhealthcr', 'NeilFlochMD', 'NEJM', 'NPRhealth', 'NurseGroups', 'michellekatzmsn', 'Nurse_com', 'ANANursingWorld', 'nursingtimes', 'NYTHealth', 'Paul_Sonnier', 'physicianspract', 'Reuters_Health', 'ReviewNursing', 'RichDuszak', 'sarahkliff', 'Cascadia', 'StJude', 'StanfordMed', 'SusannahFox', 'Docweighsin', 'THCBstaff', 'TheLancet', 'vmontori', 'futuredocs', 'WSJhealth', 'WebMD', 'HealthcareWen', 'WeNurses', 'WHO', 'ZDoggMD')
 temp <- data.frame()
@@ -61,9 +62,9 @@ for (name in medical) {
 write_csv(df_medical, "./resources/data_medical.csv")
 ```
 
-## Celebrities
+For celebrities, we have 'justinbieber', 'katyperry', 'rihanna', 'taylorswift13', 'arianagrande', 'ladygaga', 'TheEllenShow', 'KimKardashian', 'selenagomez', 'elonmusk'.
 ```{r eval=FALSE}
-celebrities <- c("justinbieber","katyperry","rihanna","taylorswift13","arianagrande","ladygaga","TheEllenShow","KimKardashian","selenagomez","elonmusk")
+celebrities <- c('justinbieber','katyperry','rihanna','taylorswift13','arianagrande','ladygaga','TheEllenShow','KimKardashian','selenagomez','elonmusk')
 df_celebrities <- data.frame()
 for (name in celebrities) {
   new <- get_timelines(name, 
