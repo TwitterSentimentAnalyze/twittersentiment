@@ -19,7 +19,7 @@ library(ggalluvial)
 
 ## Data Exploration
 
-Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned, the groups we are interested in exploring are celebrities, medical, and politicians.
+Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned in previous sections, the groups we are interested in exploring are celebrities, medical, and politicians, and we will be exploring the tweets posted by the most popular ten accounts from each group.
 
 
 ### The Number of Covid-19-related Tweets for Different Groups
@@ -39,12 +39,19 @@ ggplot(data=df_qtr, aes(x=yearqtr, y=n, fill=group)) +
   labs(x = "Year Quarter", y = "# of tweets")
 ```
 
-We can observe that the number of tweets posted by medical was relatively low at the beginning of the pandemic and becomes far greater than the number of posts by the rest groups as time goes on. This seems reasonable since the medical may have gathered more information about Covid-19 as time goes by and have more to share with the public.  
+Key observations are as follows:
+
+1) The number of tweets are low in 2020 Q1 because there are far less data represented in this period. The earliest data collected is from March 2020, and therefore our data do not include Jan-Feb 2020 tweets.
+
+2) We can observe that the number of tweets posted by the medical group was relatively low at the beginning of the pandemic but started increasing rapidly and far exceeded the number of posts by the rest groups as time went on. This seems reasonable since the medical may not have had enough valid information to share with the public at first but may have ascertained more information about Covid-19 with time that can be shared with the public.
+
+2) We acknowledge that the number of tweets by medical spiked since 2021 Q3. We cannot identify the exact cause. However, we do not believe that this would negatively impact our analysis. Also, the data imbalance between group is not a significant issue in our analysis since the sentiment of each group's tweet is calculated on its own.    
+
 
 
 ### The Number of Followers for Different Groups
 
-We also wanted to look into the number of followers by each group to understand the potential impact their tweets have on the public. 
+We also wanted to look at the number of followers by each group. 
 
 ```{r}
 df_followers <- df %>% group_by(group) %>% summarise(followers_count = sum(followers_count))
@@ -58,7 +65,11 @@ ggplot(df_followers, aes(x=reorder(group, -followers_count), y= followers_count/
 ```
 
 
+The number of followers is similar between politicians and medical, but celebrities' followers are far fewer. This may represent that the degree of influence is different for each group. However, we do not foresee this as a significant issue for our analysis since our analysis focuses on the sentimental reactions of those groups rather than the influence of those groups.  
+
 ## What were the sentimental reactions of different groups to Covid-19 news?
+
+In this subsection, we dive into sentiment anlysis and visualization. The main purpose is compare the sentimental reactions among different groups and 
 
 ### The Transitions of Sentiments (Positive/Negative) for Different Groups
 
@@ -192,6 +203,7 @@ df_alluvial %>% ggplot(aes(x = yearqtr,
   ggtitle("Sentiment Movement of Popular Twitter Accounts During Covid-19")
 ```
 
+
 In lieu of creating an alluvia for every single tweet, we grouped the tweets by user accounts and quarterly date, and we take the mean of scores for each sentiment categories. Then, we chose the most dominant sentiment category for each user. Also, each user belongs to the three groups which are celebrities, medical, and politicians. As a result, some of the sentiment categories with low frequencies, such as anger, are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can clearly track changes of sentiments for each user with their belonging group.
 
 1) The most of users in the "fear" strata are medicals, especially on the 2021 Q4. Also, the most of medical users end up feeling "fear". We also observed that the proportion of "fear" is relatively large in medical group on the 5.2.3 stacked barplot, but here it is more significant that there is the difference of sentiments between medical group and the other groups. Furthermore, the number of users whose dominant sentiment is "fear" keeps increasing over time, though we expected that "fear" decreases because of vaccines for COVID-19 and decreasing trend of positive cases.
@@ -202,7 +214,7 @@ In lieu of creating an alluvia for every single tweet, we grouped the tweets by 
 
 
 ## Deep dive into reactions of politicians: 
-We wanted to `
+We wanted to take a look at whether politicians' sentimental reactions would depend on their political stance. In other words, would the Republican party members react differently to the same news than Democratic party members would? In order to answer this question, we mapped each of the 10 politicians to their associated political parties -- all were part of either Republican or Democratic party. 
 
 ### Transition of Sentiments for Different Political Parties
 ```{r}
@@ -224,13 +236,17 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
   ggtitle("Twitter Sentiments of Politicians") +
   ylab("Avg. Sentiment Score") + 
   geom_vline(xintercept = as.numeric(avg$created_at[date_range]), color = "black", linetype = "dotdash") +
-  geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "a) Trump tested positive",color="republican")) +
-  geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "b) 1st vaccine authorized",color="republican")) +
-  geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "c) 2nd wave",color="republican")) +
-  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "d) 200+M vaccine administered",color="republican"))
+  geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "(2) Trump tested positive",color="republican")) +
+  geom_text(aes(x = as.Date("2020-12-11"), y = 0.4, label = "(3) 1st vaccine authorized",color="republican")) +
+  geom_text(aes(x = as.Date("2020-07-10"), y = 0.5, label = "(1) 2nd wave",color="republican")) +
+  geom_text(aes(x = as.Date("2021-04-21"), y = 0.5, label = "(4) 200+M vaccine administered",color="republican"))
 
 ```
 
+The graph above shows the average sentiment score across time for Republican and Democratic politicians. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy. 
 
-## Deep dive into correlations of key metrics and sentiments:
-- Do retweet/likes/reply have any correlation with certain sentiments?
+1) Our initial hypothesis was that the two parties' reactions would move in opposite directions. In fact, their reactions generally move in the same direction although the magnitude of the sentiment score differs between two parties. The data and graph do not strontly support that politicians from different parties react in opposite directions.
+
+2) It's interesting to note that some of the key events do not drastically change the sentimental reactions. For instance, event (1) and (3) are respectively negative and positive events that one would assume to be significant enough to influence the sentimental reaction and change their directions. However, the general course of the sentiment remained the same after both events. Perhaps, some events take some time to start changing the direction of the sentiments. For instance, after a couple of months after event (3), sentiment score started increasing.
+
+3) Event (2) seem to have changed the course of sentimental reaction. However, given that the change happened in delay (about a couple of months later since event (2)), the change may not be directly related to event (2).
