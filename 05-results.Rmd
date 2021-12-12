@@ -168,7 +168,7 @@ We further divide up the sentiment categories to more granular eight levels:  "j
 
 2) Celebrities' sentiment change the most relatively speaking. The level of trust seem to fluctuate across time. Unlike medical, fear is not one of the biggest component. This is consistent with the findings from section 5.2.2 that the negative sentiment is relatively low for celebrities. Sentiments like "joy", "anticipation", and "trust" seem to be its biggest components. 
 
-3) The most dominant sentiment for politicians seem to be "trust" across time. Politicians were suprised at the beginning of the outbreak as can be shown in the bigger purple box in 2020 Q1. But as time goes on, "surprise" takes up less portion relative to other sentiments.
+3) The most dominant sentiment for politicians seems to be "trust" across time. Politicians were suprised at the beginning of the outbreak as can be shown in the bigger purple box in 2020 Q1. But as time goes on, "surprise" takes up less portion relative to other sentiments.
 
 We noticed that the stacked barchart, while useful in seeing the composition change across time, is not ideal for tracking how sentiments change across time for specific persons. Therefore, we resorted to an alluvial diagram to better understand how individual (or more accurately group) sentiment change over time. 
 
@@ -244,10 +244,10 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
 
 ```
 
-The graph above shows the average sentiment score across time for Republican and Democratic politicians. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy. 
+The graph above shows the average sentiment score across time for Republican and Democratic politicians. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy. The key events were extracted from this link:  https://www.cdc.gov/museum/timeline/covid19.html. Key observations and insights are as follows: 
 
-1) Our initial hypothesis was that the two parties' reactions would move in opposite directions. In fact, their reactions generally move in the same direction although the magnitude of the sentiment score differs between two parties. The data and graph do not strontly support that politicians from different parties react in opposite directions.
+1) Our initial hypothesis was that the two parties' reactions would move in opposite directions. In fact, their reactions generally move in the same direction although the magnitude of the sentiment score differs between two parties. The data and graph do not support that politicians from different parties react in opposite directions.
 
-2) It's interesting to note that some of the key events do not drastically change the sentimental reactions. For instance, event (1) and (3) are respectively negative and positive events that one would assume to be significant enough to influence the sentimental reaction and change their directions. However, the general course of the sentiment remained the same after both events. Perhaps, some events take some time to start changing the direction of the sentiments. For instance, after a couple of months after event (3), sentiment score started increasing.
+2) It is interesting to note that some of the key events do not drastically change the sentimental reactions. For instance, event (1) and (3) are respectively negative and positive events that one would assume to be significant enough to influence the sentimental reaction and change their directions. However, the general course of the sentiment remained the same after both events. Perhaps, some events take some time to start changing the direction of the sentiments. For instance, after a couple of months after event (3), sentiment score started increasing.
 
-3) Event (2) seem to have changed the course of sentimental reaction. However, given that the change happened in delay (about a couple of months later since event (2)), the change may not be directly related to event (2).
+3) Event (2) seems to have changed the course of sentimental reaction. However, given that the change happened in delay (about a couple of months later since event (2)), the change may not be directly related to event (2).
