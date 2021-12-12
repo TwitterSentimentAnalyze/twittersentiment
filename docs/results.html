@@ -128,7 +128,7 @@
 <p>Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned in previous sections, the groups we are interested in exploring are celebrities, medical, and politicians, and we will be exploring the tweets posted by the most popular ten accounts from each group, dating from March 2020 to November 2021.</p>
 <div id="the-number-of-covid-19-related-tweets-for-different-groups" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> The Number of Covid-19-related Tweets for Different Groups</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>Key observations and insights are as follows:</p>
 <ol style="list-style-type: decimal">
 <li><p>The number of tweets are low in 2020 Q1 because there are far less data represented in this period. The earliest data collected is from March 2020, and therefore our data do not include Jan-Feb 2020 tweets.</p></li>
@@ -139,7 +139,7 @@
 <div id="the-number-of-followers-for-different-groups" class="section level3" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> The Number of Followers for Different Groups</h3>
 <p>We also wanted to look at the number of followers by each group.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>The number of followers is similar between politicians and medical, but celebrities’ followers are far fewer. This may represent that the degree of influence is different for each group. However, we do not foresee this as a significant issue for our analysis since our analysis focuses on the sentimental reactions of those groups rather than the influence of those groups.</p>
 </div>
 </div>
@@ -149,7 +149,7 @@
 <div id="the-change-of-sentiments-positivenegative-for-different-groups" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> The Change of Sentiments (Positive/Negative) for Different Groups</h3>
 <p>As part of the sentiment analysis, we first visualized the change in sentiments over time for each group.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. Score 1 and -1 are the most extreme values for positive and negative sentiment, respectively. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. Key observations and insights from this graph are as follows:</p>
 <ol style="list-style-type: decimal">
 <li><p>It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical’s while politicians’ score move in the opposite direction of the medical’s.</p></li>
@@ -160,7 +160,7 @@
 </div>
 <div id="more-granular-levels-of-sentiments" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> More Granular Levels of Sentiments</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-37-1.png" width="576" /></p>
 <p>We introduced a third sentiment “neutral” and created an overall sentiment mosaic graph. In this view, we can look at the proportional breakdown of sentiment scores and compare the proportions among groups instead of looking at the changes across time. Key observations and insights are as follows:</p>
 <ol style="list-style-type: decimal">
 <li><p>As we noted in the data exploration section, the number of tweets posted by medical is significantly larger than the others’. Therefore, the medical group takes the majority of the space in the mosaic plot.</p></li>
@@ -171,7 +171,7 @@
 </div>
 <div id="even-more-granular-levels-of-sentiments" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Even More Granular Levels of Sentiments</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-38-1.png" width="960" /></p>
 <p>We introduce eight levels of sentiments: “joy”, “trust”, “anticipation”, “sadness”, “fear”, “anger”, “surprise”, and “disgust”. We created a stacked barplot to show the change of sentiment across time for each group. Each bar sums up to 1 and consists of the proportions of eight sentiments. Key observations and insights are as follows:</p>
 <ol style="list-style-type: decimal">
 <li><p>Medical’s sentiment proportions do not change much across time relative to other groups’. This means that medical’s tweets did not convey any dramatic changes in sentiments over time. Sentiments like “anticipation”, “fear”, and “trust” comprise the biggest portions. It is notable that “fear” takes up as much portion as “trust” unlike in other groups’ graphs, in which “fear” is not as big as “trust”.</p></li>
@@ -182,7 +182,7 @@
 </div>
 <div id="tracking-sentimental-reaction-change" class="section level3" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> Tracking Sentimental Reaction Change</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>In lieu of creating an alluvia for every single tweet, we grouped the tweets by user accounts for each quarter, and we take the mean of scores for each sentiment categories. Then, we chose the most dominant sentiment category for each user who belong to one of the three groups, celebrities, medical, and politicians. As a result, some of the sentiment categories with low frequencies, such as anger, are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can clearly track changes of sentiments for each user from their respective group.</p>
 <ol style="list-style-type: decimal">
 <li><p>Most users that pass through or arrive at the “fear” strata belong to medical, especially in 2021 Q4. Also, most medical users end up feeling “fear”. We also observed that the proportion of “fear” is relatively large in medical group in section 5.2.3, and it is more noticeable through the alluvial plot. Furthermore, the number of users whose dominant sentiment is “fear” keeps increasing over time, though we expected that “fear” would decrease with the help of vaccines for COVID-19 and decreasing trend of positive cases.</p></li>
@@ -196,7 +196,7 @@
 <p>We wanted to take a look at whether politicians’ sentimental reactions would depend on their political stance. In other words, would the Republican party members react differently to the same news than Democratic party members would? In order to answer this question, we labelled each of the 10 politicians according to their associated political parties – all were part of either Republican or Democratic party.</p>
 <div id="transition-of-sentiments-for-different-political-parties" class="section level3" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Transition of Sentiments for Different Political Parties</h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The graph above shows the average sentiment score across time for Republican and Democratic politicians, respectively. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy.</p>
 <p>The key events were extracted from the CDC website: <a href="https://www.cdc.gov/museum/timeline/covid19.html" class="uri">https://www.cdc.gov/museum/timeline/covid19.html</a>.</p>
 <p>Key observations and insights are as follows:</p>
