@@ -21,3 +21,6 @@ deep-dive-into-reactions-of-politicians
 transition-of-sentiments-for-different-political-parties
 interactive-component
 conclusion
+more-granular-levels-of-sentiments
+even-more-granular-levels-of-sentiments
+tracking-sentimental-reaction-change

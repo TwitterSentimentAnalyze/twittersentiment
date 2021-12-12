@@ -1,5 +1,6 @@
 # Results
 
+
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -14,7 +15,7 @@ library(ggalluvial)
 
 ## Data Exploration
 
-Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned in previous sections, the groups we are interested in exploring are celebrities, medical, and politicians, and we will be exploring the tweets posted by the most popular ten accounts from each group.
+Before diving into the sentiment analysis, we wanted to visualize some of the key metrics, namely the number tweets and the number of followers, to better understand the data we are working with, check the validity of data, and think about how they may impact the result of our analysis. As aforementioned in previous sections, the groups we are interested in exploring are celebrities, medical, and politicians, and we will be exploring the tweets posted by the most popular ten accounts from each group, dating from March 2020 to November 2021.
 
 
 ### The Number of Covid-19-related Tweets for Different Groups
@@ -66,7 +67,7 @@ In this subsection, we dive into sentiment analysis and visualization. The main 
 
 ### The Change of Sentiments (Positive/Negative) for Different Groups
 
-As part of the sentiment analysis, we first visualized the change in sentiments over time. 
+As part of the sentiment analysis, we first visualized the change in sentiments over time for each group. 
 
 ```{r}
 date_group <- df %>% group_by(created_at, group)
@@ -83,14 +84,14 @@ Score above 0 is generally associated with positive sentiment and below 0 with n
   
 1) It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's while politicians' score move in the opposite direction of the medical's. 
 
-2) The celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups'. 
+2) As was pointed out in section 5.2.1, celebrities' most dominant sentiment is positive.    
 
-3) Although medical's and politicians' sentiment seem to be fluctuating quite a bit because the graph looks that way, but as will be shown in section 5.2.3, the change is not dramatic if we take into account the actual score values. 
+3) Although medical's and politicians' sentiment seem to be fluctuating quite a bit because the graph looks that way, but as will be shown in section 5.2.3, the change is not dramatic. If we take into account the actual score values, we can observe that the values only fluctuate between 0.1 and 0.4. 
 
-Below, we will introduce a more granular definition of sentiments instead of using a binary defintion -- either positive or negative. 
+Below, we will introduce more granular levels of sentiments instead of using binary levels -- either positive or negative. 
 
-### Mosaic Plot
-```{r}
+### More Granular Levels of Sentiments
+```{r fig.height=8, fig.width=6}
 df_mosaic <- df %>%  mutate(type = case_when(
          sentiment_score > 0.01  ~ "positive",
          sentiment_score < -0.01 ~ "negative",
@@ -100,7 +101,7 @@ mosaic(type ~ group, direction = c("v", "h"), main = "Sentiment for Different Gr
 ```
 
 
-We introduced a third sentiment "neutral" and created an overall sentiment mosaic graph. In this view, we look at the overall sentiment score and compare the proportion of the overall sentiment (positive, neutral, and negative) among groups instead of looking at the changes across time. Key observations and insights are as follows: 
+We introduced a third sentiment "neutral" and created an overall sentiment mosaic graph. In this view, we can look at the proportional breakdown of sentiment scores and compare the proportions among groups instead of looking at the changes across time. Key observations and insights are as follows: 
 
 1) As we noted in the data exploration section, the number of tweets posted by medical is significantly larger than the others'. Therefore, the medical group takes the majority of the space in the mosaic plot.
 
@@ -108,7 +109,9 @@ We introduced a third sentiment "neutral" and created an overall sentiment mosai
 
 3) In section 5.2.1., the sentiments of politicians and medical seemed to be moving in the opposite directions across time. However, their overall score from this graph is similar (although Medical has slightly higher proportion for positive). 
 
-### Stacked Barplot
+Below, we will further divide up the sentiments to more granular levels.   
+
+### Even More Granular Levels of Sentiments
 ```{r, fig.height=10, fig.width=10}
 df_stack <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 
@@ -140,36 +143,35 @@ sents_m <- df_m_qtr %>%
 sents_c <- df_c_qtr %>% 
   gather(variable, value, -yearqtr)
 
-plot_p <- ggplot(sents_p, aes(fill=variable, y=value, x=yearqtr)) + 
-    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
-plot_m <- ggplot(sents_m, aes(fill=variable, y=value, x=yearqtr)) +
-    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
-plot_c <- ggplot(sents_c, aes(fill=variable, y=value, x=yearqtr)) + 
-    geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage")
+sents_p %>% mutate(variable = fct_relevel(variable, "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust")) %>% ggplot(aes(fill=variable, y=value, x=yearqtr)) + geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage") -> plot_p
+                   
+sents_m %>% mutate(variable = fct_relevel(variable, "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust")) %>% ggplot(aes(fill=variable, y=value, x=yearqtr)) + geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage") -> plot_m
+                   
+sents_c %>% mutate(variable = fct_relevel(variable, "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", "disgust")) %>% ggplot(aes(fill=variable, y=value, x=yearqtr)) + geom_bar(position="fill", stat="identity") + xlab("Year Quarter") + ylab("Percentage") -> plot_c
+
 
 figure <- ggarrange(plot_p, plot_m, plot_c,
                     labels = c("Politicians", "Medical Associations", "Celebrities"),
-                    common.legend = TRUE, legend="bottom",
+                    common.legend = TRUE, legend="right",
                     ncol = 2, nrow = 2)
 
-figure
+annotate_figure(figure, top = text_grob("Proportional Sentiment Change Over Time", face = "bold", size = 14))
 
 ```
 
+We introduce eight levels of sentiments: "joy", "trust", "anticipation", "sadness", "fear", "anger", "surprise", and "disgust". We created a stacked barplot to show the change of sentiment across time for each group. Each bar sums up to 1 and consists of the proportions of eight sentiments. Key observations and insights are as follows:
 
-We further divide up the sentiment categories to more granular eight levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot to show the change of sentiment across time for each group. 
+1) Medical's sentiment proportions do not change much across time relative to other groups'. This means that medical's tweets did not convey any dramatic changes in sentiments over time. Sentiments like "anticipation", "fear", and "trust" comprise the biggest portions. It is notable that "fear" takes up as much portion as "trust" unlike in other groups' graphs, in which "fear" is not as big as "trust".
 
-1) Medical's sentiment do not change much across time relative to other groups' sentiment change. Sentiments like "anticipation", "fear", and "trust" comprise the biggest portions. It is notable that "fear" takes up as much portion as "trust" unlike other groups whose "fear" to do not take up as much portion as "trust".
+2) Celebrities' sentiments change the most in relative to other groups'. This is consistent with the findings in section 5.2.1 that celebrities' sentiments fluctuate most dramatically. However, unlike for medical, "fear" is not the most noticable sentiment level for celebrities. This is consistent with the findings in section 5.2.2 that the negative sentiment is relatively low for celebrities. Sentiments like "joy", "anticipation", and "trust" seem to be most dominent setiment levels. 
 
-2) Celebrities' sentiment change the most relatively speaking. The level of trust seem to fluctuate across time. Unlike medical, fear is not one of the biggest component. This is consistent with the findings from section 5.2.2 that the negative sentiment is relatively low for celebrities. Sentiments like "joy", "anticipation", and "trust" seem to be its biggest components. 
+3) The most dominant sentiment level for politicians seems to be "trust" across time. Politicians were more "suprised" at the beginning of the outbreak as can be seen in the bigger purple box in 2020 Q1. But as time goes on, "surprise" takes up less portion relative to other sentiments.
 
-3) The most dominant sentiment for politicians seems to be "trust" across time. Politicians were suprised at the beginning of the outbreak as can be shown in the bigger purple box in 2020 Q1. But as time goes on, "surprise" takes up less portion relative to other sentiments.
-
-We noticed that the stacked barchart, while useful in seeing the composition change across time, is not ideal for tracking how sentiments change across time for specific persons. Therefore, we resorted to an alluvial diagram to better understand how individual (or more accurately group) sentiment change over time. 
-
+We noticed that the stacked barplot, while useful in observing the changes in sentiment proportions across time for each group, is not ideal for tracking the sentiments changes of specific persons across time. Therefore, we resorted to an alluvial plot to better understand and track how individuals' sentiments change over time. 
 
 
-### Alluvial Diagram
+
+### Tracking Sentimental Reaction Change
 ```{r}
 sentiment <- c("joy","trust","anticipation","sadness","fear","anger","surprise","disgust")
 df_alluvial <- df
@@ -196,21 +198,21 @@ df_alluvial %>% ggplot(aes(x = yearqtr,
   geom_stratum() + 
   geom_text(stat = "stratum", size = 2) +
   labs(y="Number of Twitter Accounts", x="Year Quarter") +
-  ggtitle("Sentiment Movement of Popular Twitter Accounts During Covid-19")
+  ggtitle("Sentiment Movement of Popular Twitter Accounts")
 ```
 
 
-In lieu of creating an alluvia for every single tweet, we grouped the tweets by user accounts and quarterly date, and we take the mean of scores for each sentiment categories. Then, we chose the most dominant sentiment category for each user. Also, each user belongs to the three groups which are celebrities, medical, and politicians. As a result, some of the sentiment categories with low frequencies, such as anger, are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can clearly track changes of sentiments for each user with their belonging group.
+In lieu of creating an alluvia for every single tweet, we grouped the tweets by user accounts for each quarter, and we take the mean of scores for each sentiment categories. Then, we chose the most dominant sentiment category for each user who belong to one of the three groups, celebrities, medical, and politicians. As a result, some of the sentiment categories with low frequencies, such as anger, are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can clearly track changes of sentiments for each user from their respective group.
 
-1) The most of users in the "fear" strata are medicals, especially on the 2021 Q4. Also, the most of medical users end up feeling "fear". We also observed that the proportion of "fear" is relatively large in medical group on the 5.2.3 stacked barplot, but here it is more significant that there is the difference of sentiments between medical group and the other groups. Furthermore, the number of users whose dominant sentiment is "fear" keeps increasing over time, though we expected that "fear" decreases because of vaccines for COVID-19 and decreasing trend of positive cases.
+1) Most users that pass through or arrive at the "fear" strata belong to medical, especially in 2021 Q4. Also, most medical users end up feeling "fear". We also observed that the proportion of "fear" is relatively large in medical group in section 5.2.3, and it is more noticeable through the alluvial plot. Furthermore, the number of users whose dominant sentiment is "fear" keeps increasing over time, though we expected that "fear" would decrease with the help of vaccines for COVID-19 and decreasing trend of positive cases.
 
-2) The most politicians' dominant sentiments are "trust" as we expected. And there are few individuals who change their dominant sentiment over the time. In contrast, celebrities' dominant sentiments keep changing from "fear" to "joy" to "sadness". 
+2) Politicians' most dominant sentiment is "trust" as we expected. And there are only few individuals who change their dominant sentiment over the time. In contrast, celebrities' dominant sentiments keep changing from "fear" to "joy" to "sadness". 
 
-3) The number of users that tweets about COVID-19 is increasing as COVID-19 is spreading. That is reflected on the height of axis for each quarter. Also, the number of medical users who tweet about COVID-19 increase as time goes by.
+3) The number of users that tweets about COVID-19 is increasing over time as COVID-19 is spreading. That is reflected on the height of axis for each quarter. Also, the number of medical users who tweet about COVID-19 increases as time goes by.
 
 
-## Deep dive into reactions of politicians: 
-We wanted to take a look at whether politicians' sentimental reactions would depend on their political stance. In other words, would the Republican party members react differently to the same news than Democratic party members would? In order to answer this question, we mapped each of the 10 politicians to their associated political parties -- all were part of either Republican or Democratic party. 
+## Deep Dive into Reactions of Politicians: 
+We wanted to take a look at whether politicians' sentimental reactions would depend on their political stance. In other words, would the Republican party members react differently to the same news than Democratic party members would? In order to answer this question, we labelled each of the 10 politicians according to their associated political parties -- all were part of either Republican or Democratic party. 
 
 ### Transition of Sentiments for Different Political Parties
 ```{r}
@@ -229,7 +231,7 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
   scale_x_date(date_labels = "%Y %b", date_breaks = "1 month") +
   theme(axis.text.x=element_text(angle=60, hjust=1)) +
   xlab("Tweet Date") +
-  ggtitle("Twitter Sentiments of Politicians") +
+  ggtitle("Sentiments Change of Politicians") +
   ylab("Avg. Sentiment Score") + 
   geom_vline(xintercept = as.numeric(avg$created_at[date_range]), color = "black", linetype = "dotdash") +
   geom_text(aes(x = as.Date("2020-10-02"), y = 0.45, label = "(2) Trump tested positive",color="republican")) +
@@ -239,10 +241,14 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=party)) +
 
 ```
 
-The graph above shows the average sentiment score across time for Republican and Democratic politicians. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy. The key events were extracted from this link:  https://www.cdc.gov/museum/timeline/covid19.html. Key observations and insights are as follows: 
+The graph above shows the average sentiment score across time for Republican and Democratic politicians, respectively. The dotted lines and the comments (in teal) indicate some of the key events that are noteworthy. 
 
-1) Our initial hypothesis was that the two parties' reactions would move in opposite directions. In fact, their reactions generally move in the same direction although the magnitude of the sentiment score differs between two parties. The data and graph do not support that politicians from different parties react in opposite directions.
+The key events were extracted from the CDC website:  https://www.cdc.gov/museum/timeline/covid19.html. 
 
-2) It is interesting to note that some of the key events do not drastically change the sentimental reactions. For instance, event (1) and (3) are respectively negative and positive events that one would assume to be significant enough to influence the sentimental reaction and change their directions. However, the general course of the sentiment remained the same after both events. Perhaps, some events take some time to start changing the direction of the sentiments. For instance, after a couple of months after event (3), sentiment score started increasing.
+Key observations and insights are as follows: 
 
-3) Event (2) seems to have changed the course of sentimental reaction. However, given that the change happened in delay (about a couple of months later since event (2)), the change may not be directly related to event (2).
+1) Our initial hypothesis was that the two parties' reactions would move in opposite directions. However, their reactions generally move in the same direction although the magnitude of the sentiment score differs between two parties. The data and graph do not support that politicians from different parties react in opposite directions.
+
+2) It is interesting to note that some of the key events do not drastically change the sentimental reactions. For instance, event (1) and (3) are respectively negative and positive events that one would assume to be significant enough to influence the sentimental reaction and change their directions. However, the general direction of the sentiment remained the same after both events. Perhaps, some events take some time to start steering the direction of the sentiments. For instance, it took a couple of months after event (3) for sentiment scores to start increasing.
+
+3) Event (2) seems to have changed the course of sentimental reaction. However, given that the change happened in delay (about a couple of months later after event (2)), the change may not be directly related to event (2).
