@@ -74,9 +74,13 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) +
   labs(x="Year Month", y="Avg Sentiment Score")
 ```
 
-Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. 
+Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. Score 1 and -1 are the most extreme values for positive and negative sentiment, respectively. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. Some of the useful insights are as follows:
   
-It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's score while politicians' score move in the opposite direction of the medical's score. Also, the celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups. 
+1) It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's score while politicians' score move in the opposite direction of the medical's score. 
+
+2) Also, the celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups. 
+
+3) Although medical's and politician's sentiment seem to be fluctuating quite a bit due to the shape of the graph, but as will be shown in section 5.2.3, the change is not dramatic if we take into account the actual values. 
 
 ### Mosaic Plot
 ```{r}
@@ -146,9 +150,15 @@ figure
 ```
 
 
-We further divide up the sentiment categories to more granular levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot. In this view, we can see the change of sentiment across time for each group. 
+We further divide up the sentiment categories to more granular levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot to show the change of sentiment across time for each group. 
 
+1) Medical's sentiment do not change much across time relative to other groups' sentiment change. Sentiments like "anticipation", "fear", and "trust" comprise the biggest portions. It is notable that "fear" takes up as much portion as "trust" unlike other groups whose "fear" to do not take up as much portion as "trust".
 
+2) Celebrities' sentiment change the most relatively speaking. The level of trust seem to fluctuate across time. Unlike medical, fear is not one of the biggest component. This is consistent with the findings from section 5.2.2 that the negative sentiment is relatively low for celebrities. Sentiments like "joy", "anticipation", and "trust" seem to be its biggest components. 
+
+3) The most dominant sentiment for politicians seem to be "trust" across time. Politicians were suprised at the beginning of the outbreak as can be shown in the bigger purple box in 2020 Q1. But as time goes on, "surprise" takes up less portion relative to other sentiments.
+
+We noticed that the stacked barchart, while useful in seeing the composition change across time, is not ideal for tracking how sentiments change across time for specific persons. Therefore, we resorted to an alluvial diagram to better understand how individual (or more accurately group) sentiment change over time. 
 
 
 
@@ -178,15 +188,19 @@ df_alluvial %>% ggplot(aes(x = yearqtr,
   geom_alluvium(aes(fill=group)) +
   geom_stratum() + 
   geom_text(stat = "stratum", size = 2) +
-  ylab("Number of Twitter Accounts") +
-  ggtitle("Sentiment Movement of Popular Twitter Accounts During COVID-19")
+  labs(y="Number of Twitter Accounts", x="Year Quarter") +
+  ggtitle("Sentiment Movement of Popular Twitter Accounts During Covid-19")
 ```
-We were interested in seeing how sentiment moves across time so we created an alluvial graph to visualize this movement. We oinstead of of graphing every single tweet as an alluvial we grouped it by group and date and chose the most dominant sentiment for each alluvial. Therefore, some of the smaller sentiments are lost like anger. But we can still track changes in dominant sentiments. 
+
+In lieu of creating an alluvia for every single tweet, we grouped the tweets by the specified grouping (politicians, medicals, and celebrities) and quarterly date, and we chose the most dominant sentiment for each grouping. As a result, some of the sentiments with low frequencies, such as anger, are not represented are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can cearly track changes of sentiments for each group.
+
+1)
 
 
 
-## Deep dive into reactions of politicians and news media: 
-- Relationship between political stance and reactions
+
+## Deep dive into reactions of politicians: 
+We wanted to `
 
 ### Transition of Sentiments for Different Political Parties
 ```{r}
