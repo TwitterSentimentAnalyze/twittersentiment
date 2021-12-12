@@ -155,25 +155,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#data-exploration"><i class="fa fa-check"></i><b>5.1</b> Data Exploration</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#the-number-of-tweets-for-different-groups"><i class="fa fa-check"></i><b>5.1.1</b> The Number of Tweets for Different Groups</a></li>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#the-number-of-covid-19-related-tweets-for-different-groups"><i class="fa fa-check"></i><b>5.1.1</b> The Number of Covid-19-related Tweets for Different Groups</a></li>
 <li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#the-number-of-followers-for-different-groups"><i class="fa fa-check"></i><b>5.1.2</b> The Number of Followers for Different Groups</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#what-were-the-sentimental-reactions-of-different-groups-to-covid-19-news"><i class="fa fa-check"></i><b>5.2</b> What were the sentimental reactions of different groups to Covid-19 news?</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#the-transitions-of-sentiments-positivenegative-for-different-groups"><i class="fa fa-check"></i><b>5.2.1</b> The Transitions of Sentiments (Positive/Negative) for Different Groups</a></li>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#the-change-of-sentiments-positivenegative-for-different-groups"><i class="fa fa-check"></i><b>5.2.1</b> The Change of Sentiments (Positive/Negative) for Different Groups</a></li>
 <li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#mosaic-plot"><i class="fa fa-check"></i><b>5.2.2</b> Mosaic Plot</a></li>
-<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#alluvial-diagram"><i class="fa fa-check"></i><b>5.2.3</b> Alluvial Diagram</a></li>
-<li class="chapter" data-level="5.2.4" data-path="results.html"><a href="results.html#stacked-barplot"><i class="fa fa-check"></i><b>5.2.4</b> Stacked Barplot</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#stacked-barplot"><i class="fa fa-check"></i><b>5.2.3</b> Stacked Barplot</a></li>
+<li class="chapter" data-level="5.2.4" data-path="results.html"><a href="results.html#alluvial-diagram"><i class="fa fa-check"></i><b>5.2.4</b> Alluvial Diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians-and-news-media"><i class="fa fa-check"></i><b>5.3</b> Deep dive into reactions of politicians and news media:</a>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#deep-dive-into-reactions-of-politicians"><i class="fa fa-check"></i><b>5.3</b> Deep dive into reactions of politicians:</a>
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#transition-of-sentiments-for-different-political-parties"><i class="fa fa-check"></i><b>5.3.1</b> Transition of Sentiments for Different Political Parties</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#deep-dive-into-correlations-of-key-metrics-and-sentiments"><i class="fa fa-check"></i><b>5.4</b> Deep dive into correlations of key metrics and sentiments:</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
-<li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -195,26 +193,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="interactive-component.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="interactive-component.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-3"><a href="interactive-component.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
-<span id="cb1-4"><a href="interactive-component.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
-<span id="cb1-5"><a href="interactive-component.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
-<span id="cb1-6"><a href="interactive-component.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-7"><a href="interactive-component.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(base)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="interactive-component.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_combined_filtered_sentiment.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="interactive-component.html#cb3-1" aria-hidden="true" tabindex="-1"></a>df_t <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">select</span>(created_at, group, sentiment_score)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="interactive-component.html#cb4-1" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">as.character</span>(df_t<span class="sc">$</span>created_at)</span>
-<span id="cb4-2"><a href="interactive-component.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="interactive-component.html#cb4-3" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb4-4"><a href="interactive-component.html#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="interactive-component.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (time <span class="cf">in</span> times){</span>
-<span id="cb4-6"><a href="interactive-component.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  date <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(time, <span class="st">&quot; +&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
-<span id="cb4-7"><a href="interactive-component.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  dates <span class="ot">&lt;-</span> <span class="fu">c</span>(dates, date)</span>
-<span id="cb4-8"><a href="interactive-component.html#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-9"><a href="interactive-component.html#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="interactive-component.html#cb4-10" aria-hidden="true" tabindex="-1"></a>df_t<span class="sc">$</span>created_at <span class="ot">&lt;-</span> dates</span>
-<span id="cb4-11"><a href="interactive-component.html#cb4-11" aria-hidden="true" tabindex="-1"></a>df_t</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="interactive-component.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb42-2"><a href="interactive-component.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb42-3"><a href="interactive-component.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
+<span id="cb42-4"><a href="interactive-component.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb42-5"><a href="interactive-component.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjmisc)</span>
+<span id="cb42-6"><a href="interactive-component.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb42-7"><a href="interactive-component.html#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(base)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="interactive-component.html#cb43-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./resources/data_combined_filtered_sentiment.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="interactive-component.html#cb44-1" aria-hidden="true" tabindex="-1"></a>df_t <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">select</span>(created_at, group, sentiment_score)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="interactive-component.html#cb45-1" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">as.character</span>(df_t<span class="sc">$</span>created_at)</span>
+<span id="cb45-2"><a href="interactive-component.html#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="interactive-component.html#cb45-3" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb45-4"><a href="interactive-component.html#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="interactive-component.html#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (time <span class="cf">in</span> times){</span>
+<span id="cb45-6"><a href="interactive-component.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  date <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(time, <span class="st">&quot; +&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb45-7"><a href="interactive-component.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  dates <span class="ot">&lt;-</span> <span class="fu">c</span>(dates, date)</span>
+<span id="cb45-8"><a href="interactive-component.html#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-9"><a href="interactive-component.html#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="interactive-component.html#cb45-10" aria-hidden="true" tabindex="-1"></a>df_t<span class="sc">$</span>created_at <span class="ot">&lt;-</span> dates</span>
+<span id="cb45-11"><a href="interactive-component.html#cb45-11" aria-hidden="true" tabindex="-1"></a>df_t</span></code></pre></div>
 <pre><code>## # A tibble: 11,088 × 3
 ##    created_at group       sentiment_score
 ##    &lt;chr&gt;      &lt;chr&gt;                 &lt;dbl&gt;
@@ -230,35 +228,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 2021-11-19 celebrities           0.6  
 ## # … with 11,078 more rows</code></pre>
 <p>We made two csv files for interactive graph. Both csv contain four columns - date, politicians’ sentiment scores, medicals’ sentiment scores, celebrities’ sentiment scores. interactive_with_na.csv contains all dates that at least one of the groups has sentiment scores, which means there are NAs in some entries for each group. interactive_without_na.csv only contains dates that all three groups have sentiment scores.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="interactive-component.html#cb6-1" aria-hidden="true" tabindex="-1"></a>df_p <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;politicians&quot;</span>) </span>
-<span id="cb6-2"><a href="interactive-component.html#cb6-2" aria-hidden="true" tabindex="-1"></a>df_m <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;medical&quot;</span>)</span>
-<span id="cb6-3"><a href="interactive-component.html#cb6-3" aria-hidden="true" tabindex="-1"></a>df_c <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;celebrities&quot;</span>)</span>
-<span id="cb6-4"><a href="interactive-component.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="interactive-component.html#cb6-5" aria-hidden="true" tabindex="-1"></a>df_p <span class="ot">&lt;-</span> df_p <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a href="interactive-component.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="interactive-component.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
-<span id="cb6-8"><a href="interactive-component.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="interactive-component.html#cb6-9" aria-hidden="true" tabindex="-1"></a>df_m <span class="ot">&lt;-</span> df_m <span class="sc">%&gt;%</span></span>
-<span id="cb6-10"><a href="interactive-component.html#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
-<span id="cb6-11"><a href="interactive-component.html#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
-<span id="cb6-12"><a href="interactive-component.html#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="interactive-component.html#cb6-13" aria-hidden="true" tabindex="-1"></a>df_c <span class="ot">&lt;-</span> df_c <span class="sc">%&gt;%</span></span>
-<span id="cb6-14"><a href="interactive-component.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
-<span id="cb6-15"><a href="interactive-component.html#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
-<span id="cb6-16"><a href="interactive-component.html#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="interactive-component.html#cb6-17" aria-hidden="true" tabindex="-1"></a>df_combined <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_p, df_m, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>)</span>
-<span id="cb6-18"><a href="interactive-component.html#cb6-18" aria-hidden="true" tabindex="-1"></a>df_combined <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_combined, df_c, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>)</span>
-<span id="cb6-19"><a href="interactive-component.html#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_combined) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;politicians&#39;</span>, <span class="st">&#39;medicals&#39;</span>, <span class="st">&#39;celebrities&#39;</span>)</span>
-<span id="cb6-20"><a href="interactive-component.html#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="interactive-component.html#cb6-21" aria-hidden="true" tabindex="-1"></a>df_combined_na <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_p, df_m, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-22"><a href="interactive-component.html#cb6-22" aria-hidden="true" tabindex="-1"></a>df_combined_na <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_combined_na, df_c, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-23"><a href="interactive-component.html#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_combined_na) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;politicians&#39;</span>, <span class="st">&#39;medicals&#39;</span>, <span class="st">&#39;celebrities&#39;</span>)</span>
-<span id="cb6-24"><a href="interactive-component.html#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="interactive-component.html#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_combined_na, <span class="st">&quot;./resources/interactive_with_na.csv&quot;</span>)</span>
-<span id="cb6-26"><a href="interactive-component.html#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_combined, <span class="st">&quot;./resources/interactive_without_na.csv&quot;</span>)</span></code></pre></div>
-<p>We decided to use interactive_without_na.csv because having NAs in the dataset made the interactive graph malfunction when transitioning to another group. We made an interactive graph. Using the drop-down button at top left, we can choose which group’s sentiment score graph over time to display. We smoothed the curve (because there are many missing dates in the dataframe) by using d3 built-in function, d3.curveBasis. The graph will start by showing politicians’ sentiment score graph by default, and choosing another group from the button will transform the graph accordingly. The benefit of using this interactive graph is that we can see each group’s sentiment score changes more closely, and also, we can tell the difference between two groups by seeing how the graph transforms as we choose another group from the button.</p>
-<p>And as we can see from the graph, sentiment score of celebrities move in the similar direction as the medicals’ score. One can go back and forth between the two groups’ graphs to see that the general flow of the graphs don’t change much, although the celebrities’ scores are fluctuating more. But the politicians’ score move in the opposite direction of the medical’s score. One can go back and forth between the two groups’ graphs to see that the general flow of the graphs change dramatically.</p>
-<p>&lt;&lt;insertHTML:[test.html]</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="interactive-component.html#cb47-1" aria-hidden="true" tabindex="-1"></a>df_p <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;politicians&quot;</span>) </span>
+<span id="cb47-2"><a href="interactive-component.html#cb47-2" aria-hidden="true" tabindex="-1"></a>df_m <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;medical&quot;</span>)</span>
+<span id="cb47-3"><a href="interactive-component.html#cb47-3" aria-hidden="true" tabindex="-1"></a>df_c <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> <span class="st">&quot;celebrities&quot;</span>)</span>
+<span id="cb47-4"><a href="interactive-component.html#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="interactive-component.html#cb47-5" aria-hidden="true" tabindex="-1"></a>df_p <span class="ot">&lt;-</span> df_p <span class="sc">%&gt;%</span></span>
+<span id="cb47-6"><a href="interactive-component.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
+<span id="cb47-7"><a href="interactive-component.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
+<span id="cb47-8"><a href="interactive-component.html#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="interactive-component.html#cb47-9" aria-hidden="true" tabindex="-1"></a>df_m <span class="ot">&lt;-</span> df_m <span class="sc">%&gt;%</span></span>
+<span id="cb47-10"><a href="interactive-component.html#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
+<span id="cb47-11"><a href="interactive-component.html#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
+<span id="cb47-12"><a href="interactive-component.html#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="interactive-component.html#cb47-13" aria-hidden="true" tabindex="-1"></a>df_c <span class="ot">&lt;-</span> df_c <span class="sc">%&gt;%</span></span>
+<span id="cb47-14"><a href="interactive-component.html#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(created_at) <span class="sc">%&gt;%</span></span>
+<span id="cb47-15"><a href="interactive-component.html#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sentiment_score =</span> <span class="fu">mean</span>(sentiment_score))</span>
+<span id="cb47-16"><a href="interactive-component.html#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="interactive-component.html#cb47-17" aria-hidden="true" tabindex="-1"></a>df_combined <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_p, df_m, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>)</span>
+<span id="cb47-18"><a href="interactive-component.html#cb47-18" aria-hidden="true" tabindex="-1"></a>df_combined <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_combined, df_c, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>)</span>
+<span id="cb47-19"><a href="interactive-component.html#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_combined) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;politicians&#39;</span>, <span class="st">&#39;medicals&#39;</span>, <span class="st">&#39;celebrities&#39;</span>)</span>
+<span id="cb47-20"><a href="interactive-component.html#cb47-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-21"><a href="interactive-component.html#cb47-21" aria-hidden="true" tabindex="-1"></a>df_combined_na <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_p, df_m, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb47-22"><a href="interactive-component.html#cb47-22" aria-hidden="true" tabindex="-1"></a>df_combined_na <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_combined_na, df_c, <span class="at">by =</span> <span class="st">&quot;created_at&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb47-23"><a href="interactive-component.html#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_combined_na) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;politicians&#39;</span>, <span class="st">&#39;medicals&#39;</span>, <span class="st">&#39;celebrities&#39;</span>)</span>
+<span id="cb47-24"><a href="interactive-component.html#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-25"><a href="interactive-component.html#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_combined_na, <span class="st">&quot;./resources/interactive_with_na.csv&quot;</span>)</span>
+<span id="cb47-26"><a href="interactive-component.html#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_combined, <span class="st">&quot;./resources/interactive_without_na.csv&quot;</span>)</span></code></pre></div>
+<p>We decided to use interactive_without_na.csv because having NAs in the dataset made the interactive graph malfunction when transitioning to another group. We made an interactive graph. Using the drop-down button at top center, we can choose which group’s sentiment score graph over time to display. We smoothed the curve (because there are many missing dates in the dataframe) by using d3 library d3-regression. The graph will start by showing politicians’ sentiment score graph by default, and choosing another group from the button will transform the graph accordingly. The benefit of using this interactive graph is that we can see each group’s sentiment score changes more closely, and also, we can tell the difference between two groups by seeing how the graph transforms as we choose another group from the button.</p>
+<p>And as we can see from the graph, sentiment score of politicians move in the opposite direction of the medical’s score. One can go back and forth between the two groups’ graphs to see that the general flow of the graphs change dramatically. Though the sentiment score of celebrities generally fluctuated more than the other groups, the sentiment scores are generally higher than the others’ after COVID-19.</p>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -269,19 +266,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </head>
   
 <body>
-    <h1 style="text-align:center; color:green;">
-        Sentiment Transition
+    <h1 style="text-align:center;">
+        Sentiment Score Transition for Different Groups
     </h1>
+    <p style="text-align: center;">Select Group from the Dropdown List!</p>
     <center>
       <select id="selectButton"></select>
     </center>
 
     <center>
-        <svg id="gfg" width="600" height="400"></svg>
+        <svg id="graph" width="600" height="400"></svg>
     </center>
       
     <script>
-        var svg = d3.select("svg#gfg")
+        var svg = d3.select("svg#graph")
         var margin = {top: 20, right: 50, bottom: 30, left: 50}
         var width =  +svg.attr("width") - margin.left - margin.right
         var height = +svg.attr("height") - margin.top - margin.bottom
@@ -337,6 +335,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       
         g.append("g")
           .call(d3.axisLeft(yScale))
+
+        g.append("text")            
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                (height + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
+
+        g.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Sentiment Score");
+
         g.append("path")
           .datum(regressionGenerator(temp))
           .attr("d", line)

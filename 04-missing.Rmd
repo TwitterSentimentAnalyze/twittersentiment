@@ -108,7 +108,7 @@ plot_missing <- function(data, percent) {
 ```
 
 ```{r}
-df_combined <- read_csv("./resources/data_combined_filtered_sentiment.csv")
+df_combined <- read_csv("./resources/data_combined_filtered_sentiment_old.csv")
 ```
 
 Then we checked how many missing values each column has.
