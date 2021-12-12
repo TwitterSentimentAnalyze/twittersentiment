@@ -21,8 +21,8 @@ We also identified opportunities to improve and expand our projects:
 
 Through our analysis and visualizations we learned useful insights. The key takeaways are as follows: 
 
-1) Celebrities reactions were generally more positive than the other two groups.
+1) Celebrities' reactions were generally more positive than the other two groups'.
 
-2) The most dominant sentiment among medical group was fear, and their sentiment did not change much over time. 
+2) The most dominant sentiment among medical group was "fear", and their sentiments did not change much over time. 
 
-3) The most dominant sentiment among politicians was trust, and their sentiment did not change significantly over time. 
+3) The most dominant sentiment among politicians was "trust", and their sentiments did not change significantly over time. 
