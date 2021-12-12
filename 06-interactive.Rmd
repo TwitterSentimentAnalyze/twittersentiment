@@ -69,7 +69,6 @@ We decided to use interactive_without_na.csv because having NAs in the dataset m
 
 And as we can see from the graph, sentiment score of politicians move in the opposite direction of the medical's score. One can go back and forth between the two groups' graphs to see that the general flow of the graphs change dramatically. Though the sentiment score of celebrities generally fluctuated more than the other groups, the sentiment scores are generally higher than the others' after COVID-19.
 
-<<insertHTML:[test.html]
 ```{r, echo=FALSE}
 htmltools::includeHTML("interactive.html")
 ```
