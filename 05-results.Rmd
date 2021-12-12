@@ -26,8 +26,6 @@ Before diving into the sentiment analysis, we wanted to visualize some of the ke
 ```{r}
 df <- read_csv("./resources/data_combined_filtered_sentiment.csv")
 df$created_at <- as.Date(df$created_at)
-# df2$date_group <-
-# q1 = c
 df$yearqtr <- paste(
   format(df$created_at, "%Y"),
   sprintf("%01i", (as.POSIXlt(df$created_at)$mon) %/% 3L + 1L), 
@@ -36,10 +34,10 @@ df_qtr <- df %>% group_by(yearqtr) %>% count(group)
 ggplot(data=df_qtr, aes(x=yearqtr, y=n, fill=group)) + 
   geom_bar(position = "dodge", stat = "identity") + 
   ggtitle("The Number of Covid-19 Tweets by Group") + 
-  labs(x = "Year Quarter", y = "# of tweets")
+  labs(x = "Year Quarter", y = "Number of tweets")
 ```
 
-Key observations are as follows:
+Key observations and insights are as follows:
 
 1) The number of tweets are low in 2020 Q1 because there are far less data represented in this period. The earliest data collected is from March 2020, and therefore our data do not include Jan-Feb 2020 tweets.
 
@@ -69,11 +67,12 @@ The number of followers is similar between politicians and medical, but celebrit
 
 ## What were the sentimental reactions of different groups to Covid-19 news?
 
-In this subsection, we dive into sentiment anlysis and visualization. The main purpose is compare the sentimental reactions among different groups and 
+In this subsection, we dive into sentiment analysis and visualization. The main purpose is to compare the sentimental reactions among different groups and analyze the changes across time. 
 
-### The Transitions of Sentiments (Positive/Negative) for Different Groups
+### The Change of Sentiments (Positive/Negative) for Different Groups
 
-As part of the sentiment analysis, we first visualized the change in sentiments over time.  
+As part of the sentiment analysis, we first visualized the change in sentiments over time. 
+
 ```{r}
 date_group <- df %>% group_by(created_at, group)
 avg <- date_group %>% summarise(avg_sentiment = mean(sentiment_score)) 
@@ -85,13 +84,15 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) +
   labs(x="Year Month", y="Avg Sentiment Score")
 ```
 
-Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. Score 1 and -1 are the most extreme values for positive and negative sentiment, respectively. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. Some of the useful insights are as follows:
+Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. Score 1 and -1 are the most extreme values for positive and negative sentiment, respectively. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. Key observations and insights from this graph are as follows:
   
-1) It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's score while politicians' score move in the opposite direction of the medical's score. 
+1) It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's while politicians' score move in the opposite direction of the medical's. 
 
-2) Also, the celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups. 
+2) The celebrities' score change is much more dramatic than the medical's, and celebrities' sentiment seem to be the most positive among all groups'. 
 
-3) Although medical's and politician's sentiment seem to be fluctuating quite a bit due to the shape of the graph, but as will be shown in section 5.2.3, the change is not dramatic if we take into account the actual values. 
+3) Although medical's and politicians' sentiment seem to be fluctuating quite a bit because the graph looks that way, but as will be shown in section 5.2.3, the change is not dramatic if we take into account the actual score values. 
+
+Below, we will introduce a more granular definition of sentiments instead of using a binary defintion -- either positive or negative. 
 
 ### Mosaic Plot
 ```{r}
@@ -104,13 +105,13 @@ mosaic(type ~ group, direction = c("v", "h"), main = "Sentiment for Different Gr
 ```
 
 
-We introduced a third sentiment "neutral" and created an overall sentiment mosaic graph. In this view, we look at the overall sentiment score and compare the proportion of the overall sentiment (positive, neutral, and negative) among groups instead of looking at the changes across time. We discovered some useful insights as follows: 
+We introduced a third sentiment "neutral" and created an overall sentiment mosaic graph. In this view, we look at the overall sentiment score and compare the proportion of the overall sentiment (positive, neutral, and negative) among groups instead of looking at the changes across time. Key observations and insights are as follows: 
 
 1) As we noted in the data exploration section, the number of tweets posted by medical is significantly larger than the others'. Therefore, the medical group takes the majority of the space in the mosaic plot.
 
-2) To our surprise, the celebrities' sentiment is not at positive as depicted in the section 5.2.1. Rather than having a large positive score, it was the small negative score that propped up celebrities' sentiment score when all sentiments were summed up. 
+2) To our surprise, the celebrities' sentiment is not as positive as depicted in the section 5.2.1. Rather than having a large positive score, it was the small negative score that propped up celebrities' sentiment score that made their score look the most positive. 
 
-3) Although the sentiments of politicians and medical seem to be moving in the opposite directions across time as depicted in section 5.2.1, their overall score is similar (Medical has slightly higher proportion for positive). 
+3) In section 5.2.1., the sentiments of politicians and medical seemed to be moving in the opposite directions across time. However, their overall score from this graph is similar (although Medical has slightly higher proportion for positive). 
 
 ### Stacked Barplot
 ```{r, fig.height=10, fig.width=10}
@@ -161,7 +162,7 @@ figure
 ```
 
 
-We further divide up the sentiment categories to more granular levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot to show the change of sentiment across time for each group. 
+We further divide up the sentiment categories to more granular eight levels:  "joy","trust","anticipation","sadness","fear","anger","surprise","disgust". We created a stacked barplot to show the change of sentiment across time for each group. 
 
 1) Medical's sentiment do not change much across time relative to other groups' sentiment change. Sentiments like "anticipation", "fear", and "trust" comprise the biggest portions. It is notable that "fear" takes up as much portion as "trust" unlike other groups whose "fear" to do not take up as much portion as "trust".
 
