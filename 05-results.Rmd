@@ -192,11 +192,13 @@ df_alluvial %>% ggplot(aes(x = yearqtr,
   ggtitle("Sentiment Movement of Popular Twitter Accounts During Covid-19")
 ```
 
-In lieu of creating an alluvia for every single tweet, we grouped the tweets by the specified grouping (politicians, medicals, and celebrities) and quarterly date, and we chose the most dominant sentiment for each grouping. As a result, some of the sentiments with low frequencies, such as anger, are not represented are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can cearly track changes of sentiments for each group.
+In lieu of creating an alluvia for every single tweet, we grouped the tweets by user accounts and quarterly date, and we take the mean of scores for each sentiment categories. Then, we chose the most dominant sentiment category for each user. Also, each user belongs to the three groups which are celebrities, medical, and politicians. As a result, some of the sentiment categories with low frequencies, such as anger, are not represented in the graph. These are the details we compromised to achieve a clearer big picture. We can clearly track changes of sentiments for each user with their belonging group.
 
-1)
+1) The most of users in the "fear" strata are medicals, especially on the 2021 Q4. Also, the most of medical users end up feeling "fear". We also observed that the proportion of "fear" is relatively large in medical group on the 5.2.3 stacked barplot, but here it is more significant that there is the difference of sentiments between medical group and the other groups. Furthermore, the number of users whose dominant sentiment is "fear" keeps increasing over time, though we expected that "fear" decreases because of vaccines for COVID-19 and decreasing trend of positive cases.
 
+2) The most politicians' dominant sentiments are "trust" as we expected. And there are few individuals who change their dominant sentiment over the time. In contrast, celebrities' dominant sentiments keep changing from "fear" to "joy" to "sadness". 
 
+3) The number of users that tweets about COVID-19 is increasing as COVID-19 is spreading. That is reflected on the height of axis for each quarter. Also, the number of medical users who tweet about COVID-19 increase as time goes by.
 
 
 ## Deep dive into reactions of politicians: 
