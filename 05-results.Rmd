@@ -81,7 +81,7 @@ ggplot(data=avg, aes(x=created_at, y=avg_sentiment, color=group)) +
 ```
 
 Score above 0 is generally associated with positive sentiment and below 0 with negative sentiment. Score 1 and -1 are the most extreme values for positive and negative sentiment, respectively. We can observe that the scores for posts by all groups are generally above 0 over the timeline of our analysis which indicates that tweets posted leaned to be positive on average. However, since we are looking at average scores, we cannot conclude that all posts were positive. To investigate this further, we will look at more visualizations below to expand the positive/negative sentiment into more detailed categories. Key observations and insights from this graph are as follows:
-  
+
 1) It is noteworthy that the sentiment score of celebrities generally move in the same direction as the medical's while politicians' score move in the opposite direction of the medical's. 
 
 2) As was pointed out in section 5.2.1, celebrities' most dominant sentiment is positive.    
